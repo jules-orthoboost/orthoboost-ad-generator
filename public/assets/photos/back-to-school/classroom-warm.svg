@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Warm classroom scene (placeholder)">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6d9b0"/>
+      <stop offset="0.55" stop-color="#e9b27a"/>
+      <stop offset="1" stop-color="#c9824f"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.7" cy="0.28" r="0.6">
+      <stop offset="0" stop-color="#fff3df" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#fff3df" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8a5230"/>
+      <stop offset="1" stop-color="#5e361e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <rect width="1080" height="1920" fill="url(#sun)"/>
+  <rect y="1320" width="1080" height="600" fill="url(#floor)"/>
+  <!-- soft out-of-focus shapes: figures / desks -->
+  <g opacity="0.85">
+    <ellipse cx="360" cy="1180" rx="190" ry="240" fill="#7a4a2c"/>
+    <circle cx="360" cy="980" r="120" fill="#9a6440"/>
+    <ellipse cx="720" cy="1230" rx="170" ry="220" fill="#6f4327"/>
+    <circle cx="720" cy="1040" r="108" fill="#8d5a39"/>
+  </g>
+  <g opacity="0.5" fill="#fff0d8">
+    <circle cx="180" cy="430" r="26"/>
+    <circle cx="930" cy="560" r="40"/>
+    <circle cx="520" cy="300" r="18"/>
+  </g>
+</svg>

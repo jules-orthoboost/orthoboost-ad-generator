@@ -1,0 +1,132 @@
+@import '../effects.css';
+
+.hbc {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--body-font);
+}
+
+.hbc-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Engineered legibility: dark wash top (headline) and bottom (CTA), photo breathes in the middle. */
+.hbc-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 15, 28, 0.62) 0%, rgba(8, 15, 28, 0.12) 34%, rgba(8, 15, 28, 0) 52%),
+    linear-gradient(0deg, rgba(8, 15, 28, 0.66) 0%, rgba(8, 15, 28, 0.1) 26%, rgba(8, 15, 28, 0) 44%);
+}
+
+.hbc-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.28));
+}
+
+.hbc-copy {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  text-align: center;
+  align-items: center;
+}
+
+.hbc .hbc-headline {
+  margin: 0;
+  color: #fff;
+  font-family: var(--display-font);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(8, 15, 28, 0.45);
+  max-width: 880px;
+}
+
+.hbc .hbc-subhead {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 500;
+  line-height: 1.28;
+  text-wrap: pretty;
+  max-width: 30ch;
+  text-shadow: 0 1px 12px rgba(8, 15, 28, 0.5);
+}
+
+.hbc-cta-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.hbc-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-family: var(--body-font);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  box-shadow: 0 14px 38px rgba(8, 15, 28, 0.34);
+  white-space: nowrap;
+}
+
+/* ---- Story (1080x1920): more vertical room, respect 250/340 safe bands ---- */
+.hbc-Story .hbc-logo {
+  top: 318px;
+  width: 232px;
+}
+.hbc-Story .hbc-copy {
+  top: 470px;
+}
+.hbc-Story .hbc-headline {
+  font-size: 118px;
+}
+.hbc-Story .hbc-subhead {
+  font-size: 44px;
+}
+.hbc-Story .hbc-cta-wrap {
+  bottom: 392px;
+}
+.hbc-Story .hbc-cta {
+  font-size: 44px;
+  padding: 34px 64px;
+}
+
+/* ---- Post (1080x1350): tighter, no platform safe bands, margin 64 ---- */
+.hbc-Post .hbc-logo {
+  top: 92px;
+  width: 210px;
+}
+.hbc-Post .hbc-copy {
+  top: 250px;
+}
+.hbc-Post .hbc-headline {
+  font-size: 92px;
+}
+.hbc-Post .hbc-subhead {
+  font-size: 42px;
+}
+.hbc-Post .hbc-cta-wrap {
+  bottom: 110px;
+}
+.hbc-Post .hbc-cta {
+  font-size: 42px;
+  padding: 32px 60px;
+}
