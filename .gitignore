@@ -1,13 +1,33 @@
 .claude/settings.local.json
-node_modules/
-dist/
-build/
+
+# Dependencies / build
+node_modules
+dist
+dist-ssr
+*.local
+.vite/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Env
 .env
 .env.*
-*.log
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
 Thumbs.db
+*.suo
+*.sw?
+
+# Test artifacts
 coverage/
-.vite/
 playwright-report/
 test-results/
