@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Warm portrait scene (placeholder)">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#dfeaf2"/>
+      <stop offset="0.6" stop-color="#a9c3d6"/>
+      <stop offset="1" stop-color="#6f93ab"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="0.4" cy="0.42" r="0.5">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg2)"/>
+  <rect width="1080" height="1920" fill="url(#glow2)"/>
+  <!-- soft portrait subject, lower-center -->
+  <g opacity="0.92">
+    <ellipse cx="540" cy="1500" rx="360" ry="460" fill="#d8a883"/>
+    <circle cx="540" cy="1010" r="240" fill="#e8c1a0"/>
+    <path d="M300 1010a240 240 0 0 1 480 0Z" fill="#b97a4e"/>
+  </g>
+  <g opacity="0.45" fill="#ffffff">
+    <circle cx="850" cy="420" r="34"/>
+    <circle cx="210" cy="620" r="22"/>
+  </g>
+</svg>
