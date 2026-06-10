@@ -1,0 +1,87 @@
+import { z } from 'zod'
+
+export const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'kebab-case slug')
+
+// Typography/imagery intentionally absent — brand-kit concerns (see design doc).
+export const PersonaSchema = z.object({
+  slug,
+  name: z.string().min(1),
+  archetype: z.string().min(1),
+  accentColor: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'hex color'),
+  positioning: z.string().min(1),
+  messagingBehavior: z.string().min(1),
+  patientBase: z.array(z.string().min(1)),
+  exampleClients: z.array(z.string()),
+  layout: z.array(z.string()),
+  visualTone: z.array(z.string()),
+  iconography: z.array(z.string()),
+  texture: z.array(z.string()),
+  designPrinciples: z.array(z.string()),
+  donts: z.array(z.string()),
+  resources: z
+    .array(z.object({ label: z.string().min(1), url: z.string().url() }))
+    .optional(),
+})
+export type Persona = z.infer<typeof PersonaSchema>
+
+export const CANVAS = {
+  Story: { w: 1080, h: 1920 }, // 9:16
+  Post: { w: 1080, h: 1350 }, // 4:5
+} as const
+export type SizeKey = keyof typeof CANVAS
+
+export const SlotName = z.enum(['headline', 'subhead', 'cta', 'offer', 'photo', 'logo', 'badge'])
+export type Slot = z.infer<typeof SlotName>
+
+const ZoneSchema = z.object({
+  slot: SlotName,
+  x: z.number().int().min(0),
+  y: z.number().int().min(0),
+  w: z.number().int().positive(),
+  h: z.number().int().positive(),
+  layer: z.number().int().min(0),
+  maxLines: z.number().int().positive().optional(),
+})
+export type Zone = z.infer<typeof ZoneSchema>
+
+const PlacementSchema = z.object({
+  safeTop: z.number().int().min(0),
+  safeBottom: z.number().int().min(0),
+  margin: z.number().int().min(0),
+})
+
+const BeatSchema = z.object({
+  atMs: z.number().int().min(0),
+  slot: SlotName,
+  effect: z.enum(['fade-in', 'rise-in', 'pop-in', 'slide-left', 'slide-right', 'none']),
+})
+export type Beat = z.infer<typeof BeatSchema>
+
+const VideoGrammarSchema = z.object({
+  durationMs: z.number().int().positive(),
+  fps: z.number().int().positive(),
+  loop: z.boolean(),
+  reducedMotion: z.enum(['static', 'simplified']),
+  beats: z.array(BeatSchema),
+})
+
+const zonesInCanvas = (size: SizeKey) => (zones: Zone[]) =>
+  zones.every((zn) => zn.x + zn.w <= CANVAS[size].w && zn.y + zn.h <= CANVAS[size].h)
+
+export const LofiTemplateSchema = z
+  .object({
+    slug,
+    name: z.string().min(1),
+    description: z.string().min(1),
+    slots: z.array(SlotName).min(1),
+    zones: z.object({
+      Story: z.array(ZoneSchema).refine(zonesInCanvas('Story'), { message: 'zone exceeds Story canvas' }),
+      Post: z.array(ZoneSchema).refine(zonesInCanvas('Post'), { message: 'zone exceeds Post canvas' }),
+    }),
+    placement: z.object({ Story: PlacementSchema, Post: PlacementSchema }),
+    videoGrammar: VideoGrammarSchema,
+  })
+  .refine((t) => t.videoGrammar.beats.every((b) => b.atMs < t.videoGrammar.durationMs), {
+    message: 'beat is past the video duration',
+  })
+export type LofiTemplate = z.infer<typeof LofiTemplateSchema>
