@@ -1,0 +1,10 @@
+{
+  "slug": "mock-ortho-co",
+  "clientName": "Mock Ortho Co",
+  "personaSlug": "dr-b-nye",
+  "colors": { "brand": "#1f6feb", "ink": "#10243f", "accent": "#16b8a6" },
+  "typography": { "displayFont": "Fraunces", "bodyFont": "Inter" },
+  "logo": { "assetPath": "assets/clients/mock-ortho-co/logo.svg", "aspect": 2.6 },
+  "radius": 22,
+  "donts": ["No stock-photo cheesiness", "No countdown-timer urgency"]
+}
