@@ -1,12 +1,17 @@
 import { useState } from 'react'
-import { loadLofiTemplates, loadPersonas } from '../core/data'
+import { loadBrandKits, loadLofiTemplates, loadPersonas } from '../core/data'
 import { ZoneCanvas } from '../components/ZoneCanvas'
 import { BeatTimeline } from '../components/BeatTimeline'
+import { Templates } from './Templates'
+import { BrandKits } from './BrandKits'
+import { HIFI_TEMPLATES } from '../templates/hifi'
 
 const personas = loadPersonas()
 const templates = loadLofiTemplates()
+const brandKitCount = Object.keys(loadBrandKits()).length
+const hifiCount = Object.keys(HIFI_TEMPLATES).length
 
-type Tab = 'archetypes' | 'personas'
+type Tab = 'archetypes' | 'personas' | 'templates' | 'brandkits'
 
 export function Inspector() {
   const [tab, setTab] = useState<Tab>('archetypes')
@@ -31,10 +36,20 @@ export function Inspector() {
           <button className={tab === 'personas' ? 'active' : ''} onClick={() => setTab('personas')}>
             Personas ({personaSlugs.length})
           </button>
+          <button className={tab === 'templates' ? 'active' : ''} onClick={() => setTab('templates')}>
+            Templates ({hifiCount})
+          </button>
+          <button className={tab === 'brandkits' ? 'active' : ''} onClick={() => setTab('brandkits')}>
+            Brand Kits ({brandKitCount})
+          </button>
         </nav>
       </header>
 
-      {tab === 'archetypes' ? (
+      {tab === 'templates' ? (
+        <Templates />
+      ) : tab === 'brandkits' ? (
+        <BrandKits />
+      ) : tab === 'archetypes' ? (
         <div className="layout">
           <aside className="sidebar">
             {templateSlugs.map((slug) => (
