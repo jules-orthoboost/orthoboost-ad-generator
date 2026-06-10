@@ -85,3 +85,48 @@ export const LofiTemplateSchema = z
     message: 'beat is past the video duration',
   })
 export type LofiTemplate = z.infer<typeof LofiTemplateSchema>
+
+export const HexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'hex color')
+
+export const BrandKitSchema = z.object({
+  slug,
+  clientName: z.string().min(1),
+  personaSlug: slug,
+  colors: z.object({
+    brand: HexColor,
+    ink: HexColor.optional(),
+    surface: HexColor.optional(),
+    accent: HexColor.optional(),
+    onBrand: HexColor.optional(),
+  }),
+  typography: z
+    .object({ displayFont: z.string().min(1), bodyFont: z.string().min(1) })
+    .optional(),
+  logo: z.object({
+    assetPath: z.string().min(1),
+    aspect: z.number().positive().optional(),
+  }),
+  radius: z.number().int().min(0).optional(),
+  donts: z.array(z.string()).optional(),
+})
+export type BrandKit = z.infer<typeof BrandKitSchema>
+
+export const HifiTemplateManifestSchema = z.object({
+  slug,
+  name: z.string().min(1),
+  archetype: slug, // references a lo-fi template slug
+  suitedPersonas: z.array(slug),
+  slots: z.array(SlotName).min(1),
+})
+export type HifiTemplateManifest = z.infer<typeof HifiTemplateManifestSchema>
+
+// Per-version copy. `logo` is intentionally absent — it comes from the brand kit.
+export const SlotContentSchema = z.object({
+  headline: z.string().optional(),
+  subhead: z.string().optional(),
+  cta: z.string().optional(),
+  offer: z.string().optional(),
+  badge: z.string().optional(),
+  photo: z.string().optional(), // asset path
+})
+export type SlotContent = z.infer<typeof SlotContentSchema>

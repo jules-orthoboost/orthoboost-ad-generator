@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest'
-import { PersonaSchema, LofiTemplateSchema } from './schemas'
+import {
+  PersonaSchema,
+  LofiTemplateSchema,
+  BrandKitSchema,
+  HifiTemplateManifestSchema,
+  SlotContentSchema,
+} from './schemas'
 
 const minimalPersona = {
   slug: 'family-first',
@@ -86,5 +92,54 @@ describe('LofiTemplateSchema', () => {
     const bad = structuredClone(validArchetype)
     bad.videoGrammar.beats.push({ atMs: 99999, slot: 'cta', effect: 'pop-in' })
     expect(() => LofiTemplateSchema.parse(bad)).toThrow(/duration/)
+  })
+})
+
+describe('BrandKitSchema', () => {
+  it('accepts a kit with a brand color, persona ref, and logo', () => {
+    const k = BrandKitSchema.parse({
+      slug: 'mock-ortho-co',
+      clientName: 'Mock Ortho Co',
+      personaSlug: 'dr-b-nye',
+      colors: { brand: '#1f6feb', accent: '#29bbf6' },
+      typography: { displayFont: 'Fraunces', bodyFont: 'Inter' },
+      logo: { assetPath: 'assets/clients/mock-ortho-co/logo.svg' },
+    })
+    expect(k.colors.brand).toBe('#1f6feb')
+  })
+
+  it('rejects a non-hex brand color', () => {
+    expect(() =>
+      BrandKitSchema.parse({
+        slug: 'bad',
+        clientName: 'Bad',
+        personaSlug: 'dr-b-nye',
+        colors: { brand: 'blue' },
+        logo: { assetPath: 'x.svg' },
+      }),
+    ).toThrow()
+  })
+})
+
+describe('HifiTemplateManifestSchema', () => {
+  it('accepts a manifest referencing an archetype and suited personas', () => {
+    const m = HifiTemplateManifestSchema.parse({
+      slug: 'hero-banner-cta',
+      name: 'Hero Banner CTA',
+      archetype: 'hero-banner-cta',
+      suitedPersonas: ['dr-b-nye', 'dr-a-joe'],
+      slots: ['headline', 'subhead', 'cta', 'photo', 'logo'],
+    })
+    expect(m.slots).toContain('headline')
+  })
+})
+
+describe('SlotContentSchema', () => {
+  it('accepts partial copy + a photo asset path', () => {
+    const c = SlotContentSchema.parse({
+      headline: 'Back to school, back to braces',
+      photo: 'assets/photos/back-to-school/a.jpg',
+    })
+    expect(c.headline).toContain('braces')
   })
 })
