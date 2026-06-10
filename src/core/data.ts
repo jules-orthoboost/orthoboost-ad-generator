@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import { PersonaSchema, LofiTemplateSchema } from './schemas'
+import { PersonaSchema, LofiTemplateSchema, BrandKitSchema } from './schemas'
 
 /** Parse every file against the schema; throw with the offending path on failure. */
 export function validateAll<S extends z.ZodType<{ slug: string }>>(
@@ -30,5 +30,12 @@ export function loadLofiTemplates() {
   return validateAll(
     LofiTemplateSchema,
     import.meta.glob('/data/templates/lofi/*.json', { eager: true, import: 'default' }),
+  )
+}
+
+export function loadBrandKits() {
+  return validateAll(
+    BrandKitSchema,
+    import.meta.glob('/data/brand-kits/*.json', { eager: true, import: 'default' }),
   )
 }
