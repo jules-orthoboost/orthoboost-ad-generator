@@ -1,0 +1,80 @@
+{
+  "slug": "dr-v-frizzle",
+  "name": "Dr. V. Frizzle",
+  "archetype": "The Wellness Educator",
+  "accentColor": "#48bb78",
+  "positioning": "Teacher, guide, long-term wellness partner. High emphasis on systemic health, root-cause awareness, and patient empowerment. Education-first practice focused on whole-body connections and patient understanding.",
+  "messagingBehavior": "Leads with education and long-term health. Avoids hype and overly \"salesy\" feel. Educational, empowering, knowledgeable guide. Patient-centered teaching approach. Think \"health educator\" not \"salesperson.\"",
+  "patientBase": [
+    "Adults",
+    "Wellness-forward individuals",
+    "People with chronic concerns or sensitivities",
+    "Health-conscious decision makers",
+    "Patients seeking to understand their care",
+    "Lifelong learners"
+  ],
+  "exampleClients": [
+    "Virginia"
+  ],
+  "layout": [
+    "Information-organized layouts",
+    "Clear sections for learning",
+    "Infographic-style elements",
+    "Whitespace for comprehension",
+    "Sequential/flow-based design",
+    "Charts and visual data",
+    "Scannable content blocks"
+  ],
+  "visualTone": [
+    "Educational and empowering",
+    "Knowledgeable guide",
+    "Patient-centered",
+    "Root-cause focused",
+    "Long-term wellness",
+    "Natural, not \"crunchy\""
+  ],
+  "iconography": [
+    "Educational symbols",
+    "Body systems icons",
+    "Natural elements (leaf, etc.)",
+    "Connection/link symbols",
+    "Growth/improvement arrows",
+    "Holistic health symbols",
+    "Clear, informative style"
+  ],
+  "texture": [
+    "Natural textures (paper, linen)",
+    "Organic patterns (subtle)",
+    "Earth elements",
+    "Soft, matte finishes",
+    "Avoid synthetic/glossy"
+  ],
+  "designPrinciples": [
+    "Education first, sales second",
+    "Evidence-based information",
+    "Whole-body connections visible",
+    "Patient empowerment",
+    "Long-term thinking",
+    "Natural, not alternative",
+    "Credible wellness approach"
+  ],
+  "donts": [
+    "Hard sales tactics",
+    "Overly spiritual imagery",
+    "Pseudoscience aesthetics",
+    "Too clinical/medical",
+    "Intimidating information",
+    "Quick-fix messaging",
+    "Disconnected dental focus"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.lyfesmilesortho.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/51p2QX2mK"
+    }
+  ]
+}

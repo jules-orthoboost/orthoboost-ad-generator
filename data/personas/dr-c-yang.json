@@ -1,0 +1,73 @@
+{
+  "slug": "dr-c-yang",
+  "name": "Dr. C. Yang",
+  "archetype": "High-Expertise Clinical Ortho",
+  "accentColor": "#d69e2e",
+  "positioning": "Authority, precision, and clinical depth - not luxury boutique. Ideal for offices emphasizing board certification, experience, and complex cases. Expert-driven practice focused on clinical excellence and proven outcomes.",
+  "messagingBehavior": "Leads with credentials, successful outcomes, quality. Offers are minimal or positioned as \"seasonal.\" Authoritative, credible, clinical voice. Emphasize expertise and proven results. Speak to those seeking the best clinical care.",
+  "patientBase": [
+    "Adults seeking expertise",
+    "Parents of complex-case teens",
+    "Referrals from general dentists",
+    "Patients with difficult cases",
+    "Quality-focused decision makers"
+  ],
+  "exampleClients": [
+    "Wilson",
+    "Payne"
+  ],
+  "layout": [
+    "Structured, professional",
+    "Clear hierarchy of information",
+    "Credentials prominently placed",
+    "Case studies featured",
+    "Traditional medical layout",
+    "Authority-building design"
+  ],
+  "visualTone": [
+    "Authoritative and professional",
+    "Clinical excellence focus",
+    "Expert-driven",
+    "Results-oriented",
+    "Credible and serious"
+  ],
+  "iconography": [
+    "Medical/clinical symbols",
+    "Certification badges",
+    "Achievement icons",
+    "Professional credentials indicators",
+    "Quality markers"
+  ],
+  "texture": [
+    "Professional, clean",
+    "Medical-grade appearance",
+    "Subtle, refined",
+    "Traditional backgrounds",
+    "Avoid playful textures"
+  ],
+  "designPrinciples": [
+    "Expertise first",
+    "Credentials visible",
+    "Professional authority",
+    "Results-driven",
+    "Clinical excellence",
+    "Quality over cost"
+  ],
+  "donts": [
+    "Playful or casual aesthetics",
+    "Budget messaging",
+    "Overly colorful designs",
+    "Trendy or gimmicky elements",
+    "Family-fun imagery"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.ucsfdentalcenter.org/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/45xobIREu"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "slug": "dr-m-rogers",
+  "name": "Dr. M. Rogers",
+  "archetype": "Family-Focused Community Ortho",
+  "accentColor": "#38a169",
+  "positioning": "Warm, welcoming, approachable. The local favorite that takes care of kids, teens, and parents. Community-oriented family practice that emphasizes trust, comfort, and multi-generational care.",
+  "messagingBehavior": "Leads with comfort, trust, and family care. Balanced budget messaging. Warm and friendly voice - like talking to a trusted neighbor. Multi-generational appeal, community-minded, never intimidating.",
+  "patientBase": [
+    "Families with kids and teens",
+    "Rural and suburban markets",
+    "Community-driven parents",
+    "Multi-generational families",
+    "Local community members"
+  ],
+  "exampleClients": [
+    "Aloha",
+    "Meason"
+  ],
+  "layout": [
+    "Balanced and welcoming",
+    "Not too tight, not too sparse",
+    "Friendly frames and borders",
+    "Photos take center stage",
+    "Warm, inviting negative space",
+    "Symmetrical or near-symmetrical"
+  ],
+  "visualTone": [
+    "Warm and neighborly",
+    "Trusted family friend",
+    "Supportive and caring",
+    "Community-minded",
+    "Generational appeal"
+  ],
+  "iconography": [
+    "Soft, rounded icons",
+    "Families, homes, hearts",
+    "Calendar/appointment symbols",
+    "Community symbols",
+    "Slightly more playful than clinical"
+  ],
+  "texture": [
+    "Soft, organic textures",
+    "Light wood grain",
+    "Subtle patterns (dots, gentle waves)",
+    "Paper/craft elements (sparingly)",
+    "Warm overlays"
+  ],
+  "designPrinciples": [
+    "Warmth in every element",
+    "Inclusive design (all ages)",
+    "Community connection visible",
+    "Trust-building through familiarity",
+    "Balanced professional and personal",
+    "Comfort emphasized"
+  ],
+  "donts": [
+    "Too corporate/clinical",
+    "Cold color schemes",
+    "Overly polished/studio photography",
+    "Exclude any age group",
+    "Ultra-modern minimalism",
+    "Intimidating medical imagery",
+    "Aesthetic before/afters"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.biltmoredentalcenter.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/5ojJdS3I8"
+    }
+  ]
+}

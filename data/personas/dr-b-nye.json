@@ -1,0 +1,79 @@
+{
+  "slug": "dr-b-nye",
+  "name": "Dr. B. Nye",
+  "archetype": "Science-Driven Holistic Clinic",
+  "accentColor": "#dd6b20",
+  "positioning": "Bridges functional medicine and modern dentistry. Emphasizes data, testing, whole-body diagnostics. Evidence-based holistic practice that combines scientific rigor with integrative approach - credible wellness through research and testing.",
+  "messagingBehavior": "Leads with expertise, diagnostics, research-backed care. Scientific yet holistic. Data-driven but whole-body focused. Credible alternative - uses research, testing, and evidence. Professional, modern, evidence-based. Never pseudoscientific.",
+  "patientBase": [
+    "Adults",
+    "Health-conscious professionals",
+    "Complex case patients",
+    "Evidence-minded wellness seekers",
+    "Patients wanting holistic care with scientific backing"
+  ],
+  "exampleClients": [
+    "Nautical"
+  ],
+  "layout": [
+    "Scientific organization",
+    "Data-friendly design",
+    "Clear sections for evidence",
+    "Infographics and charts",
+    "Professional medical layout",
+    "Modern, clean structure",
+    "Credible, research-focused"
+  ],
+  "visualTone": [
+    "Evidence-based and credible",
+    "Scientific holistic approach",
+    "Data-driven wellness",
+    "Professional integrative",
+    "Research-backed alternative",
+    "Modern functional medicine"
+  ],
+  "iconography": [
+    "Scientific symbols",
+    "Data/testing icons",
+    "Body systems diagrams",
+    "Research indicators",
+    "Medical and wellness balance",
+    "Modern, professional style"
+  ],
+  "texture": [
+    "Clean, scientific textures",
+    "Modern materials",
+    "Subtle natural elements",
+    "Professional medical finishes",
+    "Avoid overly organic or spiritual",
+    "Balance clinical and holistic"
+  ],
+  "designPrinciples": [
+    "Evidence first",
+    "Data and testing prominent",
+    "Scientific credibility",
+    "Whole-body connections",
+    "Research-backed approaches",
+    "Professional integrative medicine",
+    "Modern functional medicine"
+  ],
+  "donts": [
+    "Pseudoscience imagery",
+    "Overly spiritual aesthetics",
+    "Unsubstantiated claims",
+    "Crystal/chakra/energy symbols",
+    "Too clinical/sterile",
+    "Pure alternative medicine look",
+    "Anything lacking scientific backing"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.drmelanieorthodontics.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/IDzlbX6gX"
+    }
+  ]
+}

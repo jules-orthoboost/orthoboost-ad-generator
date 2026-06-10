@@ -1,0 +1,39 @@
+{
+  "slug": "badge-burst",
+  "name": "Badge Burst",
+  "description": "Full-bleed photo with the logo top-left, an offer badge top-right, a headline in the lower third, and a CTA beneath it.",
+  "slots": ["headline", "cta", "badge", "photo", "logo"],
+  "zones": {
+    "Story": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1920, "layer": 0 },
+      { "slot": "logo", "x": 90, "y": 320, "w": 260, "h": 100, "layer": 2 },
+      { "slot": "badge", "x": 700, "y": 320, "w": 300, "h": 300, "layer": 2 },
+      { "slot": "headline", "x": 90, "y": 1180, "w": 900, "h": 240, "layer": 1, "maxLines": 3 },
+      { "slot": "cta", "x": 290, "y": 1450, "w": 500, "h": 100, "layer": 2 }
+    ],
+    "Post": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1350, "layer": 0 },
+      { "slot": "logo", "x": 90, "y": 90, "w": 260, "h": 100, "layer": 2 },
+      { "slot": "badge", "x": 700, "y": 90, "w": 300, "h": 300, "layer": 2 },
+      { "slot": "headline", "x": 90, "y": 800, "w": 900, "h": 220, "layer": 1, "maxLines": 3 },
+      { "slot": "cta", "x": 290, "y": 1060, "w": 500, "h": 100, "layer": 2 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+  },
+  "videoGrammar": {
+    "durationMs": 10000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "logo", "effect": "fade-in" },
+      { "atMs": 600, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1300, "slot": "badge", "effect": "pop-in" },
+      { "atMs": 1900, "slot": "cta", "effect": "pop-in" }
+    ]
+  }
+}

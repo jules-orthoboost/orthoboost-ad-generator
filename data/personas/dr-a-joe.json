@@ -1,0 +1,72 @@
+{
+  "slug": "dr-a-joe",
+  "name": "Dr. A. Joe",
+  "archetype": "Budget-Friendly Everyday Ortho",
+  "accentColor": "#3182ce",
+  "positioning": "Practical, straightforward, cost-conscious. Focuses heavily on affordability, convenience, and accessibility.",
+  "messagingBehavior": "Leads with price, financing, and convenience. \"Affordable,\" \"Flexible,\" \"Hassle-Free.\" Avoids overly clinical or luxurious language.",
+  "patientBase": [
+    "Budget-conscious families",
+    "Mixed ages",
+    "Value shoppers"
+  ],
+  "exampleClients": [
+    "EP",
+    "Tennessee"
+  ],
+  "layout": [
+    "Efficient use of space - minimal waste",
+    "Grid-based, organized",
+    "Clear visual hierarchy",
+    "CTA prominent and easy to find",
+    "Information-dense but not cluttered",
+    "Mobile-first thinking"
+  ],
+  "visualTone": [
+    "Practical and no-nonsense",
+    "Approachable and friendly",
+    "Trustworthy without being fancy",
+    "Direct and honest",
+    "Value-focused"
+  ],
+  "iconography": [
+    "Simple line icons",
+    "Dollar signs, calendars, checkmarks",
+    "Location pins",
+    "Clear, functional symbols",
+    "No overly decorative elements"
+  ],
+  "texture": [
+    "Minimal textures",
+    "Flat or subtle gradients",
+    "Clean backgrounds",
+    "Occasional paper texture for warmth",
+    "Avoid heavy patterns"
+  ],
+  "designPrinciples": [
+    "Clarity over creativity",
+    "Accessibility first",
+    "Price/value prominently featured",
+    "Easy-to-scan information",
+    "Strong CTAs",
+    "Functional over Fancy"
+  ],
+  "donts": [
+    "Luxury aesthetics",
+    "Overly minimal/sparse layouts",
+    "Complex typography",
+    "Abstract imagery",
+    "Excessive white space",
+    "Premium color palettes (golds, deep purples)"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.biltmoredentalcenter.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/6H6sVFHSS"
+    }
+  ]
+}
