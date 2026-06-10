@@ -1,0 +1,72 @@
+{
+  "slug": "dr-d-houser",
+  "name": "Dr. D. Houser",
+  "archetype": "Pediatric Dentistry & Orthodontics",
+  "accentColor": "#f05252",
+  "positioning": "Accessible, family-friendly orthodontic care focused on creating positive, stress-free experiences for kids while giving parents clarity, confidence, and practical guidance. A calm and supportive practice where every family feels welcome and at ease.",
+  "messagingBehavior": "Leads with gentle care, parent reassurance, and a stress-free experience for kids. Balances child comfort with clear, simple guidance for parents. Warm and approachable without being childish. Practical and supportive — never clinical, urgent, or luxury-forward.",
+  "patientBase": [
+    "Parents of children and teens",
+    "Family-focused households seeking a friendly and affordable orthodontic experience",
+    "Parents who value reassurance and a low-stress environment",
+    "Families prioritizing early orthodontic evaluation and flexible payment options"
+  ],
+  "exampleClients": [
+    "Say Cheese Kids Dental & Orthodontics"
+  ],
+  "layout": [
+    "Energetic but organized",
+    "Color-forward with clear sections parents can scan",
+    "Fun visual accents balanced with readable information",
+    "Mobile-first for parents on-the-go",
+    "Not overwhelming - celebratory and clear"
+  ],
+  "visualTone": [
+    "Energetic and fun",
+    "Kid-first, parent-trusted",
+    "Celebratory and positive",
+    "Approachable and welcoming",
+    "Never scary or clinical"
+  ],
+  "iconography": [
+    "Stars and celebration symbols",
+    "Friendly tooth icons",
+    "Trophy and achievement markers",
+    "Calendar and appointment icons",
+    "Braces and aligner imagery",
+    "Growth milestone symbols"
+  ],
+  "texture": [
+    "Soft, playful patterns",
+    "Subtle dot or confetti accents",
+    "Warm, colorful backgrounds",
+    "Clean enough for parental trust",
+    "Kid-energy without being chaotic"
+  ],
+  "designPrinciples": [
+    "Fun first, trust always",
+    "Kid-centered experience at every touchpoint",
+    "Celebrate every milestone",
+    "Clear parent communication",
+    "Energetic but organized",
+    "The smile is the brand"
+  ],
+  "donts": [
+    "Scary or clinical dental imagery",
+    "Adult-only design aesthetics",
+    "Fear-based or problem-focused language",
+    "Dull, muted color palettes",
+    "Anything intimidating for children or anxious parents",
+    "Overly corporate or sterile design"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://bayparkpediatricdental.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://www.pinterest.com/batten1909/dr-d-houser/"
+    }
+  ]
+}

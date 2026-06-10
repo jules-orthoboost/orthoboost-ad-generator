@@ -1,0 +1,79 @@
+{
+  "slug": "dr-k-clarkson",
+  "name": "Dr. K. Clarkson",
+  "archetype": "Adult Cosmetic-Focused Aesthetic Ortho",
+  "accentColor": "#805ad5",
+  "positioning": "Modern, aesthetic, image-conscious. Appeals to professionals and adults who want subtle, cosmetic-forward treatment. Sophisticated urban practice focused on discreet, results-driven care for adult lifestyles.",
+  "messagingBehavior": "Leads with cosmetic results, discreet options, expertise. Price is secondary. Sophisticated, professional, aesthetic-focused. Emphasize discretion, cosmetic outcomes, lifestyle integration. Never childish or family-oriented.",
+  "patientBase": [
+    "Adults 25–55",
+    "Cosmetic-driven patients",
+    "Professionals",
+    "Urban dwellers",
+    "Image-conscious individuals",
+    "Patients seeking discreet treatment"
+  ],
+  "exampleClients": [
+    "Mackenzie",
+    "Smiles"
+  ],
+  "layout": [
+    "Clean, minimal layouts",
+    "Generous white space",
+    "Asymmetric, modern design",
+    "Image-heavy (professional quality)",
+    "Sleek, editorial style",
+    "Mobile-optimized for professionals"
+  ],
+  "visualTone": [
+    "Sophisticated and modern",
+    "Image-conscious",
+    "Discreet and professional",
+    "Cosmetic results-focused",
+    "Urban, aspirational",
+    "Never playful or family-oriented"
+  ],
+  "iconography": [
+    "Minimal, thin line icons",
+    "Geometric, modern shapes",
+    "Professional symbols",
+    "Clear aligner/invisible braces icons",
+    "Calendar (scheduling convenience)",
+    "Sleek, no decorative elements"
+  ],
+  "texture": [
+    "Minimal to no texture",
+    "Clean backgrounds (white, light gray)",
+    "Modern materials suggested (glass, metal)",
+    "Subtle gradients acceptable",
+    "Avoid busy patterns or organic textures"
+  ],
+  "designPrinciples": [
+    "Aesthetics first",
+    "Discreet options prominent",
+    "Professional lifestyle integration",
+    "Minimal but impactful design",
+    "Results-focused messaging",
+    "Modern, never traditional",
+    "Urban sophistication"
+  ],
+  "donts": [
+    "Kid/family imagery",
+    "Traditional metal braces focus",
+    "Playful or cute aesthetics",
+    "Budget messaging",
+    "Community/small-town vibes",
+    "Warm, rounded typography",
+    "Busy layouts or heavy textures"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.docriano.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/2F9rGhpob"
+    }
+  ]
+}

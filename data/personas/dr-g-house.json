@@ -1,0 +1,75 @@
+{
+  "slug": "dr-g-house",
+  "name": "Dr. G. House",
+  "archetype": "Premium Family Ortho",
+  "accentColor": "#2f855a",
+  "positioning": "Warm, modern, high-quality practice that serves both families and adults. Polished and capable, but not formal or exclusive. Premium comes from reputation, outcomes, patient experience, consistency, and expertise.",
+  "messagingBehavior": "Leads with family trust and clinical confidence. Highlights expertise, outcomes, comfort, convenience, and technology. Polished but approachable. Confident quality without pretension. Premium accessible - not exclusive.",
+  "patientBase": [
+    "Middle to upper-middle income families",
+    "Parents seeking high-quality but accessible practice",
+    "Adults wanting Invisalign/Aligner treatments",
+    "Suburban and growing urban markets"
+  ],
+  "exampleClients": [
+    "Chang",
+    "Kinser",
+    "Team",
+    "Bowman",
+    "Uptown"
+  ],
+  "layout": [
+    "Modern, balanced design",
+    "Professional but warm spacing",
+    "Quality imagery featured",
+    "Contemporary grid systems",
+    "Clean, organized sections",
+    "Polished without being sterile"
+  ],
+  "visualTone": [
+    "Quality without pretension",
+    "Warm professionalism",
+    "Modern family-focused",
+    "Confident and capable",
+    "Accessible premium"
+  ],
+  "iconography": [
+    "Modern line icons",
+    "Quality indicators",
+    "Family and technology symbols",
+    "Professional but friendly",
+    "Contemporary style"
+  ],
+  "texture": [
+    "Clean, modern textures",
+    "Subtle professional finishes",
+    "Quality materials suggested",
+    "Warm, inviting overlays",
+    "Avoid harsh or cold textures"
+  ],
+  "designPrinciples": [
+    "Quality visible throughout",
+    "Modern family appeal",
+    "Professional warmth",
+    "Technology as enhancer",
+    "Outcomes emphasized",
+    "Accessible premium feel"
+  ],
+  "donts": [
+    "Budget or discount messaging",
+    "Overly clinical/cold aesthetics",
+    "Exclusive or intimidating feel",
+    "Trendy or gimmicky design",
+    "Ultra-minimalist coldness"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.broadwaysmilesdentistry.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/1GvrCEx1g"
+    }
+  ]
+}

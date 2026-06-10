@@ -1,0 +1,78 @@
+{
+  "slug": "dr-mcstuffins",
+  "name": "Dr. McStuffins",
+  "archetype": "Pediatric Wellness Practice",
+  "accentColor": "#ed64a6",
+  "positioning": "Gentle, preventive pediatric dental care focused on healthy development and reducing parental anxiety.",
+  "messagingBehavior": "Gentle, friendly, and reassuring voice designed for parents. Frame wellness through growth and development rather than \"fixing\" problems. Focus on reassurance and clarity. Emphasize preventive care and positive first experiences.",
+  "patientBase": [
+    "Parents of young children (3–12)",
+    "First-time pediatric patients",
+    "Parents concerned about fear/comfort",
+    "Prevention-minded families",
+    "Families prioritizing child wellness"
+  ],
+  "exampleClients": [
+    "Sugarbugs Pediatric Dentistry"
+  ],
+  "layout": [
+    "Gentle, organized layouts",
+    "Parent-friendly navigation",
+    "Clear information hierarchy",
+    "Welcoming space",
+    "Soft, reassuring design",
+    "Not too busy or overwhelming"
+  ],
+  "visualTone": [
+    "Gentle and reassuring",
+    "Warm and welcoming",
+    "Preventive focus",
+    "Child-friendly but not childish",
+    "Parent-centered communication",
+    "Calm and peaceful"
+  ],
+  "iconography": [
+    "Soft, rounded icons",
+    "Growth symbols",
+    "Gentle imagery",
+    "Child-friendly but not cartoonish",
+    "Wellness indicators",
+    "Reassuring symbols"
+  ],
+  "texture": [
+    "Soft, gentle textures",
+    "Natural materials",
+    "Warm, comforting finishes",
+    "Subtle patterns",
+    "Child-safe aesthetics",
+    "Avoid harsh or clinical textures"
+  ],
+  "designPrinciples": [
+    "Gentleness in all elements",
+    "Prevention over treatment",
+    "Parent reassurance",
+    "Child comfort focus",
+    "Development-centered",
+    "Reduce anxiety",
+    "Positive first experiences"
+  ],
+  "donts": [
+    "Fear-based messaging",
+    "Scary dental imagery",
+    "Overly clinical aesthetics",
+    "Adult-focused design",
+    "Urgency or pressure",
+    "Problem-focused language",
+    "Anything intimidating"
+  ],
+  "resources": [
+    {
+      "label": "View Examples in the Wild",
+      "url": "https://www.lajolladentalwellnesscenter.com/"
+    },
+    {
+      "label": "Pinterest Moodboard",
+      "url": "https://pin.it/64ajhhyzO"
+    }
+  ]
+}
