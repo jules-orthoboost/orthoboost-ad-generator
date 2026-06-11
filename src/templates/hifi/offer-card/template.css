@@ -1,0 +1,108 @@
+@import '../effects.css';
+
+.oc {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--body-font);
+}
+
+.oc-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Soft wash so the card reads cleanly; the photo still breathes around it. */
+.oc-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 15, 28, 0.28) 0%, rgba(8, 15, 28, 0.12) 45%, rgba(8, 15, 28, 0.4) 100%);
+}
+
+.oc-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 760px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px rgba(8, 15, 28, 0.34);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.oc-logo {
+  width: 196px;
+  height: auto;
+  object-fit: contain;
+}
+
+.oc-offer {
+  font-family: var(--display-font);
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.oc .oc-headline {
+  margin: 0;
+  font-family: var(--display-font);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  max-width: 16ch;
+}
+
+.oc-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-family: var(--body-font);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 12px 30px rgba(8, 15, 28, 0.26);
+}
+
+/* ---- Story (1080x1920) ---- */
+.oc-Story .oc-card {
+  padding: 64px 64px 72px;
+  gap: 30px;
+}
+.oc-Story .oc-offer {
+  font-size: 132px;
+}
+.oc-Story .oc-headline {
+  font-size: 66px;
+}
+.oc-Story .oc-cta {
+  font-size: 42px;
+  padding: 32px 60px;
+}
+
+/* ---- Post (1080x1350) ---- */
+.oc-Post .oc-card {
+  padding: 54px 56px 60px;
+  gap: 24px;
+}
+.oc-Post .oc-offer {
+  font-size: 116px;
+}
+.oc-Post .oc-headline {
+  font-size: 58px;
+}
+.oc-Post .oc-cta {
+  font-size: 40px;
+  padding: 30px 56px;
+}
