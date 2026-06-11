@@ -252,3 +252,111 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
 }
+
+/* ---- Hi-fi template preview frame ---- */
+.tpl-frame-outer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.18);
+}
+.tpl-frame {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--body-font);
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.tpl-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.25rem 0 1.75rem;
+}
+.tpl-controls .seg {
+  display: inline-flex;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.tpl-controls .seg button {
+  padding: 0.4rem 0.9rem;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #475569;
+}
+.tpl-controls .seg button.on {
+  background: #163055;
+  color: #fff;
+}
+.tpl-controls .ctl {
+  font-size: 0.85rem;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.tpl-controls .btn {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+.tpl-stage {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #eef2f7;
+  border-radius: 12px;
+}
+
+/* ---- Brand kit card ---- */
+.bk-head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.bk-logo {
+  width: 120px;
+  height: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+}
+.bk-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.5rem;
+}
+.bk-swatch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.bk-chip {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+}
+.bk-donts {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #b45309;
+}
+.bk-card h3 {
+  margin: 1.25rem 0 0.25rem;
+  font-size: 0.95rem;
+  color: #163055;
+}

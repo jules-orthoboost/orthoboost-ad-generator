@@ -1,0 +1,41 @@
+/* Shared beat-reveal effects for hi-fi templates.
+   Content is visible by default; elements only start hidden when a reveal is
+   actively pending (data-shown="false"), so headless/static renders never ship blank. */
+
+[data-effect][data-shown='false'] {
+  opacity: 0;
+}
+[data-effect][data-shown='true'] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-effect='fade-in'][data-shown='false'] {
+  filter: blur(6px);
+}
+[data-effect='rise-in'][data-shown='false'] {
+  transform: translateY(44px);
+}
+[data-effect='pop-in'][data-shown='false'] {
+  transform: scale(0.86);
+}
+[data-effect='slide-left'][data-shown='false'] {
+  transform: translateX(64px);
+}
+[data-effect='slide-right'][data-shown='false'] {
+  transform: translateX(-64px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-effect] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
