@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, it, expect } from 'vitest'
-import { PersonaSchema, LofiTemplateSchema, BrandKitSchema } from './schemas'
+import { PersonaSchema, LofiTemplateSchema, BrandKitSchema, CampaignSchema } from './schemas'
 
 // Validates the actual JSON data files committed to the repo.
 const root = join(__dirname, '..', '..')
@@ -43,6 +43,21 @@ describe('repo data', () => {
       const parsed = BrandKitSchema.parse(raw)
       expect(`${parsed.slug}.json`).toBe(name)
       expect(personaSlugs.has(parsed.personaSlug)).toBe(true)
+    }
+  })
+
+  it('every campaign validates, matches its file name, and refs an existing brand kit', () => {
+    const kitSlugs = new Set(
+      readdirSync(join(root, 'data', 'brand-kits'))
+        .filter((f) => f.endsWith('.json'))
+        .map((f) => f.replace(/\.json$/, '')),
+    )
+    const dir = join(root, 'data', 'campaigns')
+    const files = jsonFiles(dir)
+    for (const [name, raw] of files) {
+      const parsed = CampaignSchema.parse(raw)
+      expect(`${parsed.slug}.json`).toBe(name)
+      expect(kitSlugs.has(parsed.clientSlug)).toBe(true)
     }
   })
 })
