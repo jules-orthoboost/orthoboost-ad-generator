@@ -8,7 +8,7 @@ import {
   type GateResult,
 } from '../../core/gates'
 
-export const STEP_IDS = ['client', 'setup', 'template', 'content', 'preview', 'export'] as const
+export const STEP_IDS = ['client', 'setup', 'template', 'content', 'preview', 'site', 'export'] as const
 export type StepId = (typeof STEP_IDS)[number]
 
 export const STEP_TITLES: Record<StepId, string> = {
@@ -17,6 +17,7 @@ export const STEP_TITLES: Record<StepId, string> = {
   template: 'Template',
   content: 'Content',
   preview: 'Preview',
+  site: 'Site',
   export: 'Export',
 }
 
@@ -36,6 +37,7 @@ export function gateFor(id: StepId, draft: CampaignDraft, deps: StepDeps): GateR
       return templateGate(deps.manifest, deps.kit)
     case 'content':
     case 'preview':
+    case 'site':
     case 'export':
       if (!deps.manifest || !deps.archetype) {
         return { ok: false, missing: ['Finish the earlier steps first'] }

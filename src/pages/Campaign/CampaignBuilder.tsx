@@ -8,6 +8,7 @@ import { SetupStep } from './SetupStep'
 import { TemplateStep } from './TemplateStep'
 import { ContentStep } from './ContentStep'
 import { PreviewStep } from './PreviewStep'
+import { SiteStep } from './SiteStep'
 import { ExportStep } from './ExportStep'
 
 const kits = loadBrandKits()
@@ -70,6 +71,7 @@ export function CampaignBuilder() {
         {currentId === 'template' && <TemplateStep {...stepProps} />}
         {currentId === 'content' && <ContentStep {...stepProps} />}
         {currentId === 'preview' && <PreviewStep {...stepProps} />}
+        {currentId === 'site' && <SiteStep {...stepProps} />}
         {currentId === 'export' && <ExportStep {...stepProps} />}
 
         <footer className="cb-foot">
