@@ -1,6 +1,7 @@
 import './template.css'
 import type { HifiTemplateComponent } from '../types'
-import { useBeats } from '../useBeats'
+import type { Beat, Slot } from '../../../core/schemas'
+import { useClock, slotProgress, revealStyle } from '../motion'
 
 /**
  * Hero / Banner / CTA — full-bleed photo, top-center logo, a confident
@@ -14,40 +15,31 @@ export const Component: HifiTemplateComponent = ({
   beats,
   playing,
   reducedMotion,
+  frameNowMs,
 }) => {
-  const shown = useBeats(beats, playing, reducedMotion)
-  const ds = (slot: string) => (shown[slot as keyof typeof shown] ? 'true' : 'false')
+  const now = useClock(playing, reducedMotion, frameNowMs)
+  const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
 
   return (
     <div className={`hbc hbc-${size}`}>
       {content.photo && (
         <div
           className="hbc-photo"
-          data-effect="fade-in"
-          data-shown={ds('photo')}
-          style={{ backgroundImage: `url(${content.photo})` }}
+          style={{ backgroundImage: `url(${content.photo})`, ...sty('photo', 'fade-in') }}
         />
       )}
       <div className="hbc-scrim" />
 
-      {logoUrl && (
-        <img
-          className="hbc-logo"
-          src={logoUrl}
-          alt=""
-          data-effect="fade-in"
-          data-shown={ds('logo')}
-        />
-      )}
+      {logoUrl && <img className="hbc-logo" src={logoUrl} alt="" style={sty('logo', 'fade-in')} />}
 
       <div className="hbc-copy">
         {content.headline && (
-          <h1 className="hbc-headline" data-effect="rise-in" data-shown={ds('headline')}>
+          <h1 className="hbc-headline" style={sty('headline', 'rise-in')}>
             {content.headline}
           </h1>
         )}
         {content.subhead && (
-          <p className="hbc-subhead" data-effect="rise-in" data-shown={ds('subhead')}>
+          <p className="hbc-subhead" style={sty('subhead', 'rise-in')}>
             {content.subhead}
           </p>
         )}
@@ -55,7 +47,7 @@ export const Component: HifiTemplateComponent = ({
 
       {content.cta && (
         <div className="hbc-cta-wrap">
-          <span className="hbc-cta" data-effect="pop-in" data-shown={ds('cta')}>
+          <span className="hbc-cta" style={sty('cta', 'pop-in')}>
             {content.cta}
           </span>
         </div>

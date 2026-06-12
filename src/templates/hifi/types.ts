@@ -19,6 +19,8 @@ export interface TemplateRenderProps {
   /** Preview playback. The Phase 4 harness drives frames via virtual time. */
   playing: boolean
   reducedMotion: boolean
+  /** Harness-injected virtual time in ms; preview leaves it undefined (uses a rAF clock). */
+  frameNowMs?: number
 }
 
 export type HifiTemplateComponent = (props: TemplateRenderProps) => JSX.Element
