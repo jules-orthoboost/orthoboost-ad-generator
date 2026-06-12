@@ -39,6 +39,23 @@ Each ad needs copy, an image, and a logo. Every campaign also ships a matching *
 - **Gated workflow** — steps unlock as requirements are met (persona → brand kit → template → content → render)
 - **Modular & scalable** — adding personas, brand kits, clients, and templates is data, not code
 
+## Rendering finals
+
+Previews render in-browser; the delivered PNG/MP4 files are produced by the render harness
+(Playwright + ffmpeg) from a committed campaign.
+
+- **Locally:** `npm run render harness/manifest.example.json` (add `--images-only` to skip video,
+  or set `FRAMES_CAP=N` to cap video frames). Outputs land in `out/`, named with the canonical
+  deliverable scheme.
+- **In CI:** dispatch the **Render finals** workflow (or push a `renders/<id>.manifest.json`); the
+  8 finals are uploaded as the `finals` artifact. A lightweight **Render pipeline smoke** runs on
+  every push to catch harness regressions.
+
+The harness drives dedicated chrome-less `/render` routes at 1:1; animation is computed from an
+injectable virtual clock, so frames are deterministic and previews match finals pixel-for-pixel.
+
 ## Status
 
-Early design phase. See [`docs/BRIEF.md`](docs/BRIEF.md) for the full project brief.
+Phases 0–4 built: data model + inspector, hi-fi templates + brand kits, the gated campaign
+builder, and the render harness. See [`docs/BRIEF.md`](docs/BRIEF.md) for the brief and
+`docs/plans/` for the phase plans.

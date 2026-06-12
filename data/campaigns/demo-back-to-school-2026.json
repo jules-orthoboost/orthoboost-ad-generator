@@ -1,0 +1,26 @@
+{
+  "slug": "demo-back-to-school-2026",
+  "clientSlug": "mock-ortho-co",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "hero-banner-cta",
+  "versions": {
+    "V1": {
+      "content": {
+        "headline": "Back to school, brighter smiles",
+        "subhead": "Free consults all August for busy families.",
+        "cta": "Book a free consult",
+        "photo": "assets/photos/back-to-school/classroom-warm.svg"
+      }
+    },
+    "V2": {
+      "content": {
+        "headline": "New year, new confidence",
+        "subhead": "Flexible plans that fit the school-year schedule.",
+        "cta": "Start your consult",
+        "photo": "assets/photos/back-to-school/smile-portrait.svg"
+      }
+    }
+  }
+}

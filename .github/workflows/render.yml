@@ -1,0 +1,39 @@
+name: Render finals
+
+on:
+  workflow_dispatch:
+    inputs:
+      manifest:
+        description: Path to the render manifest
+        required: false
+        default: harness/manifest.example.json
+  push:
+    paths:
+      - 'renders/*.manifest.json'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Resolve manifest
+        id: m
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "path=$(git diff --name-only HEAD~1 HEAD | grep 'renders/.*\.manifest\.json' | head -1)" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=${{ github.event.inputs.manifest }}" >> "$GITHUB_OUTPUT"
+          fi
+      - run: node harness/render.mjs "${{ steps.m.outputs.path }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finals
+          path: out/
