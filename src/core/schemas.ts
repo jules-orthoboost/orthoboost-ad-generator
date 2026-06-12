@@ -130,3 +130,20 @@ export const SlotContentSchema = z.object({
   photo: z.string().optional(), // asset path
 })
 export type SlotContent = z.infer<typeof SlotContentSchema>
+
+export const CampaignVersionSchema = z.object({
+  content: SlotContentSchema,
+  notes: z.string().optional(),
+})
+export type CampaignVersion = z.infer<typeof CampaignVersionSchema>
+
+export const CampaignSchema = z.object({
+  slug,
+  clientSlug: slug,
+  adSetType: z.enum(['Seasonal', 'Evergreen']),
+  theme: z.string().min(1),
+  year: z.number().int().min(2020).max(2100),
+  hifiTemplateSlug: slug,
+  versions: z.object({ V1: CampaignVersionSchema, V2: CampaignVersionSchema }),
+})
+export type Campaign = z.infer<typeof CampaignSchema>
