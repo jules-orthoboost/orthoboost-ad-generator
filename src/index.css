@@ -616,6 +616,24 @@ body {
   word-break: break-all;
 }
 
+.cb-site-frame {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef2f7;
+  display: flex;
+  justify-content: center;
+}
+.cb-site-frame iframe {
+  border: 0;
+  height: 640px;
+  width: 100%;
+  background: #fff;
+}
+.cb-site-frame.mobile iframe {
+  width: 375px;
+}
+
 /* ---- Render mode (harness) ---- */
 body:has(.render-root) {
   margin: 0;
