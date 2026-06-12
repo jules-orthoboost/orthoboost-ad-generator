@@ -6,10 +6,8 @@ export interface ContentsPayload {
   contentBase64: string
 }
 
-const toBase64 = (s: string) =>
-  typeof btoa === 'function'
-    ? btoa(unescape(encodeURIComponent(s)))
-    : Buffer.from(s, 'utf8').toString('base64')
+// UTF-8 safe base64; btoa is a global in browsers and Node 16+.
+const toBase64 = (s: string) => btoa(unescape(encodeURIComponent(s)))
 
 export function buildContentsPayload(campaign: Campaign): ContentsPayload {
   const json = JSON.stringify(campaign, null, 2)
