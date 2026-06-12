@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import App from './App'
+import { CampaignBuilder } from './pages/Campaign/CampaignBuilder'
 import { HIFI_TEMPLATES } from './templates/hifi'
 import { TemplateFrame } from './templates/hifi/TemplateFrame'
 import { resolveTokens } from './core/tokens'
@@ -15,6 +16,11 @@ describe('app smoke', () => {
     expect(html).toContain('Lo-Fi Archetypes (5)')
     expect(html).toContain('Personas (11)')
     expect(html).toContain('Badge Burst')
+  })
+
+  it('renders the campaign builder on its first step', () => {
+    const html = renderToString(<CampaignBuilder />).replace(/<!-- -->/g, '')
+    expect(html).toContain('Choose a client')
   })
 })
 

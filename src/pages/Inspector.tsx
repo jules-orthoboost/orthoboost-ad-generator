@@ -4,6 +4,7 @@ import { ZoneCanvas } from '../components/ZoneCanvas'
 import { BeatTimeline } from '../components/BeatTimeline'
 import { Templates } from './Templates'
 import { BrandKits } from './BrandKits'
+import { CampaignBuilder } from './Campaign/CampaignBuilder'
 import { HIFI_TEMPLATES } from '../templates/hifi'
 
 const personas = loadPersonas()
@@ -11,7 +12,7 @@ const templates = loadLofiTemplates()
 const brandKitCount = Object.keys(loadBrandKits()).length
 const hifiCount = Object.keys(HIFI_TEMPLATES).length
 
-type Tab = 'archetypes' | 'personas' | 'templates' | 'brandkits'
+type Tab = 'archetypes' | 'personas' | 'templates' | 'brandkits' | 'campaign'
 
 export function Inspector() {
   const [tab, setTab] = useState<Tab>('archetypes')
@@ -42,10 +43,15 @@ export function Inspector() {
           <button className={tab === 'brandkits' ? 'active' : ''} onClick={() => setTab('brandkits')}>
             Brand Kits ({brandKitCount})
           </button>
+          <button className={tab === 'campaign' ? 'active' : ''} onClick={() => setTab('campaign')}>
+            Campaign
+          </button>
         </nav>
       </header>
 
-      {tab === 'templates' ? (
+      {tab === 'campaign' ? (
+        <CampaignBuilder />
+      ) : tab === 'templates' ? (
         <Templates />
       ) : tab === 'brandkits' ? (
         <BrandKits />

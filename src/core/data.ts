@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import { PersonaSchema, LofiTemplateSchema, BrandKitSchema } from './schemas'
+import { PersonaSchema, LofiTemplateSchema, BrandKitSchema, CampaignSchema } from './schemas'
 
 /** Parse every file against the schema; throw with the offending path on failure. */
 export function validateAll<S extends z.ZodType<{ slug: string }>>(
@@ -38,4 +38,21 @@ export function loadBrandKits() {
     BrandKitSchema,
     import.meta.glob('/data/brand-kits/*.json', { eager: true, import: 'default' }),
   )
+}
+
+export function loadCampaigns() {
+  return validateAll(
+    CampaignSchema,
+    import.meta.glob('/data/campaigns/*.json', { eager: true, import: 'default' }),
+  )
+}
+
+/** Served URLs for every photo in the committed library. */
+export function loadPhotoLibrary(): string[] {
+  const files = import.meta.glob('/public/assets/photos/**/*.{svg,jpg,jpeg,png,webp}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  })
+  return Object.values(files as Record<string, string>).sort()
 }
