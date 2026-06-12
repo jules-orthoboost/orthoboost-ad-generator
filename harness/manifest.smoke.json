@@ -1,0 +1,7 @@
+{
+  "campaignSlug": "demo-back-to-school-2026",
+  "requested": [
+    { "version": "V1", "size": "Story", "creativeType": "Image" },
+    { "version": "V1", "size": "Story", "creativeType": "Video" }
+  ]
+}

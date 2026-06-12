@@ -1,0 +1,30 @@
+name: Render pipeline smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Renders one static + one short video from the fixture to catch harness regressions.
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      FRAMES_CAP: '3'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: node harness/render.mjs harness/manifest.smoke.json
+      - name: Assert outputs exist
+        run: |
+          test -f "out/Seasonal_BackToSchool-2026_Image_V1_Story_MockOrthoCo.png"
+          test -f "out/Seasonal_BackToSchool-2026_Video_V1_Story_MockOrthoCo.mp4"
+          echo "Render smoke passed."
