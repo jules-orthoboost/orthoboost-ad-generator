@@ -31,3 +31,6 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+
+# Render harness output
+out/
