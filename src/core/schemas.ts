@@ -147,3 +147,17 @@ export const CampaignSchema = z.object({
   versions: z.object({ V1: CampaignVersionSchema, V2: CampaignVersionSchema }),
 })
 export type Campaign = z.infer<typeof CampaignSchema>
+
+export const RenderManifestSchema = z.object({
+  campaignSlug: slug,
+  requested: z
+    .array(
+      z.object({
+        version: z.enum(['V1', 'V2']),
+        size: z.enum(['Story', 'Post']),
+        creativeType: z.enum(['Image', 'Video']),
+      }),
+    )
+    .min(1),
+})
+export type RenderManifest = z.infer<typeof RenderManifestSchema>

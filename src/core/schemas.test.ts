@@ -6,6 +6,7 @@ import {
   HifiTemplateManifestSchema,
   SlotContentSchema,
   CampaignSchema,
+  RenderManifestSchema,
 } from './schemas'
 
 const minimalPersona = {
@@ -168,5 +169,26 @@ describe('CampaignSchema', () => {
   })
   it('rejects a bad ad set type', () => {
     expect(() => CampaignSchema.parse({ ...base, adSetType: 'Holiday' })).toThrow()
+  })
+})
+
+describe('RenderManifestSchema', () => {
+  it('accepts a manifest listing deliverables', () => {
+    const m = RenderManifestSchema.parse({
+      campaignSlug: 'demo-back-to-school-2026',
+      requested: [
+        { version: 'V1', size: 'Story', creativeType: 'Image' },
+        { version: 'V2', size: 'Post', creativeType: 'Video' },
+      ],
+    })
+    expect(m.requested).toHaveLength(2)
+  })
+  it('rejects an unknown size', () => {
+    expect(() =>
+      RenderManifestSchema.parse({
+        campaignSlug: 'x',
+        requested: [{ version: 'V1', size: 'Square', creativeType: 'Image' }],
+      }),
+    ).toThrow()
   })
 })
