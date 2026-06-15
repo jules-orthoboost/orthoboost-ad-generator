@@ -1,0 +1,12 @@
+{
+  "slug": "green-dental-of-alexandria",
+  "clientName": "Green Dental of Alexandria",
+  "personaSlug": "d-k-kardashian",
+  "colors": { "brand": "#1f3b38", "ink": "#1f3b38", "accent": "#d18240" },
+  "logo": { "assetPath": "assets/clients/green-dental-of-alexandria/logo.svg", "aspect": 1.56 },
+  "radius": 20,
+  "donts": [
+    "No high-pressure or countdown-timer urgency",
+    "No cold clinical stock imagery — keep it warm, natural, human"
+  ]
+}
