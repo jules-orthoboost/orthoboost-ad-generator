@@ -1,0 +1,94 @@
+{
+  "campaignTheme": "Back to School",
+  "year": 2026,
+  "source": "Notion: Ads) Back to School - Persona Templates (37832d9551dd80c58a1ae641b6e334aa)",
+  "_scope": "Ortho campaign (braces/Invisalign). 5 personas. Offers come later (no offer field yet). Each persona: 2 versions. Deliverables per client: Post + Story, Image + Video.",
+  "_method": "Headlines rewritten with the Ogilvy skill: benefit + news (back-to-school/seasonal hook) + audience flag, plain language, ~7-9 words, no negatives, one promise each. Clarkson keeps a 'new season/fall' hook (her brief bans kids + literal school imagery); Yang leads with expertise, season as timing.",
+  "personas": {
+    "dr-a-joe": {
+      "shortName": "Dr. A. Joe",
+      "audience": "Parents 30-45, middle-income, comparing 2-3 orthodontists, cost-conscious, want simple clear pricing",
+      "coreStrategy": "Lead with ease + affordability + flexibility. Frame back-to-school as the practical time to lock in a simple routine; keep starting low-commitment.",
+      "visualFocus": "Simple, relatable families/individuals; clean (not overly designed) layouts; light everyday back-to-school cues",
+      "doNotShow": "Luxury/high-end aesthetics; overly emotional/aspirational imagery; cluttered visuals",
+      "V1": {
+        "headline": "Back-to-School Braces That Fit Your Budget",
+        "subhead": "Simple monthly plans and an easy first visit — before the school year ramps up.",
+        "cta": "Book a free consult"
+      },
+      "V2": {
+        "headline": "Parents: Start Braces Before the First Bell",
+        "subhead": "Clear pricing and flexible payments, made for busy fall schedules.",
+        "cta": "Schedule your visit"
+      }
+    },
+    "dr-m-rogers": {
+      "shortName": "Dr. M. Rogers",
+      "audience": "Parents 30-45 with kids 8-16, local households, review-driven, value long-term provider relationships",
+      "coreStrategy": "Position back-to-school as a natural time to begin with a provider who's there all year. Reinforce the neighborhood orthodontist; emphasize comfort and the family's school-year rhythm.",
+      "visualFocus": "Real families, parent + child moments; warm candid lifestyle photos; in-office, after-school-visit feel",
+      "doNotShow": "Overly polished/luxury imagery; hard offer graphics or discount callouts; clinical/equipment-heavy visuals",
+      "V1": {
+        "headline": "Send Them Back to School With a Confident Smile",
+        "subhead": "Comfort-first braces & Invisalign from a neighborhood team that's with you all year.",
+        "cta": "Meet our team"
+      },
+      "V2": {
+        "headline": "Start the School Year With a Provider You Trust",
+        "subhead": "A stress-free, kid-friendly start that fits your family's fall routine.",
+        "cta": "Book a visit"
+      }
+    },
+    "dr-g-house": {
+      "shortName": "Dr. G. House",
+      "audience": "Parents 30-50 with 1-3 kids, value consistency and quality, willing to invest, juggling multiple schedules",
+      "coreStrategy": "Highlight a smooth, well-managed experience that fits school-year logistics. Position the start of the year as a proactive, organized decision. Quality without feeling luxury.",
+      "visualFocus": "Clean, modern office environments; confident families, slightly elevated styling; organized 'new year' tone",
+      "doNotShow": "Discount-heavy/price-driven messaging; overly casual or chaotic family scenes; flashy luxury / 'VIP' visuals",
+      "V1": {
+        "headline": "Start the School Year With Their Smile on Track",
+        "subhead": "Expert braces & Invisalign, managed around your school-year schedule.",
+        "cta": "Schedule a consult"
+      },
+      "V2": {
+        "headline": "A Smarter Start to the School Year",
+        "subhead": "Dependable, polished orthodontic care for the whole family, start to finish.",
+        "cta": "Book your consult"
+      }
+    },
+    "dr-k-clarkson": {
+      "shortName": "Dr. K. Clarkson",
+      "audience": "Adults 25-55, working professionals, image-conscious, considering Invisalign/cosmetic braces, motivated by appearance and confidence",
+      "coreStrategy": "Keep the seasonal hook light — an end-of-summer personal reset. Focus on confidence and discreet, lifestyle-friendly treatment; transformation without drama.",
+      "visualFocus": "Adults in lifestyle settings (work, social, outdoors); close-up confident natural smiles; clean modern aesthetic, subtle early-fall tone",
+      "doNotShow": "Kids or family-focused visuals; heavy back-to-school school imagery; braces-heavy/clinical shots; price-first messaging",
+      "V1": {
+        "headline": "A New Season for a More Confident Smile",
+        "subhead": "Discreet Invisalign that fits your work and your life.",
+        "cta": "Begin your consult"
+      },
+      "V2": {
+        "headline": "This Fall, Make It Your Turn for Invisalign",
+        "subhead": "Subtle, lifestyle-friendly treatment designed around your schedule.",
+        "cta": "Explore your options"
+      }
+    },
+    "dr-c-yang": {
+      "shortName": "Dr. C. Yang",
+      "audience": "Parents researching complex orthodontic needs; adults with prior relapse; research-driven, analytical decision-makers",
+      "coreStrategy": "Lead with expertise and precision. Position the new season as a smart, timely point to begin treatment planning. Focus on long-term outcomes, not seasonal convenience.",
+      "visualFocus": "Doctor-led visuals (consultation/explanation moments); clean clinical environments (warm, not cold); subtle credibility signals",
+      "doNotShow": "Playful/emotional/lifestyle-heavy imagery; kid-centric back-to-school cliches (buses, etc.); trendy/'fun' direction",
+      "V1": {
+        "headline": "Start the School Year With a Specialist's Plan",
+        "subhead": "Precision treatment planning and proven outcomes for complex cases.",
+        "cta": "Request a consultation"
+      },
+      "V2": {
+        "headline": "Begin Treatment This Season With Proven Expertise",
+        "subhead": "Credential-backed braces & Invisalign, precisely planned for lasting results.",
+        "cta": "Plan your treatment"
+      }
+    }
+  }
+}
