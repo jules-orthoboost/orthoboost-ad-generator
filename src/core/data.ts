@@ -47,6 +47,41 @@ export function loadCampaigns() {
   )
 }
 
+/** Persona-shared copy: headline/subhead/cta authored once per persona, per campaign.
+ * Keyed by `${campaignTheme}|${year}` (case-insensitive theme). Offers are intentionally
+ * NOT here — they are per-client (see brand kit / campaign content). */
+export interface PersonaCopyVersion {
+  headline?: string
+  subhead?: string
+  cta?: string
+}
+export interface CopyLibraryEntry {
+  campaignTheme: string
+  year: number
+  personas: Record<string, { V1?: PersonaCopyVersion; V2?: PersonaCopyVersion }>
+}
+const copyKey = (theme: string, year: number) => `${theme.trim().toLowerCase()}|${year}`
+
+export function loadCopyLibrary(): Record<string, CopyLibraryEntry> {
+  const files = import.meta.glob('/data/copy/*.json', { eager: true, import: 'default' })
+  const out: Record<string, CopyLibraryEntry> = {}
+  for (const raw of Object.values(files) as CopyLibraryEntry[]) {
+    out[copyKey(raw.campaignTheme, raw.year)] = raw
+  }
+  return out
+}
+
+/** Shared headline/subhead/cta for a persona on a campaign, or undefined if none authored. */
+export function sharedCopy(
+  lib: Record<string, CopyLibraryEntry>,
+  theme: string,
+  year: number,
+  personaSlug: string,
+  version: 'V1' | 'V2',
+): PersonaCopyVersion | undefined {
+  return lib[copyKey(theme, year)]?.personas?.[personaSlug]?.[version]
+}
+
 /** Served URLs for every photo in the committed library. */
 export function loadPhotoLibrary(): string[] {
   const files = import.meta.glob('/public/assets/photos/**/*.{svg,jpg,jpeg,png,webp}', {

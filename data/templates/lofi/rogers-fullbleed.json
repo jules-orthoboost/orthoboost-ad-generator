@@ -1,0 +1,42 @@
+{
+  "slug": "rogers-fullbleed",
+  "name": "Rogers Full Bleed",
+  "description": "Full-bleed client photo under a soft bottom scrim; logo top-center, then a centered headline, subhead, offer, and CTA over the lower third. Built for the Dr. M. Rogers family-community persona.",
+  "slots": ["headline", "subhead", "offer", "cta", "photo", "logo"],
+  "zones": {
+    "Story": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1920, "layer": 0 },
+      { "slot": "logo", "x": 417, "y": 80, "w": 246, "h": 90, "layer": 2 },
+      { "slot": "headline", "x": 80, "y": 1480, "w": 920, "h": 180, "layer": 1, "maxLines": 2 },
+      { "slot": "subhead", "x": 120, "y": 1660, "w": 840, "h": 70, "layer": 1, "maxLines": 2 },
+      { "slot": "offer", "x": 240, "y": 1720, "w": 600, "h": 56, "layer": 1 },
+      { "slot": "cta", "x": 348, "y": 1800, "w": 384, "h": 82, "layer": 2 }
+    ],
+    "Post": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1350, "layer": 0 },
+      { "slot": "logo", "x": 417, "y": 48, "w": 246, "h": 90, "layer": 2 },
+      { "slot": "headline", "x": 80, "y": 1000, "w": 920, "h": 140, "layer": 1, "maxLines": 2 },
+      { "slot": "subhead", "x": 120, "y": 1148, "w": 840, "h": 60, "layer": 1, "maxLines": 2 },
+      { "slot": "offer", "x": 240, "y": 1208, "w": 600, "h": 52, "layer": 1 },
+      { "slot": "cta", "x": 348, "y": 1258, "w": 384, "h": 82, "layer": 2 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+  },
+  "videoGrammar": {
+    "durationMs": 6000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 400, "slot": "logo", "effect": "fade-in" },
+      { "atMs": 800, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1250, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1650, "slot": "offer", "effect": "pop-in" },
+      { "atMs": 2050, "slot": "cta", "effect": "pop-in" }
+    ]
+  }
+}

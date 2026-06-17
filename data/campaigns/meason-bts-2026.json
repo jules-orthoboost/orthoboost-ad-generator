@@ -1,0 +1,22 @@
+{
+  "slug": "meason-bts-2026",
+  "clientSlug": "meason-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "rogers-photocard",
+  "versions": {
+    "V1": {
+      "content": {
+        "offer": "$200 OFF NEW BRACES · ALL AUGUST",
+        "photo": "assets/photos/back-to-school/classroom-warm.svg"
+      }
+    },
+    "V2": {
+      "content": {
+        "offer": "FREE TEEN INVISALIGN CONSULT",
+        "photo": "assets/photos/back-to-school/classroom-warm.svg"
+      }
+    }
+  }
+}

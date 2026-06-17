@@ -1,0 +1,22 @@
+{
+  "slug": "aloha-bts-2026",
+  "clientSlug": "aloha-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "rogers-photocard",
+  "versions": {
+    "V1": {
+      "content": {
+        "offer": "FREE BACK-TO-SCHOOL CONSULT",
+        "photo": "assets/photos/back-to-school/smile-portrait.svg"
+      }
+    },
+    "V2": {
+      "content": {
+        "offer": "$0 DOWN · EASY MONTHLY PLANS",
+        "photo": "assets/photos/back-to-school/smile-portrait.svg"
+      }
+    }
+  }
+}
