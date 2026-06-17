@@ -54,6 +54,7 @@ export interface PersonaCopyVersion {
   headline?: string
   subhead?: string
   cta?: string
+  disclaimer?: string
 }
 export interface CopyLibraryEntry {
   campaignTheme: string

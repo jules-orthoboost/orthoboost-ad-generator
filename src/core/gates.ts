@@ -44,7 +44,7 @@ export function templateGate(
   return result([])
 }
 
-export const COPY_SLOTS = ['headline', 'subhead', 'offer', 'cta', 'badge'] as const
+export const COPY_SLOTS = ['headline', 'subhead', 'offer', 'cta', 'disclaimer', 'badge'] as const
 
 // Representative preview font size per slot for the fit heuristic (px on the 1080 canvas).
 export const SLOT_FONT_PX: Record<string, number> = {
@@ -52,6 +52,7 @@ export const SLOT_FONT_PX: Record<string, number> = {
   subhead: 44,
   offer: 130,
   cta: 44,
+  disclaimer: 26,
   badge: 40,
 }
 

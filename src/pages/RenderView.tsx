@@ -65,6 +65,7 @@ export function RenderView() {
     headline: content.headline ?? shared?.headline,
     subhead: content.subhead ?? shared?.subhead,
     cta: content.cta ?? shared?.cta,
+    disclaimer: content.disclaimer ?? shared?.disclaimer,
   }
   const resolvedContent = {
     ...merged,

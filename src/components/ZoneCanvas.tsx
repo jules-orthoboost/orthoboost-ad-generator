@@ -7,6 +7,7 @@ export const SLOT_COLORS: Record<Slot, string> = {
   cta: '#38a169',
   logo: '#805ad5',
   offer: '#dd6b20',
+  disclaimer: '#94a3b8',
   badge: '#ed64a6',
 }
 
