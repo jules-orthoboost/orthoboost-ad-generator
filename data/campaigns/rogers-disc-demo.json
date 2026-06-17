@@ -1,0 +1,26 @@
+{
+  "slug": "rogers-disc-demo",
+  "clientSlug": "aloha-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "rogers-disc",
+  "versions": {
+    "V1": {
+      "content": {
+        "headline": "A smile they'll wear all year.",
+        "subhead": "Gentle braces & clear aligners for kids and teens, from a team that feels like family.",
+        "offer": "FREE BACK-TO-SCHOOL CONSULT",
+        "cta": "Book your free visit"
+      }
+    },
+    "V2": {
+      "content": {
+        "headline": "Big smiles, all year long.",
+        "subhead": "Comfortable, friendly orthodontic care for every age in the family.",
+        "offer": "FREE CHECK-UPS · ALL AUGUST",
+        "cta": "Book your free visit"
+      }
+    }
+  }
+}

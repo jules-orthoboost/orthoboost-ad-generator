@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { loadBrandKits, loadCampaigns, loadLofiTemplates, loadPersonas } from '../core/data'
+import { loadBrandKits, loadCampaigns, loadCopyLibrary, loadLofiTemplates, loadPersonas, sharedCopy } from '../core/data'
 import { resolveTokens } from '../core/tokens'
 import { resolveAsset } from '../core/assets'
 import { HIFI_TEMPLATES } from '../templates/hifi'
@@ -10,6 +10,7 @@ const campaigns = loadCampaigns()
 const kits = loadBrandKits()
 const personas = loadPersonas()
 const lofi = loadLofiTemplates()
+const copyLib = loadCopyLibrary()
 
 /**
  * Chrome-less, 1:1 render of a single deliverable, driven entirely by URL params.
@@ -55,10 +56,19 @@ export function RenderView() {
   const persona = personas[kit.personaSlug]
   const tokens = resolveTokens(persona, kit)
   const archetype = lofi[reg.manifest.archetype]
+  // Shared per-persona copy (headline/subhead/cta) wins; per-client content
+  // supplies the offer + photo (and may override copy if explicitly set).
   const content = campaign.versions[version].content
-  const resolvedContent = {
+  const shared = sharedCopy(copyLib, campaign.theme, campaign.year, kit.personaSlug, version)
+  const merged = {
     ...content,
-    photo: content.photo ? resolveAsset(content.photo) : undefined,
+    headline: content.headline ?? shared?.headline,
+    subhead: content.subhead ?? shared?.subhead,
+    cta: content.cta ?? shared?.cta,
+  }
+  const resolvedContent = {
+    ...merged,
+    photo: merged.photo ? resolveAsset(merged.photo) : undefined,
   }
 
   return (
