@@ -81,7 +81,10 @@ export function ExportStep({ draft, deps }: StepProps) {
         >
           Download batch config
         </button>
-        <span className="muted">Hand to the render harness for PNG/MP4 finals (foldered by persona).</span>
+        <span className="muted">
+          Then run <code>node harness/render-batch.mjs &lt;file&gt;</code> for PNG finals in{' '}
+          <code>out/{persona.slug}/</code>.
+        </span>
       </div>
 
       <h3>

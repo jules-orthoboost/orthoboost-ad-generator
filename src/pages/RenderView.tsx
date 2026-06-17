@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { loadBrandKits, loadCampaigns, loadCopyLibrary, loadLofiTemplates, loadPersonas, sharedCopy } from '../core/data'
 import { resolveTokens } from '../core/tokens'
 import { resolveAsset } from '../core/assets'
 import { HIFI_TEMPLATES } from '../templates/hifi'
 import { TemplateFrame } from '../templates/hifi/TemplateFrame'
-import type { SizeKey } from '../core/schemas'
+import type { SizeKey, SlotContent } from '../core/schemas'
 
 const campaigns = loadCampaigns()
 const kits = loadBrandKits()
@@ -12,27 +12,15 @@ const personas = loadPersonas()
 const lofi = loadLofiTemplates()
 const copyLib = loadCopyLibrary()
 
-/**
- * Chrome-less, 1:1 render of a single deliverable, driven entirely by URL params.
- * The harness navigates here per deliverable and screenshots `.render-root`.
- *
- *   /render?campaign=<slug>&version=V1&size=Story[&frame=N&fps=30][&reduced=1]
- */
-export function RenderView() {
-  const params = new URLSearchParams(window.location.search)
-  const campaignSlug = params.get('campaign') ?? ''
-  const version = (params.get('version') ?? 'V1') as 'V1' | 'V2'
-  const size = (params.get('size') ?? 'Story') as SizeKey
-  const frame = params.get('frame')
-  const fps = Number(params.get('fps') ?? '30')
-  const reduced = params.get('reduced') != null
-  const frameNowMs = frame != null ? (Number(frame) / fps) * 1000 : undefined
+const err = (msg: string) => (
+  <div className="render-root" style={{ padding: 40, fontFamily: 'monospace' }}>
+    {msg}
+  </div>
+)
 
-  const campaign = campaigns[campaignSlug]
-  const kit = campaign ? kits[campaign.clientSlug] : undefined
-  const reg = campaign ? HIFI_TEMPLATES[campaign.hifiTemplateSlug] : undefined
-
+const useRenderReady = (when: boolean) =>
   useEffect(() => {
+    if (!when) return
     let done = false
     const ready = () => {
       if (done) return
@@ -43,14 +31,64 @@ export function RenderView() {
     }
     if (document.fonts?.ready) document.fonts.ready.then(ready)
     else ready()
-  }, [])
+  }, [when])
+
+/**
+ * Chrome-less, 1:1 render of one deliverable, driven by URL params. The harness
+ * navigates here per deliverable and screenshots `.render-root`. Two modes:
+ *
+ *   campaign: /render?campaign=<slug>&version=V1&size=Story[&frame=N&fps=30][&reduced=1]
+ *   batch:    /render?batch=<served-url>&i=<index>[&frame=N&fps=30][&reduced=1]
+ */
+export function RenderView() {
+  const params = new URLSearchParams(window.location.search)
+  const frame = params.get('frame')
+  const fps = Number(params.get('fps') ?? '30')
+  const reduced = params.get('reduced') != null
+  const frameNowMs = frame != null ? (Number(frame) / fps) * 1000 : undefined
+  const batchUrl = params.get('batch')
+
+  if (batchUrl) {
+    return (
+      <BatchRender
+        batchUrl={batchUrl}
+        index={Number(params.get('i') ?? '0')}
+        frameNowMs={frameNowMs}
+        reduced={reduced}
+      />
+    )
+  }
+  return (
+    <CampaignRender
+      campaignSlug={params.get('campaign') ?? ''}
+      version={(params.get('version') ?? 'V1') as 'V1' | 'V2'}
+      size={(params.get('size') ?? 'Story') as SizeKey}
+      frameNowMs={frameNowMs}
+      reduced={reduced}
+    />
+  )
+}
+
+function CampaignRender({
+  campaignSlug,
+  version,
+  size,
+  frameNowMs,
+  reduced,
+}: {
+  campaignSlug: string
+  version: 'V1' | 'V2'
+  size: SizeKey
+  frameNowMs?: number
+  reduced: boolean
+}) {
+  const campaign = campaigns[campaignSlug]
+  const kit = campaign ? kits[campaign.clientSlug] : undefined
+  const reg = campaign ? HIFI_TEMPLATES[campaign.hifiTemplateSlug] : undefined
+  useRenderReady(true)
 
   if (!campaign || !kit || !reg) {
-    return (
-      <div className="render-root" style={{ padding: 40, fontFamily: 'monospace' }}>
-        Render error: missing {!campaign ? `campaign "${campaignSlug}"` : !kit ? 'brand kit' : 'template'}.
-      </div>
-    )
+    return err(`Render error: missing ${!campaign ? `campaign "${campaignSlug}"` : !kit ? 'brand kit' : 'template'}.`)
   }
 
   const persona = personas[kit.personaSlug]
@@ -67,10 +105,7 @@ export function RenderView() {
     cta: content.cta ?? shared?.cta,
     disclaimer: content.disclaimer ?? shared?.disclaimer,
   }
-  const resolvedContent = {
-    ...merged,
-    photo: merged.photo ? resolveAsset(merged.photo) : undefined,
-  }
+  const resolvedContent = { ...merged, photo: merged.photo ? resolveAsset(merged.photo) : undefined }
 
   return (
     <div className="render-root">
@@ -82,6 +117,72 @@ export function RenderView() {
           logoUrl={resolveAsset(tokens.logoPath)}
           beats={archetype.videoGrammar.beats}
           durationMs={archetype.videoGrammar.durationMs}
+          playing={frameNowMs !== undefined}
+          reducedMotion={reduced}
+          frameNowMs={frameNowMs}
+        />
+      </TemplateFrame>
+    </div>
+  )
+}
+
+interface BatchDeliverable {
+  name: string
+  brand: string
+  template: string
+  version: 'V1' | 'V2'
+  size: SizeKey
+  content: SlotContent
+}
+interface Batch {
+  persona: string
+  deliverables: BatchDeliverable[]
+}
+
+function BatchRender({
+  batchUrl,
+  index,
+  frameNowMs,
+  reduced,
+}: {
+  batchUrl: string
+  index: number
+  frameNowMs?: number
+  reduced: boolean
+}) {
+  const [batch, setBatch] = useState<Batch | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  useEffect(() => {
+    fetch(resolveAsset(batchUrl))
+      .then((r) => r.json())
+      .then((b: Batch) => setBatch(b))
+      .catch((e) => setError(String(e)))
+  }, [batchUrl])
+  useRenderReady(batch !== null || error !== null)
+
+  if (error) return err(`Batch error: ${error}`)
+  if (!batch) return <div className="render-root" />
+  const d = batch.deliverables[index]
+  if (!d) return err(`No deliverable at index ${index}`)
+  const kit = kits[d.brand]
+  const reg = HIFI_TEMPLATES[d.template]
+  if (!kit || !reg) return err(`Missing brand/template for ${d.name}`)
+
+  const persona = personas[kit.personaSlug]
+  const tokens = resolveTokens(persona, kit)
+  const grammar = lofi[reg.manifest.archetype].videoGrammar
+  const content = { ...d.content, photo: d.content.photo ? resolveAsset(d.content.photo) : undefined }
+
+  return (
+    <div className="render-root">
+      <TemplateFrame size={d.size} tokens={tokens}>
+        <reg.Component
+          size={d.size}
+          tokens={tokens}
+          content={content}
+          logoUrl={resolveAsset(tokens.logoPath)}
+          beats={grammar.beats}
+          durationMs={grammar.durationMs}
           playing={frameNowMs !== undefined}
           reducedMotion={reduced}
           frameNowMs={frameNowMs}
