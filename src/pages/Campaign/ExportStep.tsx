@@ -1,130 +1,112 @@
-import { useState } from 'react'
-import { CampaignSchema, type Campaign } from '../../core/schemas'
-import {
-  deliverableName,
-  type CreativeType,
-  type Size,
-  type Version,
-} from '../../core/naming'
-import { commitCampaign, downloadJson } from '../../core/persist'
+import { loadBrandKits } from '../../core/data'
+import { deliverableName, type Size, type Version } from '../../core/naming'
+import { HIFI_TEMPLATES } from '../../templates/hifi'
+import { resolveDraftContent } from '../../core/gates'
+import { DeliverablePreview } from './DeliverablePreview'
 import type { StepProps } from './CampaignBuilder'
 
-const TOKEN_KEY = 'ob_gh_token'
-const kebab = (s: string) =>
-  s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+const kits = loadBrandKits()
+const PREVIEW_CAP = 24
 
-function buildCampaign(draft: StepProps['draft']): Campaign {
-  const slug = kebab(`${draft.clientSlug}-${draft.theme}-${draft.year}`)
-  return CampaignSchema.parse({
-    slug,
-    clientSlug: draft.clientSlug,
-    adSetType: draft.adSetType,
-    theme: draft.theme,
-    year: draft.year,
-    hifiTemplateSlug: draft.hifiTemplateSlug,
-    versions: draft.versions,
-  })
+function download(name: string, data: unknown) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = name
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 export function ExportStep({ draft, deps }: StepProps) {
-  const [owner, setOwner] = useState('jules-orthoboost')
-  const [repo, setRepo] = useState('orthoboost-ad-generator')
-  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY) ?? '')
-  const [status, setStatus] = useState<string | null>(null)
-  const [busy, setBusy] = useState(false)
-
-  let campaign: Campaign | null = null
-  let error: string | null = null
-  try {
-    campaign = buildCampaign(draft)
-  } catch (e) {
-    error = e instanceof Error ? e.message : String(e)
+  const { persona, campaign, kits: selKits, templates } = deps
+  if (!persona || !campaign || selKits.length === 0 || templates.length === 0) {
+    return <p className="muted">Finish the earlier steps first.</p>
   }
 
-  if (!campaign) return <p className="cb-empty">Cannot build campaign: {error}</p>
+  const versions: Version[] = ['V1', 'V2']
+  const sizes: Size[] = ['Story', 'Post']
+  const total = selKits.length * templates.length * versions.length * sizes.length
 
-  const kit = deps.kit!
-  const names = (['V1', 'V2'] as Version[]).flatMap((version) =>
-    (['Story', 'Post'] as Size[]).flatMap((size) =>
-      (['Image', 'Video'] as CreativeType[]).map((creativeType) =>
-        deliverableName({
-          adSetType: campaign!.adSetType,
-          theme: campaign!.theme,
-          year: campaign!.year,
-          creativeType,
-          version,
-          size,
-          clientName: kit.clientName,
-        }),
-      ),
-    ),
+  // Live preview tiles: one per (brand × template) at V1 / Post.
+  const tiles = selKits.flatMap((kit) =>
+    templates.map((t) => ({ kit, templateSlug: t.manifest.slug })),
   )
 
-  const commit = async () => {
-    if (!token) {
-      setStatus('Enter a token first.')
-      return
-    }
-    localStorage.setItem(TOKEN_KEY, token)
-    setBusy(true)
-    setStatus('Committing…')
-    const r = await commitCampaign({ owner, repo, token }, campaign!)
-    setBusy(false)
-    setStatus(r.ok ? `Committed: ${r.url}` : `Failed: ${r.error}`)
-  }
+  const buildConfig = () => ({
+    persona: persona.slug,
+    campaign: {
+      slug: campaign.slug,
+      name: campaign.name,
+      year: campaign.year,
+      adSetType: campaign.adSetType,
+    },
+    animationStyle: draft.animationStyle ?? 'none',
+    deliverables: selKits.flatMap((kit) =>
+      templates.flatMap((t) =>
+        versions.flatMap((version) =>
+          sizes.map((size) => ({
+            name: deliverableName({
+              adSetType: campaign.adSetType,
+              theme: campaign.name,
+              year: campaign.year,
+              creativeType: 'Image',
+              version,
+              size,
+              clientName: kit.clientName,
+            }),
+            brand: kit.slug,
+            template: t.manifest.slug,
+            version,
+            size,
+            content: resolveDraftContent(draft, version, kit.slug),
+          })),
+        ),
+      ),
+    ),
+  })
 
   return (
     <div>
-      <h2>Export</h2>
+      <h2>Export — {persona.name}</h2>
       <p className="muted">
-        Campaign id: <code>{campaign.slug}</code>
+        {selKits.length} brands × {templates.length} templates × {versions.length} versions ×{' '}
+        {sizes.length} sizes = <strong>{total} deliverables</strong>, grouped under {persona.name}.
       </p>
 
-      <h3>8 deliverables</h3>
-      <ul className="cb-deliverables">
-        {names.map((n) => (
-          <li key={n}>
-            <code>{n}</code>
-          </li>
-        ))}
-      </ul>
-
       <div className="cb-export-actions">
-        <button className="cb-nav primary" onClick={() => downloadJson(campaign!)}>
-          Download campaign JSON
+        <button
+          className="cb-nav primary"
+          onClick={() => download(`${persona.slug}_${campaign.slug}_batch.json`, buildConfig())}
+        >
+          Download batch config
         </button>
+        <span className="muted">Hand to the render harness for PNG/MP4 finals (foldered by persona).</span>
       </div>
 
-      <details className="cb-commit">
-        <summary>Save to repo (optional)</summary>
-        <p className="muted">
-          Commits <code>data/campaigns/{campaign.slug}.json</code> via the GitHub API. The token is
-          stored only in this browser and never committed.
-        </p>
-        <div className="cb-form">
-          <label className="cb-field">
-            <span>Owner</span>
-            <input value={owner} onChange={(e) => setOwner(e.target.value)} />
-          </label>
-          <label className="cb-field">
-            <span>Repo</span>
-            <input value={repo} onChange={(e) => setRepo(e.target.value)} />
-          </label>
-          <label className="cb-field">
-            <span>Fine-grained token</span>
-            <input
-              type="password"
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
-              placeholder="github_pat_…"
+      <h3>
+        Preview · V1 / Post ({Math.min(tiles.length, PREVIEW_CAP)} of {tiles.length})
+      </h3>
+      <div className="cb-qa-grid">
+        {tiles.slice(0, PREVIEW_CAP).map(({ kit, templateSlug }) => (
+          <figure key={`${kit.slug}-${templateSlug}`} className="cb-qa-tile">
+            <DeliverablePreview
+              draft={draft}
+              kit={kits[kit.slug]}
+              templateSlug={templateSlug}
+              version="V1"
+              size="Post"
+              fitHeight={300}
             />
-          </label>
-          <button className="cb-nav" disabled={busy} onClick={commit}>
-            Commit to repo
-          </button>
-        </div>
-        {status && <p className="cb-status">{status}</p>}
-      </details>
+            <figcaption>
+              {kit.clientName} · {HIFI_TEMPLATES[templateSlug].manifest.name}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      {tiles.length > PREVIEW_CAP && (
+        <p className="muted">+{tiles.length - PREVIEW_CAP} more in the batch config.</p>
+      )}
     </div>
   )
 }

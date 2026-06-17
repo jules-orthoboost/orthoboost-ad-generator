@@ -1,5 +1,6 @@
-import type { BrandKit, HifiTemplateManifest, LofiTemplate, SizeKey, SlotContent } from './schemas'
+import type { LofiTemplate, SizeKey, SlotContent } from './schemas'
 import { estimateFit } from './fit'
+import type { PersonaCopyVersion } from './data'
 
 export interface GateResult {
   ok: boolean
@@ -7,43 +8,7 @@ export interface GateResult {
 }
 const result = (missing: string[]): GateResult => ({ ok: missing.length === 0, missing })
 
-export interface CampaignDraft {
-  clientSlug?: string
-  adSetType?: 'Seasonal' | 'Evergreen'
-  theme?: string
-  year?: number
-  hifiTemplateSlug?: string
-  versions: { V1: { content: SlotContent }; V2: { content: SlotContent } }
-}
-
-export function clientGate(kit?: BrandKit): GateResult {
-  if (!kit) return result(['Select a client'])
-  const missing: string[] = []
-  if (!kit.personaSlug) missing.push('Client has no persona assigned')
-  if (!kit.logo?.assetPath) missing.push('Client brand kit has no logo')
-  if (!kit.colors?.brand) missing.push('Client brand kit has no brand color')
-  return result(missing)
-}
-
-export function setupGate(s: { adSetType?: string; theme?: string; year?: number }): GateResult {
-  const missing: string[] = []
-  if (!s.adSetType) missing.push('Choose an ad set type')
-  if (!s.theme?.trim()) missing.push('Enter a theme')
-  if (!s.year) missing.push('Enter a year')
-  return result(missing)
-}
-
-export function templateGate(
-  manifest: HifiTemplateManifest | undefined,
-  kit?: BrandKit,
-): GateResult {
-  if (!manifest) return result(['Choose a template'])
-  if (kit && !manifest.suitedPersonas.includes(kit.personaSlug)) {
-    return result([`Template is not suited to the ${kit.personaSlug} persona`])
-  }
-  return result([])
-}
-
+// Copy slots a human types (logo/photo handled separately).
 export const COPY_SLOTS = ['headline', 'subhead', 'offer', 'cta', 'disclaimer', 'badge'] as const
 
 // Representative preview font size per slot for the fit heuristic (px on the 1080 canvas).
@@ -56,37 +21,85 @@ export const SLOT_FONT_PX: Record<string, number> = {
   badge: 40,
 }
 
-export function contentGate(
-  manifest: HifiTemplateManifest,
-  archetype: LofiTemplate,
-  versions: { V1: { content: SlotContent }; V2: { content: SlotContent } },
-): GateResult {
-  const missing: string[] = []
-  const copySlots = manifest.slots.filter((s): s is (typeof COPY_SLOTS)[number] =>
-    (COPY_SLOTS as readonly string[]).includes(s),
-  )
-  const needsPhoto = manifest.slots.includes('photo')
+export type Version = 'V1' | 'V2'
 
-  for (const v of ['V1', 'V2'] as const) {
-    const content = versions[v].content
-    if (needsPhoto && !content.photo) missing.push(`${v}: pick a photo`)
-    for (const slot of copySlots) {
-      const text = (content[slot] ?? '').trim()
-      if (!text) {
-        missing.push(`${v}: ${slot} is empty`)
-        continue
-      }
-      for (const size of ['Story', 'Post'] as SizeKey[]) {
-        const zone = archetype.zones[size].find((z) => z.slot === slot)
-        if (!zone) continue
-        const r = estimateFit({
-          text,
-          widthPx: zone.w,
-          fontSizePx: SLOT_FONT_PX[slot] ?? 48,
-          maxLines: zone.maxLines,
-        })
-        if (!r.fits) missing.push(`${v}: ${slot} is too long for ${size} (${r.lines} lines)`)
-      }
+/** Per-client, per-version data: the always-per-client offer + photo, plus an
+ * optional "make different" override of the otherwise-shared copy. */
+export interface PerClientVersion {
+  offer?: string
+  photo?: string
+  makeDifferent?: boolean
+  override?: PersonaCopyVersion // headline / subhead / cta / disclaimer
+}
+
+/** The whole linear-builder state: one persona, many brands, one campaign,
+ * many templates, shared copy, and per-client offer/photo/overrides. */
+export interface FlowDraft {
+  personaSlug?: string
+  brandSlugs: string[]
+  campaignSlug?: string
+  templateSlugs: string[]
+  shared: { V1: PersonaCopyVersion; V2: PersonaCopyVersion }
+  perClient: Record<string, { V1: PerClientVersion; V2: PerClientVersion }>
+  animationStyle?: string
+}
+
+export const emptyPerClient = (): { V1: PerClientVersion; V2: PerClientVersion } => ({
+  V1: {},
+  V2: {},
+})
+
+/** Final SlotContent for a (version, brand): shared copy, overridden when the
+ * client is "make different", plus that client's own offer + photo. */
+export function resolveDraftContent(draft: FlowDraft, version: Version, brandSlug: string): SlotContent {
+  const shared = draft.shared[version]
+  const pc = draft.perClient[brandSlug]?.[version] ?? {}
+  const ov = pc.makeDifferent ? pc.override ?? {} : {}
+  return {
+    headline: ov.headline ?? shared.headline,
+    subhead: ov.subhead ?? shared.subhead,
+    cta: ov.cta ?? shared.cta,
+    disclaimer: ov.disclaimer ?? shared.disclaimer,
+    offer: pc.offer,
+    photo: pc.photo,
+  }
+}
+
+/** First fit problem for a string against a set of archetypes, or null if it fits all. */
+export function fitProblem(text: string, archetypes: LofiTemplate[], slot: string): string | null {
+  if (!text.trim()) return null
+  for (const a of archetypes) {
+    for (const size of ['Story', 'Post'] as SizeKey[]) {
+      const zone = a.zones[size].find((z) => z.slot === slot)
+      if (!zone) continue
+      const r = estimateFit({
+        text,
+        widthPx: zone.w,
+        fontSizePx: SLOT_FONT_PX[slot] ?? 48,
+        maxLines: zone.maxLines,
+      })
+      if (!r.fits) return `too long for ${size} (${r.lines} lines)`
+    }
+  }
+  return null
+}
+
+// ---- step gates ----
+export const personaGate = (d: FlowDraft) => result(d.personaSlug ? [] : ['Select a persona'])
+export const brandsGate = (d: FlowDraft) =>
+  result(d.brandSlugs.length ? [] : ['Select at least one brand kit'])
+export const campaignGate = (d: FlowDraft) => result(d.campaignSlug ? [] : ['Select a campaign'])
+export const templatesGate = (d: FlowDraft) =>
+  result(d.templateSlugs.length ? [] : ['Select at least one template'])
+
+export function copyGate(d: FlowDraft): GateResult {
+  const missing: string[] = []
+  for (const v of ['V1', 'V2'] as Version[]) {
+    if (!d.shared[v].headline?.trim()) missing.push(`${v}: shared headline is empty`)
+  }
+  for (const b of d.brandSlugs) {
+    for (const v of ['V1', 'V2'] as Version[]) {
+      if (!d.perClient[b]?.[v]?.offer?.trim()) missing.push(`${b} · ${v}: offer is empty`)
     }
   }
   return result(missing)
