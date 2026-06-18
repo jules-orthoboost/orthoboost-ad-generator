@@ -1,37 +1,60 @@
+import { useState } from 'react'
+import { MOTION_PRESETS } from '../../templates/hifi/presets'
+import { loadBrandKits } from '../../core/data'
+import { DeliverablePreview } from './DeliverablePreview'
 import type { StepProps } from './CampaignBuilder'
 
-// Placeholder set — wired to real motion presets in a later phase.
-const STYLES = [
-  { id: 'gentle-rise', name: 'Gentle Rise', desc: 'Soft fade + rise, slow background drift' },
-  { id: 'pop-stagger', name: 'Pop Stagger', desc: 'Elements pop in one after another' },
-  { id: 'slide-in', name: 'Slide In', desc: 'Copy slides in from the side' },
-  { id: 'breathe', name: 'Breathe', desc: 'Calm scale pulse on the focal element' },
-  { id: 'ken-burns', name: 'Ken Burns', desc: 'Slow photo push-in under static copy' },
-  { id: 'none', name: 'Static', desc: 'No motion (image only)' },
-]
+const kits = loadBrandKits()
+const STYLES = Object.values(MOTION_PRESETS)
 
-export function AnimationStep({ draft, setDraft }: StepProps) {
+export function AnimationStep({ draft, setDraft, deps }: StepProps) {
+  const [playCount, setPlayCount] = useState(0)
+  const kit = deps.kits[0]
+  const template = draft.templateSlugs[0]
+  const current = draft.animationStyle ?? 'none'
+
+  const select = (id: string) => {
+    setDraft((d) => ({ ...d, animationStyle: id }))
+    setPlayCount((c) => c + 1)
+  }
+
   return (
     <div>
       <h2>Animation style</h2>
       <p className="muted">
-        Applies to every template and persona. Motion preview &amp; video export land in a later phase
-        — for now this records your choice.
+        Applies to every template and persona. Pick one and watch the preview — video export uses it.
       </p>
-      <div className="cb-cards">
-        {STYLES.map((s) => {
-          const active = draft.animationStyle === s.id
-          return (
-            <button
-              key={s.id}
-              className={`cb-card ${active ? 'active' : ''}`}
-              onClick={() => setDraft((d) => ({ ...d, animationStyle: s.id }))}
-            >
-              <strong>{s.name}</strong>
-              <span className="muted">{s.desc}</span>
+      <div className="cb-anim">
+        <div className="cb-cards">
+          {STYLES.map((s) => {
+            const active = current === s.id
+            return (
+              <button key={s.id} className={`cb-card ${active ? 'active' : ''}`} onClick={() => select(s.id)}>
+                <strong>{s.name}</strong>
+                <span className="muted">{Math.round(s.durationMs / 1000)}s</span>
+              </button>
+            )
+          })}
+        </div>
+        {kit && template ? (
+          <div className="cb-anim-preview">
+            <button className="cb-nav" onClick={() => setPlayCount((c) => c + 1)}>
+              ▶ Replay
             </button>
-          )
-        })}
+            <DeliverablePreview
+              key={`${current}-${playCount}`}
+              draft={draft}
+              kit={kits[kit.slug]}
+              templateSlug={template}
+              version="V1"
+              size="Post"
+              fitHeight={420}
+              playing
+            />
+          </div>
+        ) : (
+          <p className="muted">Pick brands + a template first to preview motion.</p>
+        )}
       </div>
     </div>
   )

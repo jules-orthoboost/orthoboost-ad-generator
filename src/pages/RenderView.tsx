@@ -4,6 +4,7 @@ import { resolveTokens } from '../core/tokens'
 import { resolveAsset } from '../core/assets'
 import { HIFI_TEMPLATES } from '../templates/hifi'
 import { TemplateFrame } from '../templates/hifi/TemplateFrame'
+import { applyPreset } from '../templates/hifi/presets'
 import type { SizeKey, SlotContent } from '../core/schemas'
 
 const campaigns = loadCampaigns()
@@ -136,6 +137,7 @@ interface BatchDeliverable {
 }
 interface Batch {
   persona: string
+  animationStyle?: string
   deliverables: BatchDeliverable[]
 }
 
@@ -171,6 +173,7 @@ function BatchRender({
   const persona = personas[kit.personaSlug]
   const tokens = resolveTokens(persona, kit)
   const grammar = lofi[reg.manifest.archetype].videoGrammar
+  const motion = applyPreset(grammar.beats, grammar.durationMs, batch.animationStyle)
   const content = { ...d.content, photo: d.content.photo ? resolveAsset(d.content.photo) : undefined }
 
   return (
@@ -181,8 +184,8 @@ function BatchRender({
           tokens={tokens}
           content={content}
           logoUrl={resolveAsset(tokens.logoPath)}
-          beats={grammar.beats}
-          durationMs={grammar.durationMs}
+          beats={motion.beats}
+          durationMs={motion.durationMs}
           playing={frameNowMs !== undefined}
           reducedMotion={reduced}
           frameNowMs={frameNowMs}
