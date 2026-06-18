@@ -1,1 +1,24 @@
-{"slug":"uptown-orthodontics","clientName":"Uptown Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#292766","ink":"#292766","accent":"#2ebfba"},"logo":{"assetPath":"assets/clients/uptown-orthodontics/logo.svg","aspect":3.68},"radius":20}
+{
+  "slug": "uptown-orthodontics",
+  "clientName": "Uptown Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#292766",
+    "ink": "#111418",
+    "accent": "#2ebfba"
+  },
+  "typography": {
+    "displayFont": "Roboto Slab",
+    "bodyFont": "Roboto"
+  },
+  "valueProps": [
+    "Same-day treatment starts",
+    "Free consultation",
+    "Most insurance accepted"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/uptown-orthodontics/logo.svg",
+    "aspect": 3.68
+  },
+  "radius": 20
+}

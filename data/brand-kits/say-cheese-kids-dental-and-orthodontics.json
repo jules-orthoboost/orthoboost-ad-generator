@@ -1,1 +1,14 @@
-{"slug":"say-cheese-kids-dental-and-orthodontics","clientName":"Say Cheese Kids Dental & Orthodontics","personaSlug":"dr-d-houser","colors":{"brand":"#4aa1c9","ink":"#2b2a28","accent":"#fac04b"},"logo":{"assetPath":"assets/clients/say-cheese-kids-dental-and-orthodontics/logo.svg","aspect":1.42},"radius":20}
+{
+  "slug": "say-cheese-kids-dental-and-orthodontics",
+  "clientName": "Say Cheese Kids Dental & Orthodontics",
+  "personaSlug": "dr-d-houser",
+  "colors": { "brand": "#4aa1c9", "ink": "#2b2a28", "accent": "#fac04b" },
+  "logo": { "assetPath": "assets/clients/say-cheese-kids-dental-and-orthodontics/logo.svg", "aspect": 1.42 },
+  "radius": 20,
+  "typography": { "displayFont": "Fredoka", "bodyFont": "Fredoka" },
+  "valueProps": [
+    "Complimentary ortho exam",
+    "After-school appointments available",
+    "Special-needs friendly care"
+  ]
+}

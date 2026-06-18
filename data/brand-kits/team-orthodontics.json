@@ -1,1 +1,24 @@
-{"slug":"team-orthodontics","clientName":"Team Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#272b62","ink":"#222222","accent":"#e53d2e"},"logo":{"assetPath":"assets/clients/team-orthodontics/logo.svg","aspect":3.48},"radius":20}
+{
+  "slug": "team-orthodontics",
+  "clientName": "Team Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#272b62",
+    "ink": "#222222",
+    "accent": "#e53d2e"
+  },
+  "typography": {
+    "displayFont": "Figtree",
+    "bodyFont": "Figtree"
+  },
+  "valueProps": [
+    "Board-certified orthodontist",
+    "Free school shuttle service",
+    "Open Saturdays & after school"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/team-orthodontics/logo.svg",
+    "aspect": 3.48
+  },
+  "radius": 20
+}

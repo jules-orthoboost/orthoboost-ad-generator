@@ -1,1 +1,24 @@
-{"slug":"chang-orthodontics","clientName":"Chang Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#005daa","ink":"#0d0d0d","accent":"#c1e4ea"},"logo":{"assetPath":"assets/clients/chang-orthodontics/logo.svg","aspect":2.49},"radius":20}
+{
+  "slug": "chang-orthodontics",
+  "clientName": "Chang Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#005daa",
+    "ink": "#0d0d0d",
+    "accent": "#c1e4ea"
+  },
+  "typography": {
+    "displayFont": "Montserrat",
+    "bodyFont": "Merriweather Sans"
+  },
+  "valueProps": [
+    "After-school appointments",
+    "Platinum Plus Invisalign Provider",
+    "Personalized, board-certified care"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/chang-orthodontics/logo.svg",
+    "aspect": 2.49
+  },
+  "radius": 20
+}

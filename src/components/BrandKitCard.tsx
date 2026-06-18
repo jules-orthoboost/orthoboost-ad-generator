@@ -51,6 +51,17 @@ export function BrandKitCard({ kit, persona }: Props) {
         <dd>{tokens.radius}px</dd>
       </dl>
 
+      {kit.valueProps && kit.valueProps.length > 0 && (
+        <>
+          <h3>Value props</h3>
+          <ul className="bk-valueprops">
+            {kit.valueProps.map((v) => (
+              <li key={v}>{v}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
       {kit.donts && kit.donts.length > 0 && (
         <>
           <h3>Client don&apos;ts</h3>

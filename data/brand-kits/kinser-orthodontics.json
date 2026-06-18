@@ -1,1 +1,24 @@
-{"slug":"kinser-orthodontics","clientName":"Kinser Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#546770","ink":"#000000","accent":"#1594c8"},"logo":{"assetPath":"assets/clients/kinser-orthodontics/logo.svg","aspect":2.29},"radius":20}
+{
+  "slug": "kinser-orthodontics",
+  "clientName": "Kinser Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#546770",
+    "ink": "#000000",
+    "accent": "#1594c8"
+  },
+  "typography": {
+    "displayFont": "Proxima Nova",
+    "bodyFont": "Proxima Nova"
+  },
+  "valueProps": [
+    "Interest-free payment plans",
+    "Free orthodontic exam",
+    "One-year satisfaction guarantee"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/kinser-orthodontics/logo.svg",
+    "aspect": 2.29
+  },
+  "radius": 20
+}

@@ -1,1 +1,24 @@
-{"slug":"wilson-orthodontics","clientName":"Wilson Orthodontics","personaSlug":"dr-c-yang","colors":{"brand":"#174d6f","ink":"#000000","accent":"#00aeef"},"logo":{"assetPath":"assets/clients/wilson-orthodontics/logo.svg","aspect":2.85},"radius":20}
+{
+  "slug": "wilson-orthodontics",
+  "clientName": "Wilson Orthodontics",
+  "personaSlug": "dr-c-yang",
+  "colors": {
+    "brand": "#174d6f",
+    "ink": "#000000",
+    "accent": "#00aeef"
+  },
+  "typography": {
+    "displayFont": "Montserrat",
+    "bodyFont": "Poppins"
+  },
+  "valueProps": [
+    "Family-owned, locally trusted",
+    "Custom digital treatment",
+    "Complimentary consultation"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/wilson-orthodontics/logo.svg",
+    "aspect": 2.85
+  },
+  "radius": 20
+}

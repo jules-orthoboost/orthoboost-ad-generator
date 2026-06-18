@@ -108,6 +108,8 @@ export const BrandKitSchema = z.object({
   }),
   radius: z.number().int().min(0).optional(),
   donts: z.array(z.string()).optional(),
+  // Exactly three short benefit phrases sourced from the client (Notion USPs + website).
+  valueProps: z.array(z.string().min(1)).length(3).optional(),
 })
 export type BrandKit = z.infer<typeof BrandKitSchema>
 
