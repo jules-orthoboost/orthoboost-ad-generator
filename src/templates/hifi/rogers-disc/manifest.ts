@@ -5,5 +5,5 @@ export const manifest: HifiTemplateManifest = {
   name: 'Rogers Disc',
   archetype: 'rogers-disc',
   suitedPersonas: ['dr-m-rogers'],
-  slots: ['headline', 'subhead', 'offer', 'cta', 'logo'],
+  slots: ['headline', 'subhead', 'offer', 'cta', 'disclaimer', 'logo'],
 }

@@ -5,5 +5,5 @@ export const manifest: HifiTemplateManifest = {
   name: 'Rogers Photo Card',
   archetype: 'rogers-photocard',
   suitedPersonas: ['dr-m-rogers'],
-  slots: ['headline', 'subhead', 'offer', 'cta', 'photo', 'logo'],
+  slots: ['headline', 'subhead', 'offer', 'cta', 'disclaimer', 'photo', 'logo'],
 }

@@ -2,28 +2,148 @@
   "slug": "rogers-photocard",
   "name": "Rogers Photo Card",
   "description": "A rounded photo card up top carrying the client's image, then a left-aligned headline, subhead, offer, and CTA on a warm ground; logo chip on the card. Built for the Dr. M. Rogers family-community persona.",
-  "slots": ["headline", "subhead", "offer", "cta", "photo", "logo"],
+  "slots": [
+    "headline",
+    "subhead",
+    "offer",
+    "cta",
+    "photo",
+    "logo",
+    "disclaimer"
+  ],
   "zones": {
     "Story": [
-      { "slot": "photo", "x": 64, "y": 120, "w": 952, "h": 900, "layer": 0 },
-      { "slot": "logo", "x": 96, "y": 152, "w": 246, "h": 90, "layer": 2 },
-      { "slot": "headline", "x": 96, "y": 1180, "w": 900, "h": 200, "layer": 1, "maxLines": 2 },
-      { "slot": "subhead", "x": 96, "y": 1380, "w": 840, "h": 90, "layer": 1, "maxLines": 2 },
-      { "slot": "offer", "x": 96, "y": 1480, "w": 600, "h": 56, "layer": 1 },
-      { "slot": "cta", "x": 96, "y": 1576, "w": 384, "h": 82, "layer": 2 }
+      {
+        "slot": "photo",
+        "x": 64,
+        "y": 120,
+        "w": 952,
+        "h": 900,
+        "layer": 0
+      },
+      {
+        "slot": "logo",
+        "x": 96,
+        "y": 152,
+        "w": 246,
+        "h": 90,
+        "layer": 2
+      },
+      {
+        "slot": "headline",
+        "x": 96,
+        "y": 1180,
+        "w": 900,
+        "h": 200,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "subhead",
+        "x": 96,
+        "y": 1380,
+        "w": 840,
+        "h": 90,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "offer",
+        "x": 96,
+        "y": 1480,
+        "w": 600,
+        "h": 56,
+        "layer": 1
+      },
+      {
+        "slot": "cta",
+        "x": 96,
+        "y": 1576,
+        "w": 384,
+        "h": 82,
+        "layer": 2
+      },
+      {
+        "slot": "disclaimer",
+        "x": 96,
+        "y": 1686,
+        "w": 900,
+        "h": 42,
+        "layer": 1
+      }
     ],
     "Post": [
-      { "slot": "photo", "x": 64, "y": 56, "w": 952, "h": 624, "layer": 0 },
-      { "slot": "logo", "x": 88, "y": 80, "w": 246, "h": 90, "layer": 2 },
-      { "slot": "headline", "x": 88, "y": 800, "w": 880, "h": 160, "layer": 1, "maxLines": 2 },
-      { "slot": "subhead", "x": 88, "y": 980, "w": 820, "h": 80, "layer": 1, "maxLines": 2 },
-      { "slot": "offer", "x": 88, "y": 1080, "w": 560, "h": 52, "layer": 1 },
-      { "slot": "cta", "x": 88, "y": 1150, "w": 384, "h": 82, "layer": 2 }
+      {
+        "slot": "photo",
+        "x": 64,
+        "y": 56,
+        "w": 952,
+        "h": 624,
+        "layer": 0
+      },
+      {
+        "slot": "logo",
+        "x": 88,
+        "y": 80,
+        "w": 246,
+        "h": 90,
+        "layer": 2
+      },
+      {
+        "slot": "headline",
+        "x": 88,
+        "y": 800,
+        "w": 880,
+        "h": 160,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "subhead",
+        "x": 88,
+        "y": 980,
+        "w": 820,
+        "h": 80,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "offer",
+        "x": 88,
+        "y": 1080,
+        "w": 560,
+        "h": 52,
+        "layer": 1
+      },
+      {
+        "slot": "cta",
+        "x": 88,
+        "y": 1150,
+        "w": 384,
+        "h": 82,
+        "layer": 2
+      },
+      {
+        "slot": "disclaimer",
+        "x": 88,
+        "y": 1288,
+        "w": 880,
+        "h": 38,
+        "layer": 1
+      }
     ]
   },
   "placement": {
-    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
-    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+    "Story": {
+      "safeTop": 250,
+      "safeBottom": 340,
+      "margin": 64
+    },
+    "Post": {
+      "safeTop": 0,
+      "safeBottom": 0,
+      "margin": 64
+    }
   },
   "videoGrammar": {
     "durationMs": 6000,
@@ -31,12 +151,41 @@
     "loop": true,
     "reducedMotion": "static",
     "beats": [
-      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
-      { "atMs": 400, "slot": "logo", "effect": "fade-in" },
-      { "atMs": 800, "slot": "headline", "effect": "rise-in" },
-      { "atMs": 1250, "slot": "subhead", "effect": "rise-in" },
-      { "atMs": 1650, "slot": "offer", "effect": "pop-in" },
-      { "atMs": 2050, "slot": "cta", "effect": "pop-in" }
+      {
+        "atMs": 0,
+        "slot": "photo",
+        "effect": "fade-in"
+      },
+      {
+        "atMs": 400,
+        "slot": "logo",
+        "effect": "fade-in"
+      },
+      {
+        "atMs": 800,
+        "slot": "headline",
+        "effect": "rise-in"
+      },
+      {
+        "atMs": 1250,
+        "slot": "subhead",
+        "effect": "rise-in"
+      },
+      {
+        "atMs": 1650,
+        "slot": "offer",
+        "effect": "pop-in"
+      },
+      {
+        "atMs": 2050,
+        "slot": "cta",
+        "effect": "pop-in"
+      },
+      {
+        "atMs": 2300,
+        "slot": "disclaimer",
+        "effect": "fade-in"
+      }
     ]
   }
 }

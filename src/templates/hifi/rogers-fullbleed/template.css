@@ -87,16 +87,20 @@
 .rf-Post .rf-logochip { left: 417px; top: 48px; width: 246px; height: 90px; }
 .rf-Post .rf-headline { left: 80px; width: 920px; top: 1000px; font-size: 64px; }
 .rf-Post .rf-subhead { left: 120px; width: 840px; top: 1132px; font-size: 25px; }
-.rf-Post .rf-offer-row { top: 1208px; }
-.rf-Post .rf-cta-row { top: 1262px; }
+.rf-Post .rf-offer-row { top: 1184px; }
+.rf-Post .rf-cta-row { top: 1240px; }
 .rf-Post .rf-offer { padding: 14px 34px; font-size: 22px; }
 .rf-Post .rf-cta { padding: 24px 50px; font-size: 29px; }
+.rf-Post .rf-disclaimer { top: 1314px; font-size: 18px; }
 
 /* ============ STORY (1080x1920) ============ */
 .rf-Story .rf-logochip { left: 417px; top: 80px; width: 246px; height: 90px; }
 .rf-Story .rf-headline { left: 80px; width: 920px; top: 1500px; font-size: 76px; }
 .rf-Story .rf-subhead { left: 120px; width: 840px; top: 1644px; font-size: 28px; }
-.rf-Story .rf-offer-row { top: 1724px; }
-.rf-Story .rf-cta-row { top: 1808px; }
+.rf-Story .rf-offer-row { top: 1700px; }
+.rf-Story .rf-cta-row { top: 1788px; }
 .rf-Story .rf-offer { padding: 16px 40px; font-size: 24px; }
 .rf-Story .rf-cta { padding: 26px 54px; font-size: 30px; }
+.rf-Story .rf-disclaimer { top: 1874px; font-size: 19px; }
+
+.rf-disclaimer { position: absolute; left: 80px; width: 920px; margin: 0; text-align: center; font-weight: 600; color: rgba(255, 255, 255, 0.78); }

@@ -1,46 +1,50 @@
 import { useMemo, useState } from 'react'
-import { loadBrandKits, loadLofiTemplates } from '../../core/data'
+import { loadBrandKits, loadCampaignThemes, loadLofiTemplates, loadPersonas } from '../../core/data'
 import { HIFI_TEMPLATES } from '../../templates/hifi'
-import type { CampaignDraft } from '../../core/gates'
+import type { FlowDraft } from '../../core/gates'
 import { STEP_IDS, STEP_TITLES, gateFor, type StepDeps } from './steps'
-import { ClientStep } from './ClientStep'
-import { SetupStep } from './SetupStep'
-import { TemplateStep } from './TemplateStep'
-import { ContentStep } from './ContentStep'
-import { PreviewStep } from './PreviewStep'
-import { SiteStep } from './SiteStep'
+import { PersonaStep } from './PersonaStep'
+import { BrandsStep } from './BrandsStep'
+import { CampaignStep } from './CampaignStep'
+import { TemplatesStep } from './TemplatesStep'
+import { CopyStep } from './CopyStep'
+import { AnimationStep } from './AnimationStep'
 import { ExportStep } from './ExportStep'
 
 const kits = loadBrandKits()
+const personas = loadPersonas()
 const lofi = loadLofiTemplates()
+const campaigns = loadCampaignThemes()
 
 export interface StepProps {
-  draft: CampaignDraft
-  setDraft: React.Dispatch<React.SetStateAction<CampaignDraft>>
+  draft: FlowDraft
+  setDraft: React.Dispatch<React.SetStateAction<FlowDraft>>
   deps: StepDeps
 }
 
-const emptyDraft = (): CampaignDraft => ({
-  versions: { V1: { content: {} }, V2: { content: {} } },
+const emptyDraft = (): FlowDraft => ({
+  brandSlugs: [],
+  templateSlugs: [],
+  shared: { V1: {}, V2: {} },
+  perClient: {},
 })
 
 export function CampaignBuilder() {
-  const [draft, setDraft] = useState<CampaignDraft>(emptyDraft)
+  const [draft, setDraft] = useState<FlowDraft>(emptyDraft)
   const [index, setIndex] = useState(0)
 
   const deps: StepDeps = useMemo(() => {
-    const kit = draft.clientSlug ? kits[draft.clientSlug] : undefined
-    const reg = draft.hifiTemplateSlug ? HIFI_TEMPLATES[draft.hifiTemplateSlug] : undefined
-    const manifest = reg?.manifest
-    const archetype = manifest ? lofi[manifest.archetype] : undefined
-    return { kit, manifest, archetype }
-  }, [draft.clientSlug, draft.hifiTemplateSlug])
+    const persona = draft.personaSlug ? personas[draft.personaSlug] : undefined
+    const selKits = draft.brandSlugs.map((s) => kits[s]).filter(Boolean)
+    const campaign = draft.campaignSlug ? campaigns[draft.campaignSlug] : undefined
+    const templates = draft.templateSlugs.map((s) => HIFI_TEMPLATES[s]).filter(Boolean)
+    const archetypes = templates.map((t) => lofi[t.manifest.archetype]).filter(Boolean)
+    return { persona, kits: selKits, campaign, templates, archetypes }
+  }, [draft.personaSlug, draft.brandSlugs, draft.campaignSlug, draft.templateSlugs])
 
-  const gates = STEP_IDS.map((id) => gateFor(id, draft, deps))
+  const gates = STEP_IDS.map((id) => gateFor(id, draft))
   const currentId = STEP_IDS[index]
   const currentGate = gates[index]
-
-  // A step is reachable once every earlier step's gate passes.
   const reachable = (i: number) => gates.slice(0, i).every((g) => g.ok)
 
   const stepProps: StepProps = { draft, setDraft, deps }
@@ -52,11 +56,7 @@ export function CampaignBuilder() {
           const state = i === index ? 'current' : gates[i].ok ? 'done' : reachable(i) ? 'open' : 'locked'
           return (
             <li key={id}>
-              <button
-                className={`cb-step ${state}`}
-                disabled={!reachable(i)}
-                onClick={() => setIndex(i)}
-              >
+              <button className={`cb-step ${state}`} disabled={!reachable(i)} onClick={() => setIndex(i)}>
                 <span className="cb-num">{i + 1}</span>
                 {STEP_TITLES[id]}
               </button>
@@ -66,12 +66,12 @@ export function CampaignBuilder() {
       </ol>
 
       <section className="cb-body">
-        {currentId === 'client' && <ClientStep {...stepProps} />}
-        {currentId === 'setup' && <SetupStep {...stepProps} />}
-        {currentId === 'template' && <TemplateStep {...stepProps} />}
-        {currentId === 'content' && <ContentStep {...stepProps} />}
-        {currentId === 'preview' && <PreviewStep {...stepProps} />}
-        {currentId === 'site' && <SiteStep {...stepProps} />}
+        {currentId === 'persona' && <PersonaStep {...stepProps} />}
+        {currentId === 'brands' && <BrandsStep {...stepProps} />}
+        {currentId === 'campaign' && <CampaignStep {...stepProps} />}
+        {currentId === 'templates' && <TemplatesStep {...stepProps} />}
+        {currentId === 'copy' && <CopyStep {...stepProps} />}
+        {currentId === 'animation' && <AnimationStep {...stepProps} />}
         {currentId === 'export' && <ExportStep {...stepProps} />}
 
         <footer className="cb-foot">
@@ -80,9 +80,10 @@ export function CampaignBuilder() {
           </button>
           {!currentGate.ok && (
             <ul className="cb-missing">
-              {currentGate.missing.map((m) => (
+              {currentGate.missing.slice(0, 4).map((m) => (
                 <li key={m}>{m}</li>
               ))}
+              {currentGate.missing.length > 4 && <li>+{currentGate.missing.length - 4} more…</li>}
             </ul>
           )}
           <button

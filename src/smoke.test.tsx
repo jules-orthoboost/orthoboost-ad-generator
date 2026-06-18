@@ -20,7 +20,7 @@ describe('app smoke', () => {
 
   it('renders the campaign builder on its first step', () => {
     const html = renderToString(<CampaignBuilder />).replace(/<!-- -->/g, '')
-    expect(html).toContain('Choose a client')
+    expect(html).toContain('Select a persona')
   })
 })
 

@@ -2,26 +2,131 @@
   "slug": "rogers-disc",
   "name": "Rogers Disc",
   "description": "Centered brand disc (accent fill, brand-color ring) with a sparkle accent, over a warm ground; headline, subhead, an offer badge, and a CTA stack below. Photo-free — the disc is a solid color. Built for the Dr. M. Rogers family-community persona.",
-  "slots": ["headline", "subhead", "offer", "cta", "logo"],
+  "slots": [
+    "headline",
+    "subhead",
+    "offer",
+    "cta",
+    "logo",
+    "disclaimer"
+  ],
   "zones": {
     "Story": [
-      { "slot": "logo", "x": 417, "y": 130, "w": 246, "h": 90, "layer": 2 },
-      { "slot": "headline", "x": 80, "y": 1140, "w": 920, "h": 220, "layer": 1, "maxLines": 2 },
-      { "slot": "subhead", "x": 120, "y": 1380, "w": 840, "h": 90, "layer": 1, "maxLines": 2 },
-      { "slot": "offer", "x": 240, "y": 1456, "w": 600, "h": 56, "layer": 1 },
-      { "slot": "cta", "x": 348, "y": 1560, "w": 384, "h": 82, "layer": 2 }
+      {
+        "slot": "logo",
+        "x": 417,
+        "y": 130,
+        "w": 246,
+        "h": 90,
+        "layer": 2
+      },
+      {
+        "slot": "headline",
+        "x": 80,
+        "y": 1140,
+        "w": 920,
+        "h": 220,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "subhead",
+        "x": 120,
+        "y": 1380,
+        "w": 840,
+        "h": 90,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "offer",
+        "x": 240,
+        "y": 1456,
+        "w": 600,
+        "h": 56,
+        "layer": 1
+      },
+      {
+        "slot": "cta",
+        "x": 348,
+        "y": 1560,
+        "w": 384,
+        "h": 82,
+        "layer": 2
+      },
+      {
+        "slot": "disclaimer",
+        "x": 80,
+        "y": 1694,
+        "w": 920,
+        "h": 42,
+        "layer": 1
+      }
     ],
     "Post": [
-      { "slot": "logo", "x": 417, "y": 48, "w": 246, "h": 90, "layer": 2 },
-      { "slot": "headline", "x": 80, "y": 800, "w": 920, "h": 180, "layer": 1, "maxLines": 2 },
-      { "slot": "subhead", "x": 120, "y": 990, "w": 840, "h": 80, "layer": 1, "maxLines": 2 },
-      { "slot": "offer", "x": 240, "y": 1064, "w": 600, "h": 52, "layer": 1 },
-      { "slot": "cta", "x": 348, "y": 1130, "w": 384, "h": 82, "layer": 2 }
+      {
+        "slot": "logo",
+        "x": 417,
+        "y": 48,
+        "w": 246,
+        "h": 90,
+        "layer": 2
+      },
+      {
+        "slot": "headline",
+        "x": 80,
+        "y": 800,
+        "w": 920,
+        "h": 180,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "subhead",
+        "x": 120,
+        "y": 990,
+        "w": 840,
+        "h": 80,
+        "layer": 1,
+        "maxLines": 2
+      },
+      {
+        "slot": "offer",
+        "x": 240,
+        "y": 1064,
+        "w": 600,
+        "h": 52,
+        "layer": 1
+      },
+      {
+        "slot": "cta",
+        "x": 348,
+        "y": 1130,
+        "w": 384,
+        "h": 82,
+        "layer": 2
+      },
+      {
+        "slot": "disclaimer",
+        "x": 80,
+        "y": 1294,
+        "w": 920,
+        "h": 38,
+        "layer": 1
+      }
     ]
   },
   "placement": {
-    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
-    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+    "Story": {
+      "safeTop": 250,
+      "safeBottom": 340,
+      "margin": 64
+    },
+    "Post": {
+      "safeTop": 0,
+      "safeBottom": 0,
+      "margin": 64
+    }
   },
   "videoGrammar": {
     "durationMs": 6000,
@@ -29,11 +134,36 @@
     "loop": true,
     "reducedMotion": "static",
     "beats": [
-      { "atMs": 300, "slot": "logo", "effect": "fade-in" },
-      { "atMs": 700, "slot": "headline", "effect": "rise-in" },
-      { "atMs": 1150, "slot": "subhead", "effect": "rise-in" },
-      { "atMs": 1550, "slot": "offer", "effect": "pop-in" },
-      { "atMs": 1950, "slot": "cta", "effect": "pop-in" }
+      {
+        "atMs": 300,
+        "slot": "logo",
+        "effect": "fade-in"
+      },
+      {
+        "atMs": 700,
+        "slot": "headline",
+        "effect": "rise-in"
+      },
+      {
+        "atMs": 1150,
+        "slot": "subhead",
+        "effect": "rise-in"
+      },
+      {
+        "atMs": 1550,
+        "slot": "offer",
+        "effect": "pop-in"
+      },
+      {
+        "atMs": 1950,
+        "slot": "cta",
+        "effect": "pop-in"
+      },
+      {
+        "atMs": 2300,
+        "slot": "disclaimer",
+        "effect": "fade-in"
+      }
     ]
   }
 }

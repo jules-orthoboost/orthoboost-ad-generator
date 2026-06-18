@@ -51,6 +51,11 @@ export const Component: HifiTemplateComponent = ({
           {content.cta}
         </span>
       )}
+      {content.disclaimer && (
+        <p className="rp-disclaimer" style={sty('disclaimer', 'fade-in')}>
+          {content.disclaimer}
+        </p>
+      )}
     </div>
   )
 }

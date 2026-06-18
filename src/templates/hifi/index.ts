@@ -17,3 +17,13 @@ export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [rogersPhotocardManifest.slug]: { manifest: rogersPhotocardManifest, Component: RogersPhotocardComponent },
   [rogersFullbleedManifest.slug]: { manifest: rogersFullbleedManifest, Component: RogersFullbleedComponent },
 }
+
+/** Templates for a persona, optionally gated by campaign.
+ * A template with no `suitedCampaigns` is evergreen (fits any campaign). */
+export function templatesFor(personaSlug: string, campaignSlug?: string): RegisteredTemplate[] {
+  return Object.values(HIFI_TEMPLATES).filter(({ manifest }) => {
+    if (!manifest.suitedPersonas.includes(personaSlug)) return false
+    if (!campaignSlug || !manifest.suitedCampaigns) return true
+    return manifest.suitedCampaigns.includes(campaignSlug)
+  })
+}
