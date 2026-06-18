@@ -1,1 +1,26 @@
-{"slug":"downtown-orthodontics","clientName":"Downtown Orthodontics","personaSlug":"dr-c-yang","colors":{"brand":"#ccdbe7","ink":"#010101","accent":"#313131"},"logo":{"assetPath":"assets/clients/downtown-orthodontics/logo.svg","aspect":2.8},"radius":20}
+{
+  "slug": "downtown-orthodontics",
+  "clientName": "Downtown Orthodontics",
+  "personaSlug": "dr-c-yang",
+  "colors": {
+    "brand": "#ccdbe7",
+    "ink": "#010101",
+    "accent": "#ffbc7d",
+    "surface": "#ffffff",
+    "onBrand": "#111418"
+  },
+  "typography": {
+    "displayFont": "Roboto Slab",
+    "bodyFont": "Nunito"
+  },
+  "valueProps": [
+    "In-house, no interest",
+    "5% pay-in-full discount",
+    "$450 off same-day starts"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/downtown-orthodontics/logo.svg",
+    "aspect": 2.8
+  },
+  "radius": 20
+}

@@ -1,1 +1,24 @@
-{"slug":"signature-orthodontics","clientName":"Signature Orthodontics","personaSlug":"dr-m-rogers","colors":{"brand":"#c69935","ink":"#000000","accent":"#d6aa42"},"logo":{"assetPath":"assets/clients/signature-orthodontics/logo.svg","aspect":2.57},"radius":20}
+{
+  "slug": "signature-orthodontics",
+  "clientName": "Signature Orthodontics",
+  "personaSlug": "dr-m-rogers",
+  "colors": {
+    "brand": "#0170b9",
+    "ink": "#3a3a3a",
+    "accent": "#01aed9"
+  },
+  "typography": {
+    "displayFont": "Open Sans",
+    "bodyFont": "Open Sans"
+  },
+  "valueProps": [
+    "100% free consultation",
+    "Board-certified orthodontist",
+    "Same-day braces bonding"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/signature-orthodontics/logo.svg",
+    "aspect": 2.57
+  },
+  "radius": 20
+}

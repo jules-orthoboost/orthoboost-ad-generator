@@ -1,1 +1,24 @@
-{"slug":"virginia-biological-dentistry","clientName":"Virginia Biological Dentistry","personaSlug":"dr-v-frizzle","colors":{"brand":"#84650D","ink":"#84650D","accent":"#BD8B1A"},"logo":{"assetPath":"assets/clients/virginia-biological-dentistry/logo.svg","aspect":2.08},"radius":20}
+{
+  "slug": "virginia-biological-dentistry",
+  "clientName": "Virginia Biological Dentistry",
+  "personaSlug": "dr-v-frizzle",
+  "colors": {
+    "brand": "#84650D",
+    "ink": "#111418",
+    "accent": "#BD8B1A"
+  },
+  "typography": {
+    "displayFont": "Figtree",
+    "bodyFont": "Poppins"
+  },
+  "valueProps": [
+    "Small practice, personal care",
+    "Same-day crowns",
+    "Safe mercury filling removal"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/virginia-biological-dentistry/logo.svg",
+    "aspect": 2.08
+  },
+  "radius": 20
+}

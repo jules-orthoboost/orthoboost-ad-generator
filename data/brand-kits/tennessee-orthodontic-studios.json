@@ -1,1 +1,24 @@
-{"slug":"tennessee-orthodontic-studios","clientName":"Tennessee Orthodontic Studios","personaSlug":"dr-m-rogers","colors":{"brand":"#1c4656","ink":"#121719","accent":"#18657c"},"logo":{"assetPath":"assets/clients/tennessee-orthodontic-studios/logo.svg","aspect":4.17},"radius":20}
+{
+  "slug": "tennessee-orthodontic-studios",
+  "clientName": "Tennessee Orthodontic Studios",
+  "personaSlug": "dr-m-rogers",
+  "colors": {
+    "brand": "#1c4656",
+    "ink": "#121719",
+    "accent": "#18657c"
+  },
+  "typography": {
+    "displayFont": "Merriweather",
+    "bodyFont": "Merriweather Sans"
+  },
+  "valueProps": [
+    "Board-certified orthodontist",
+    "0% in-house financing",
+    "Award-winning local care"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/tennessee-orthodontic-studios/logo.svg",
+    "aspect": 4.17
+  },
+  "radius": 20
+}

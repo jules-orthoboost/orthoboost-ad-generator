@@ -1,1 +1,24 @@
-{"slug":"vibrant-orthodontics","clientName":"Vibrant Orthodontics","personaSlug":"dr-m-rogers","colors":{"brand":"#e81f76","ink":"#e81f76","accent":"#ff9e18"},"logo":{"assetPath":"assets/clients/vibrant-orthodontics/logo.svg","aspect":3.54},"radius":20}
+{
+  "slug": "vibrant-orthodontics",
+  "clientName": "Vibrant Orthodontics",
+  "personaSlug": "dr-m-rogers",
+  "colors": {
+    "brand": "#e81f76",
+    "ink": "#333333",
+    "accent": "#ff9e18"
+  },
+  "typography": {
+    "displayFont": "Open Sans",
+    "bodyFont": "Open Sans"
+  },
+  "valueProps": [
+    "Free kids braces consultation",
+    "Simple monthly payment options",
+    "Personalized, judgment-free care"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/vibrant-orthodontics/logo.svg",
+    "aspect": 3.54
+  },
+  "radius": 20
+}

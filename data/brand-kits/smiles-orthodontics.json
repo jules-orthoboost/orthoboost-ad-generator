@@ -1,1 +1,24 @@
-{"slug":"smiles-orthodontics","clientName":"Smiles Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#3bd3cc","ink":"#000000"},"logo":{"assetPath":"assets/clients/smiles-orthodontics/logo.svg","aspect":2.28},"radius":20}
+{
+  "slug": "smiles-orthodontics",
+  "clientName": "Smiles Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#3bd3cc",
+    "ink": "#000000",
+    "accent": "#156274"
+  },
+  "typography": {
+    "displayFont": "Poppins",
+    "bodyFont": "Poppins"
+  },
+  "valueProps": [
+    "Top 1% Invisalign provider",
+    "Free consultations & second opinions",
+    "0% in-house financing"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/smiles-orthodontics/logo.svg",
+    "aspect": 2.28
+  },
+  "radius": 20
+}

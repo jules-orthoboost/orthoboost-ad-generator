@@ -1,1 +1,14 @@
-{"slug":"mackenzie-orthodontics","clientName":"MacKenzie Orthodontics","personaSlug":"dr-k-clarkson","colors":{"brand":"#866aa7","ink":"#231f20","accent":"#dacee5"},"logo":{"assetPath":"assets/clients/mackenzie-orthodontics/logo.svg","aspect":3.3},"radius":20}
+{
+  "slug": "mackenzie-orthodontics",
+  "clientName": "MacKenzie Orthodontics",
+  "personaSlug": "dr-k-clarkson",
+  "colors": { "brand": "#866aa7", "ink": "#231f20", "accent": "#dacee5" },
+  "logo": { "assetPath": "assets/clients/mackenzie-orthodontics/logo.svg", "aspect": 3.3 },
+  "radius": 20,
+  "typography": { "displayFont": "Montserrat", "bodyFont": "Inter" },
+  "valueProps": [
+    "Blue Diamond Plus Invisalign provider",
+    "Accelerated treatment in half the time",
+    "Three convenient locations"
+  ]
+}

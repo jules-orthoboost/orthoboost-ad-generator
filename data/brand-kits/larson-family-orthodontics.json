@@ -1,1 +1,24 @@
-{"slug":"larson-family-orthodontics","clientName":"Larson Family Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#254796","ink":"#000000","accent":"#aed6c1"},"logo":{"assetPath":"assets/clients/larson-family-orthodontics/logo.svg","aspect":3.44},"radius":20}
+{
+  "slug": "larson-family-orthodontics",
+  "clientName": "Larson Family Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#254796",
+    "ink": "#000000",
+    "accent": "#aed6c1"
+  },
+  "typography": {
+    "displayFont": "Roboto Slab",
+    "bodyFont": "Roboto"
+  },
+  "valueProps": [
+    "Gilbert's only all-digital ortho",
+    "Custom 3D-printed brackets",
+    "Interest-free in-house financing"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/larson-family-orthodontics/logo.svg",
+    "aspect": 3.44
+  },
+  "radius": 20
+}

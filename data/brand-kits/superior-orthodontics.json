@@ -1,1 +1,14 @@
-{"slug":"superior-orthodontics","clientName":"Superior Orthodontics","personaSlug":"dr-a-joe","colors":{"brand":"#143953","ink":"#000000","accent":"#e6035f"},"logo":{"assetPath":"assets/clients/superior-orthodontics/logo.svg","aspect":1.96},"radius":20}
+{
+  "slug": "superior-orthodontics",
+  "clientName": "Superior Orthodontics",
+  "personaSlug": "dr-a-joe",
+  "colors": { "brand": "#143953", "ink": "#000000", "accent": "#e6035f" },
+  "logo": { "assetPath": "assets/clients/superior-orthodontics/logo.svg", "aspect": 1.96 },
+  "radius": 20,
+  "typography": { "displayFont": "Montserrat", "bodyFont": "Merriweather Sans" },
+  "valueProps": [
+    "Braces & aligners from $188/mo",
+    "100% free consultation",
+    "Flexible 0% financing"
+  ]
+}

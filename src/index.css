@@ -9,7 +9,8 @@
    would outrank every Tailwind utility and collapse all Catalyst spacing.
    Just restore disc markers where the legacy UI intentionally shows them. */
 .trait ul,
-.bk-donts {
+.bk-donts,
+.bk-valueprops {
   list-style: disc;
 }
 
@@ -361,6 +362,12 @@ body {
   padding-left: 1.1rem;
   font-size: 0.85rem;
   color: #b45309;
+}
+.bk-valueprops {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #15803d;
 }
 .bk-card h3 {
   margin: 1.25rem 0 0.25rem;

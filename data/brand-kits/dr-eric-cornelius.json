@@ -1,1 +1,24 @@
-{"slug":"dr-eric-cornelius","clientName":"Dr Eric Cornelius","personaSlug":"dr-b-nye","colors":{"brand":"#0c1242","ink":"#040404","accent":"#c92228"},"logo":{"assetPath":"assets/clients/dr-eric-cornelius/logo.svg","aspect":3.13},"radius":20}
+{
+  "slug": "dr-eric-cornelius",
+  "clientName": "Dr Eric Cornelius",
+  "personaSlug": "dr-b-nye",
+  "colors": {
+    "brand": "#0c1242",
+    "ink": "#040404",
+    "accent": "#c92228"
+  },
+  "typography": {
+    "displayFont": "Jost",
+    "bodyFont": "Open Sans"
+  },
+  "valueProps": [
+    "Whole-body holistic care",
+    "Convenient appointment times",
+    "Flexible payment plans"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/dr-eric-cornelius/logo.svg",
+    "aspect": 3.13
+  },
+  "radius": 20
+}

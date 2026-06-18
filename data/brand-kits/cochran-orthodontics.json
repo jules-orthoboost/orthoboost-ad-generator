@@ -1,1 +1,24 @@
-{"slug":"cochran-orthodontics","clientName":"Cochran Orthodontics","personaSlug":"dr-g-house","colors":{"brand":"#0D77AF","ink":"#1C1C1C","accent":"#2CA9D9"},"logo":{"assetPath":"assets/clients/cochran-orthodontics/logo.svg","aspect":3.48},"radius":20}
+{
+  "slug": "cochran-orthodontics",
+  "clientName": "Cochran Orthodontics",
+  "personaSlug": "dr-g-house",
+  "colors": {
+    "brand": "#0D77AF",
+    "ink": "#1C1C1C",
+    "accent": "#2CA9D9"
+  },
+  "typography": {
+    "displayFont": "Poppins",
+    "bodyFont": "Merriweather Sans"
+  },
+  "valueProps": [
+    "Reduced treatment times",
+    "Award-winning orthodontic care",
+    "Free consultation"
+  ],
+  "logo": {
+    "assetPath": "assets/clients/cochran-orthodontics/logo.svg",
+    "aspect": 3.48
+  },
+  "radius": 20
+}
