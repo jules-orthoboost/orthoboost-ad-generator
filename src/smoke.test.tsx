@@ -10,12 +10,17 @@ import type { SizeKey } from './core/schemas'
 
 // Renders the whole app (with real repo data via import.meta.glob) to catch runtime errors.
 describe('app smoke', () => {
-  it('renders the inspector with real data', () => {
+  it('renders the dashboard shell with real data', () => {
     // Strip SSR comment markers so assertions can span JSX interpolation boundaries.
     const html = renderToString(<App />).replace(/<!-- -->/g, '')
-    expect(html).toContain('Lo-Fi Archetypes (8)')
-    expect(html).toContain('Personas (11)')
-    expect(html).toContain('Badge Burst')
+    // Wordmark splits the brand across spans for the colored "Boost".
+    expect(html).toContain('Ortho')
+    expect(html).toContain('Boost')
+    expect(html).toContain('Campaign')
+    expect(html).toContain('Personas')
+    expect(html).toContain('Brand kits')
+    // Campaign is the default view, so the builder's first step renders.
+    expect(html).toContain('Select a persona')
   })
 
   it('renders the campaign builder on its first step', () => {
