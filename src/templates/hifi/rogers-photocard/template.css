@@ -84,3 +84,7 @@
 .rp-Story .rp-subhead { left: 96px; width: 840px; top: 1330px; font-size: 30px; }
 .rp-Story .rp-offer { left: 96px; top: 1456px; padding: 16px 40px; font-size: 24px; }
 .rp-Story .rp-cta { left: 96px; top: 1556px; padding: 26px 54px; font-size: 30px; }
+
+.rp-disclaimer { position: absolute; margin: 0; text-align: left; font-weight: 600; color: #8791a8; }
+.rp-Post .rp-disclaimer { left: 88px; width: 880px; top: 1288px; font-size: 19px; }
+.rp-Story .rp-disclaimer { left: 96px; width: 900px; top: 1686px; font-size: 21px; }

@@ -103,3 +103,7 @@
 .rd-Story .rd-cta-row { top: 1576px; }
 .rd-Story .rd-offer { padding: 16px 40px; font-size: 24px; }
 .rd-Story .rd-cta { padding: 26px 54px; font-size: 30px; }
+
+.rd-disclaimer { position: absolute; left: 80px; width: 920px; margin: 0; text-align: center; font-weight: 600; color: #8791a8; }
+.rd-Post .rd-disclaimer { top: 1294px; font-size: 19px; }
+.rd-Story .rd-disclaimer { top: 1694px; font-size: 21px; }

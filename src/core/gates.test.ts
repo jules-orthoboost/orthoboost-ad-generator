@@ -1,80 +1,80 @@
 import { describe, it, expect } from 'vitest'
-import { clientGate, setupGate, templateGate, contentGate } from './gates'
-import type { BrandKit, HifiTemplateManifest, LofiTemplate } from './schemas'
+import {
+  personaGate,
+  brandsGate,
+  campaignGate,
+  templatesGate,
+  copyGate,
+  resolveDraftContent,
+  fitProblem,
+  type FlowDraft,
+} from './gates'
+import type { LofiTemplate } from './schemas'
 
-const kit = {
-  slug: 'mock-ortho-co',
-  clientName: 'Mock Ortho Co',
-  personaSlug: 'dr-b-nye',
-  colors: { brand: '#1f6feb' },
-  logo: { assetPath: 'assets/clients/mock-ortho-co/logo.svg' },
-} as BrandKit
+const base: FlowDraft = {
+  personaSlug: 'dr-m-rogers',
+  brandSlugs: ['aloha-orthodontics'],
+  campaignSlug: 'back-to-school-2026',
+  templateSlugs: ['rogers-photocard'],
+  shared: {
+    V1: { headline: 'Hi', subhead: 'There', cta: 'Book' },
+    V2: { headline: 'Hi', subhead: 'There', cta: 'Book' },
+  },
+  perClient: {
+    'aloha-orthodontics': { V1: { offer: 'Free consult' }, V2: { offer: 'Free consult' } },
+  },
+}
 
-const manifest = {
-  slug: 'hero-banner-cta',
-  name: 'Hero',
-  archetype: 'hero-banner-cta',
-  suitedPersonas: ['dr-b-nye'],
-  slots: ['headline', 'subhead', 'cta', 'photo', 'logo'],
-} as HifiTemplateManifest
+it('selection gates require their field', () => {
+  expect(personaGate({ ...base, personaSlug: undefined }).ok).toBe(false)
+  expect(personaGate(base).ok).toBe(true)
+  expect(brandsGate({ ...base, brandSlugs: [] }).ok).toBe(false)
+  expect(brandsGate(base).ok).toBe(true)
+  expect(campaignGate({ ...base, campaignSlug: undefined }).ok).toBe(false)
+  expect(templatesGate({ ...base, templateSlugs: [] }).ok).toBe(false)
+})
+
+it('copyGate needs shared headlines and a per-client offer', () => {
+  expect(copyGate(base).ok).toBe(true)
+  const noOffer = { ...base, perClient: { 'aloha-orthodontics': { V1: {}, V2: {} } } }
+  expect(copyGate(noOffer).ok).toBe(false)
+  const noHead = { ...base, shared: { V1: { cta: 'Book' }, V2: { cta: 'Book' } } }
+  expect(copyGate(noHead).missing.join(' ')).toMatch(/headline/i)
+})
+
+it('resolveDraftContent merges shared copy with per-client offer/photo', () => {
+  const c = resolveDraftContent(base, 'V1', 'aloha-orthodontics')
+  expect(c.headline).toBe('Hi')
+  expect(c.offer).toBe('Free consult')
+})
+
+it('"make different" overrides shared copy for one client', () => {
+  const draft: FlowDraft = {
+    ...base,
+    perClient: {
+      'aloha-orthodontics': {
+        V1: { offer: 'X', makeDifferent: true, override: { headline: 'Custom' } },
+        V2: {},
+      },
+    },
+  }
+  expect(resolveDraftContent(draft, 'V1', 'aloha-orthodontics').headline).toBe('Custom')
+  // override ignored when the toggle is off
+  const off = { ...draft.perClient['aloha-orthodontics'].V1, makeDifferent: false }
+  const draft2 = { ...draft, perClient: { 'aloha-orthodontics': { V1: off, V2: {} } } }
+  expect(resolveDraftContent(draft2, 'V1', 'aloha-orthodontics').headline).toBe('Hi')
+})
 
 const archetype = {
-  slug: 'hero-banner-cta',
-  name: 'Hero',
-  description: 'x',
-  slots: ['headline', 'subhead', 'cta', 'photo', 'logo'],
   zones: {
-    Story: [
-      { slot: 'headline', x: 90, y: 460, w: 900, h: 300, layer: 1, maxLines: 3 },
-      { slot: 'subhead', x: 140, y: 790, w: 800, h: 120, layer: 1, maxLines: 2 },
-      { slot: 'cta', x: 290, y: 1380, w: 500, h: 110, layer: 2 },
-    ],
-    Post: [
-      { slot: 'headline', x: 90, y: 240, w: 900, h: 260, layer: 1, maxLines: 3 },
-      { slot: 'subhead', x: 140, y: 530, w: 800, h: 110, layer: 1, maxLines: 2 },
-      { slot: 'cta', x: 290, y: 1090, w: 500, h: 110, layer: 2 },
-    ],
+    Story: [{ slot: 'headline', x: 90, y: 460, w: 900, h: 300, layer: 1, maxLines: 2 }],
+    Post: [{ slot: 'headline', x: 90, y: 240, w: 900, h: 260, layer: 1, maxLines: 2 }],
   },
-  placement: {
-    Story: { safeTop: 250, safeBottom: 340, margin: 64 },
-    Post: { safeTop: 0, safeBottom: 0, margin: 64 },
-  },
-  videoGrammar: { durationMs: 10000, fps: 30, loop: true, reducedMotion: 'static', beats: [] },
 } as unknown as LofiTemplate
 
-it('clientGate fails with no kit, passes with a valid one', () => {
-  expect(clientGate(undefined).ok).toBe(false)
-  expect(clientGate(kit).ok).toBe(true)
-})
-
-it('setupGate needs all three fields', () => {
-  expect(setupGate({}).ok).toBe(false)
-  expect(setupGate({ adSetType: 'Seasonal', theme: 'Back To School', year: 2026 }).ok).toBe(true)
-})
-
-it('templateGate needs a selected, persona-suited template', () => {
-  expect(templateGate(undefined, kit).ok).toBe(false)
-  expect(templateGate(manifest, kit).ok).toBe(true)
-  expect(templateGate({ ...manifest, suitedPersonas: ['other'] }, kit).missing[0]).toMatch(/persona/i)
-})
-
-it('contentGate requires every copy slot + photo for both versions', () => {
-  const empty = { V1: { content: {} }, V2: { content: {} } }
-  expect(contentGate(manifest, archetype, empty).ok).toBe(false)
-  const full = {
-    V1: { content: { headline: 'Hi', subhead: 'There', cta: 'Book', photo: 'p.svg' } },
-    V2: { content: { headline: 'Hi', subhead: 'There', cta: 'Book', photo: 'q.svg' } },
-  }
-  expect(contentGate(manifest, archetype, full).ok).toBe(true)
-})
-
-it('contentGate flags copy that does not fit its zone', () => {
-  const long = 'word '.repeat(60).trim()
-  const full = {
-    V1: { content: { headline: long, subhead: 'There', cta: 'Book', photo: 'p.svg' } },
-    V2: { content: { headline: 'Hi', subhead: 'There', cta: 'Book', photo: 'q.svg' } },
-  }
-  const r = contentGate(manifest, archetype, full)
-  expect(r.ok).toBe(false)
-  expect(r.missing.join(' ')).toMatch(/headline/i)
+describe('fitProblem', () => {
+  it('passes short copy, flags long copy', () => {
+    expect(fitProblem('Short', [archetype], 'headline')).toBeNull()
+    expect(fitProblem('word '.repeat(60).trim(), [archetype], 'headline')).toMatch(/too long/i)
+  })
 })

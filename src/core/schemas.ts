@@ -30,7 +30,7 @@ export const CANVAS = {
 } as const
 export type SizeKey = keyof typeof CANVAS
 
-export const SlotName = z.enum(['headline', 'subhead', 'cta', 'offer', 'photo', 'logo', 'badge'])
+export const SlotName = z.enum(['headline', 'subhead', 'cta', 'offer', 'disclaimer', 'photo', 'logo', 'badge'])
 export type Slot = z.infer<typeof SlotName>
 
 const ZoneSchema = z.object({
@@ -116,6 +116,9 @@ export const HifiTemplateManifestSchema = z.object({
   name: z.string().min(1),
   archetype: slug, // references a lo-fi template slug
   suitedPersonas: z.array(slug),
+  // Campaigns (themes) this template is built for, e.g. ['christmas-2026'].
+  // Omit for an evergreen template that fits any campaign.
+  suitedCampaigns: z.array(slug).optional(),
   slots: z.array(SlotName).min(1),
 })
 export type HifiTemplateManifest = z.infer<typeof HifiTemplateManifestSchema>
@@ -126,6 +129,7 @@ export const SlotContentSchema = z.object({
   subhead: z.string().optional(),
   cta: z.string().optional(),
   offer: z.string().optional(),
+  disclaimer: z.string().optional(),
   badge: z.string().optional(),
   photo: z.string().optional(), // asset path
 })

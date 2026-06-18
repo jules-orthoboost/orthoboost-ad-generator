@@ -54,6 +54,7 @@ export interface PersonaCopyVersion {
   headline?: string
   subhead?: string
   cta?: string
+  disclaimer?: string
 }
 export interface CopyLibraryEntry {
   campaignTheme: string
@@ -80,6 +81,33 @@ export function sharedCopy(
   version: 'V1' | 'V2',
 ): PersonaCopyVersion | undefined {
   return lib[copyKey(theme, year)]?.personas?.[personaSlug]?.[version]
+}
+
+/** Copy library keyed by campaign slug (the data/copy filename without .json). */
+export function loadCopyBySlug(): Record<string, CopyLibraryEntry> {
+  const files = import.meta.glob('/data/copy/*.json', { eager: true, import: 'default' })
+  const out: Record<string, CopyLibraryEntry> = {}
+  for (const [path, raw] of Object.entries(files) as [string, CopyLibraryEntry][]) {
+    const slug = path.split('/').pop()!.replace(/\.json$/, '')
+    out[slug] = raw
+  }
+  return out
+}
+
+export interface CampaignTheme {
+  slug: string
+  name: string
+  year: number
+  adSetType: 'Seasonal' | 'Evergreen'
+}
+
+/** Selectable campaigns (themes), derived from the copy library. */
+export function loadCampaignThemes(): Record<string, CampaignTheme> {
+  const out: Record<string, CampaignTheme> = {}
+  for (const [slug, raw] of Object.entries(loadCopyBySlug())) {
+    out[slug] = { slug, name: raw.campaignTheme, year: raw.year, adSetType: 'Seasonal' }
+  }
+  return out
 }
 
 /** Served URLs for every photo in the committed library. */
