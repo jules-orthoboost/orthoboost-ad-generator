@@ -1,5 +1,6 @@
 import { loadCampaignThemes, loadCopyBySlug } from '../../core/data'
 import type { PersonaCopyVersion } from '../../core/data'
+import { StepIntro, Tile, TileGrid } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const themes = loadCampaignThemes()
@@ -21,28 +22,21 @@ export function CampaignStep({ draft, setDraft }: StepProps) {
 
   return (
     <div>
-      <h2>Select a campaign</h2>
-      <p className="muted">
-        A campaign is a seasonal theme. Templates are filtered to it, and the shared copy is
-        pre-filled from this persona's library (you can edit it next).
-      </p>
-      <div className="cb-cards">
-        {list.map((c) => {
-          const active = draft.campaignSlug === c.slug
-          return (
-            <button
-              key={c.slug}
-              className={`cb-card ${active ? 'active' : ''}`}
-              onClick={() => select(c.slug)}
-            >
-              <strong>{c.name}</strong>
-              <span className="muted">
-                {c.adSetType} · {c.year}
-              </span>
-            </button>
-          )
-        })}
-      </div>
+      <StepIntro title="Select a campaign">
+        A campaign is a seasonal theme. Templates are filtered to it, and the shared copy is pre-filled from this
+        persona's library — you can edit it next.
+      </StepIntro>
+      <TileGrid>
+        {list.map((c) => (
+          <Tile
+            key={c.slug}
+            active={draft.campaignSlug === c.slug}
+            title={c.name}
+            meta={`${c.adSetType} · ${c.year}`}
+            onClick={() => select(c.slug)}
+          />
+        ))}
+      </TileGrid>
     </div>
   )
 }

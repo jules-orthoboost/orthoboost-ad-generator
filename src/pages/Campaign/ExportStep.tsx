@@ -3,7 +3,9 @@ import { deliverableName, type CreativeType, type Size, type Version } from '../
 import { HIFI_TEMPLATES } from '../../templates/hifi'
 import { presetDuration } from '../../templates/hifi/presets'
 import { resolveDraftContent } from '../../core/gates'
+import { Button } from '../../components/catalyst/button'
 import { DeliverablePreview } from './DeliverablePreview'
+import { StepIntro } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
@@ -22,7 +24,7 @@ function download(name: string, data: unknown) {
 export function ExportStep({ draft, deps }: StepProps) {
   const { persona, campaign, kits: selKits, templates } = deps
   if (!persona || !campaign || selKits.length === 0 || templates.length === 0) {
-    return <p className="muted">Finish the earlier steps first.</p>
+    return <p className="text-sm text-zinc-500">Finish the earlier steps first.</p>
   }
 
   const versions: Version[] = ['V1', 'V2']
@@ -75,31 +77,34 @@ export function ExportStep({ draft, deps }: StepProps) {
 
   return (
     <div>
-      <h2>Export — {persona.name}</h2>
-      <p className="muted">
-        {selKits.length} brands × {templates.length} templates × {versions.length} versions ×{' '}
-        {sizes.length} sizes = <strong>{total} deliverables</strong>, grouped under {persona.name}.
-      </p>
+      <StepIntro title={`Export — ${persona.name}`}>
+        {selKits.length} brands × {templates.length} templates × {versions.length} versions × {sizes.length} sizes
+        {styleId !== 'none' ? ' × image + video' : ''} = {total} deliverables, grouped under {persona.name}.
+      </StepIntro>
 
-      <div className="cb-export-actions">
-        <button
-          className="cb-nav primary"
-          onClick={() => download(`${persona.slug}_${campaign.slug}_batch.json`, buildConfig())}
-        >
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-zinc-950/10 bg-zinc-50 p-4">
+        <Button onClick={() => download(`${persona.slug}_${campaign.slug}_batch.json`, buildConfig())}>
           Download batch config
-        </button>
-        <span className="muted">
-          Then run <code>node harness/render-batch.mjs &lt;file&gt;</code> for PNG finals in{' '}
-          <code>out/{persona.slug}/</code>.
-        </span>
+        </Button>
+        <p className="text-sm text-zinc-500">
+          Then run{' '}
+          <code className="rounded bg-zinc-200/70 px-1.5 py-0.5 text-[0.8em] font-medium text-zinc-800">
+            node harness/render-batch.mjs &lt;file&gt;
+          </code>{' '}
+          for finals in{' '}
+          <code className="rounded bg-zinc-200/70 px-1.5 py-0.5 text-[0.8em] font-medium text-zinc-800">
+            out/{persona.slug}/
+          </code>
+          .
+        </p>
       </div>
 
-      <h3>
+      <h3 className="mt-8 mb-1 text-sm font-semibold text-zinc-950">
         Preview · V1 / Post ({Math.min(tiles.length, PREVIEW_CAP)} of {tiles.length})
       </h3>
-      <div className="cb-qa-grid">
+      <div className="mt-3 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {tiles.slice(0, PREVIEW_CAP).map(({ kit, templateSlug }) => (
-          <figure key={`${kit.slug}-${templateSlug}`} className="cb-qa-tile">
+          <figure key={`${kit.slug}-${templateSlug}`} className="m-0 flex flex-col items-center gap-2">
             <DeliverablePreview
               draft={draft}
               kit={kits[kit.slug]}
@@ -108,14 +113,14 @@ export function ExportStep({ draft, deps }: StepProps) {
               size="Post"
               fitHeight={300}
             />
-            <figcaption>
+            <figcaption className="text-center text-[0.68rem] leading-snug break-words text-zinc-500">
               {kit.clientName} · {HIFI_TEMPLATES[templateSlug].manifest.name}
             </figcaption>
           </figure>
         ))}
       </div>
       {tiles.length > PREVIEW_CAP && (
-        <p className="muted">+{tiles.length - PREVIEW_CAP} more in the batch config.</p>
+        <p className="mt-3 text-sm text-zinc-500">+{tiles.length - PREVIEW_CAP} more in the batch config.</p>
       )}
     </div>
   )

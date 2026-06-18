@@ -1,8 +1,14 @@
 import { useState } from 'react'
+import clsx from 'clsx'
 import { loadBrandKits, loadPhotoLibrary } from '../../core/data'
-import { fitProblem, type FlowDraft, type PerClientVersion, type Version } from '../../core/gates'
+import { fitProblem, type PerClientVersion, type Version } from '../../core/gates'
 import type { PersonaCopyVersion } from '../../core/data'
+import { Field, Label } from '../../components/catalyst/fieldset'
+import { Input } from '../../components/catalyst/input'
+import { Textarea } from '../../components/catalyst/textarea'
+import { Checkbox, CheckboxField } from '../../components/catalyst/checkbox'
 import { DeliverablePreview } from './DeliverablePreview'
+import { SectionLabel, Segmented, StepIntro } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
@@ -10,6 +16,13 @@ const photos = loadPhotoLibrary()
 const photoLabel = (url: string) => decodeURIComponent(url.split('/').pop() ?? url).replace(/\.\w+$/, '')
 
 const SHARED_FIELDS: (keyof PersonaCopyVersion)[] = ['headline', 'subhead', 'cta', 'disclaimer']
+const LABELS: Record<string, string> = {
+  headline: 'Headline',
+  subhead: 'Subhead',
+  cta: 'Call to action',
+  disclaimer: 'Disclaimer',
+  offer: 'Offer',
+}
 
 export function CopyStep({ draft, setDraft, deps }: StepProps) {
   const [version, setVersion] = useState<Version>('V1')
@@ -43,92 +56,108 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
 
   const hint = (field: string, text: string) => {
     const p = fitProblem(text ?? '', deps.archetypes, field)
-    return p ? <span className="fit bad">{p}</span> : null
+    return p ? <span className="ml-2 text-xs font-semibold text-red-600">{p}</span> : null
   }
 
   return (
-    <div className="cb-copy">
-      <h2>Write the copy</h2>
-      <div className="seg cb-vtabs">
-        {(['V1', 'V2'] as Version[]).map((v) => (
-          <button key={v} className={version === v ? 'on' : ''} onClick={() => setVersion(v)}>
-            {v}
-          </button>
-        ))}
-      </div>
+    <div>
+      <StepIntro title="Write the copy">
+        Headline, subhead, CTA and disclaimer are shared across every client on this persona. Offer and photo are
+        per client — and you can override any shared line for a single client.
+      </StepIntro>
 
-      <h3>Shared across all {deps.kits.length} clients</h3>
-      <div className="cb-form">
+      <Segmented options={['V1', 'V2'] as const} value={version} onChange={setVersion} />
+
+      <SectionLabel>Shared across all {deps.kits.length} clients</SectionLabel>
+      <div className="max-w-xl space-y-5">
         {SHARED_FIELDS.map((field) => {
           const value = draft.shared[version][field] ?? ''
           const multiline = field === 'headline' || field === 'subhead'
           return (
-            <label key={field} className="cb-field">
-              <span>
-                {field} {hint(field, value)}
-              </span>
+            <Field key={field}>
+              <Label>
+                {LABELS[field]}
+                {hint(field, value)}
+              </Label>
               {multiline ? (
-                <textarea rows={2} value={value} onChange={(e) => setShared(field, e.target.value)} />
+                <Textarea rows={2} value={value} onChange={(e) => setShared(field, e.target.value)} />
               ) : (
-                <input type="text" value={value} onChange={(e) => setShared(field, e.target.value)} />
+                <Input value={value} onChange={(e) => setShared(field, e.target.value)} />
               )}
-            </label>
+            </Field>
           )
         })}
       </div>
 
-      <h3>Per client — offer, photo &amp; overrides ({version})</h3>
-      <div className="cb-clients">
+      <SectionLabel>Per client — offer, photo &amp; overrides ({version})</SectionLabel>
+      <div className="space-y-4">
         {draft.brandSlugs.map((slug) => {
           const kit = kits[slug]
           const pc = draft.perClient[slug]?.[version] ?? {}
           return (
-            <div key={slug} className="cb-client">
-              <div className="cb-client-head">
-                <span className="cb-card-dot" style={{ background: kit.colors.brand }} />
-                <strong>{kit.clientName}</strong>
-              </div>
-              <label className="cb-field">
-                <span>offer {hint('offer', pc.offer ?? '')}</span>
-                <input
-                  type="text"
-                  value={pc.offer ?? ''}
-                  placeholder="e.g. $200 off new braces"
-                  onChange={(e) => updatePC(slug, { offer: e.target.value })}
+            <div key={slug} className="rounded-xl border border-zinc-950/10 p-4">
+              <div className="mb-4 flex items-center gap-2">
+                <span
+                  className="size-3.5 shrink-0 rounded-md ring-1 ring-black/10"
+                  style={{ background: kit.colors.brand }}
                 />
-              </label>
-              <span className="cb-field-label">photo</span>
-              <div className="cb-photo-grid">
-                {photos.map((url) => (
-                  <button
-                    key={url}
-                    className={`cb-photo ${pc.photo === url ? 'active' : ''}`}
-                    title={photoLabel(url)}
-                    onClick={() => updatePC(slug, { photo: url })}
-                  >
-                    <img src={url} alt={photoLabel(url)} />
-                  </button>
-                ))}
+                <strong className="font-semibold text-zinc-950">{kit.clientName}</strong>
               </div>
-              <label className="cb-check">
-                <input
-                  type="checkbox"
-                  checked={!!pc.makeDifferent}
-                  onChange={(e) => updatePC(slug, { makeDifferent: e.target.checked })}
-                />{' '}
-                Make this client different (override shared copy)
-              </label>
+
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field>
+                  <Label>
+                    Offer
+                    {hint('offer', pc.offer ?? '')}
+                  </Label>
+                  <Input
+                    value={pc.offer ?? ''}
+                    placeholder="e.g. $200 off new braces"
+                    onChange={(e) => updatePC(slug, { offer: e.target.value })}
+                  />
+                </Field>
+
+                <div>
+                  <span className="text-sm font-medium text-zinc-950">Photo</span>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {photos.map((url) => (
+                      <button
+                        key={url}
+                        type="button"
+                        title={photoLabel(url)}
+                        onClick={() => updatePC(slug, { photo: url })}
+                        className={clsx(
+                          'size-16 overflow-hidden rounded-lg ring-2 transition',
+                          pc.photo === url ? 'ring-sky-500' : 'ring-transparent hover:ring-zinc-300',
+                        )}
+                      >
+                        <img src={url} alt={photoLabel(url)} className="size-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <CheckboxField>
+                  <Checkbox
+                    checked={!!pc.makeDifferent}
+                    onChange={(checked) => updatePC(slug, { makeDifferent: checked })}
+                  />
+                  <Label>Make this client different (override shared copy)</Label>
+                </CheckboxField>
+              </div>
+
               {pc.makeDifferent && (
-                <div className="cb-form cb-overrides">
+                <div className="mt-4 grid gap-5 sm:grid-cols-2">
                   {SHARED_FIELDS.map((field) => (
-                    <label key={field} className="cb-field">
-                      <span>{field}</span>
-                      <input
-                        type="text"
+                    <Field key={field}>
+                      <Label>{LABELS[field]}</Label>
+                      <Input
                         value={pc.override?.[field] ?? draft.shared[version][field] ?? ''}
                         onChange={(e) => setOverride(slug, field, e.target.value)}
                       />
-                    </label>
+                    </Field>
                   ))}
                 </div>
               )}
@@ -138,39 +167,20 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
       </div>
 
       {previewKit && previewTemplate && (
-        <div className="cb-copy-preview">
-          <h3>Live preview · {previewKit.clientName}</h3>
-          <PreviewDraft
-            draft={draft}
-            kitSlug={previewKit.slug}
-            templateSlug={previewTemplate}
-            version={version}
-          />
-        </div>
+        <>
+          <SectionLabel>Live preview · {previewKit.clientName}</SectionLabel>
+          <div className="flex justify-center rounded-xl bg-zinc-100 p-6">
+            <DeliverablePreview
+              draft={draft}
+              kit={kits[previewKit.slug]}
+              templateSlug={previewTemplate}
+              version={version}
+              size="Post"
+              fitHeight={420}
+            />
+          </div>
+        </>
       )}
     </div>
-  )
-}
-
-function PreviewDraft({
-  draft,
-  kitSlug,
-  templateSlug,
-  version,
-}: {
-  draft: FlowDraft
-  kitSlug: string
-  templateSlug: string
-  version: Version
-}) {
-  return (
-    <DeliverablePreview
-      draft={draft}
-      kit={kits[kitSlug]}
-      templateSlug={templateSlug}
-      version={version}
-      size="Post"
-      fitHeight={420}
-    />
   )
 }

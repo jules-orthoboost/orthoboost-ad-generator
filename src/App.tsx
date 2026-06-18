@@ -1,5 +1,5 @@
-import { Inspector } from './pages/Inspector'
+import { Dashboard } from './pages/Dashboard'
 
 export default function App() {
-  return <Inspector />
+  return <Dashboard />
 }

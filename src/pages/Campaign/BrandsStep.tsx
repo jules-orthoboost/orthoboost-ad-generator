@@ -1,11 +1,13 @@
 import { loadBrandKits } from '../../core/data'
 import { emptyPerClient } from '../../core/gates'
+import { Button } from '../../components/catalyst/button'
+import { StepIntro, Tile, TileGrid } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
 
 export function BrandsStep({ draft, setDraft }: StepProps) {
-  if (!draft.personaSlug) return <p className="muted">Pick a persona first.</p>
+  if (!draft.personaSlug) return <p className="text-sm text-zinc-500">Pick a persona first.</p>
   const list = Object.values(kits)
     .filter((k) => k.personaSlug === draft.personaSlug)
     .sort((a, b) => a.clientName.localeCompare(b.clientName))
@@ -31,30 +33,26 @@ export function BrandsStep({ draft, setDraft }: StepProps) {
 
   return (
     <div>
-      <h2>Select brand kits</h2>
-      <p className="muted">
-        {list.length} brands on this persona · {draft.brandSlugs.length} selected. Pick any number to
-        export together.
-      </p>
-      <button className="cb-nav" onClick={() => setAll(!allOn)}>
-        {allOn ? 'Clear all' : 'Select all'}
-      </button>
-      <div className="cb-cards">
-        {list.map((k) => {
-          const active = draft.brandSlugs.includes(k.slug)
-          return (
-            <button
-              key={k.slug}
-              className={`cb-card ${active ? 'active' : ''}`}
-              onClick={() => toggle(k.slug)}
-            >
-              <span className="cb-card-dot" style={{ background: k.colors.brand }} />
-              <strong>{k.clientName}</strong>
-              <span className="muted">{active ? '✓ selected' : 'tap to add'}</span>
-            </button>
-          )
-        })}
+      <StepIntro title="Select brand kits">
+        {list.length} brands on this persona · {draft.brandSlugs.length} selected. Pick any number to export
+        together.
+      </StepIntro>
+      <div className="mb-4">
+        <Button outline onClick={() => setAll(!allOn)}>
+          {allOn ? 'Clear all' : 'Select all'}
+        </Button>
       </div>
+      <TileGrid>
+        {list.map((k) => (
+          <Tile
+            key={k.slug}
+            active={draft.brandSlugs.includes(k.slug)}
+            accent={k.colors.brand}
+            title={k.clientName}
+            onClick={() => toggle(k.slug)}
+          />
+        ))}
+      </TileGrid>
     </div>
   )
 }

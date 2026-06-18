@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { MOTION_PRESETS } from '../../templates/hifi/presets'
 import { loadBrandKits } from '../../core/data'
+import { Button } from '../../components/catalyst/button'
 import { DeliverablePreview } from './DeliverablePreview'
+import { StepIntro, Tile } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
@@ -20,27 +22,28 @@ export function AnimationStep({ draft, setDraft, deps }: StepProps) {
 
   return (
     <div>
-      <h2>Animation style</h2>
-      <p className="muted">
+      <StepIntro title="Animation style">
         Applies to every template and persona. Pick one and watch the preview — video export uses it.
-      </p>
-      <div className="cb-anim">
-        <div className="cb-cards">
-          {STYLES.map((s) => {
-            const active = current === s.id
-            return (
-              <button key={s.id} className={`cb-card ${active ? 'active' : ''}`} onClick={() => select(s.id)}>
-                <strong>{s.name}</strong>
-                <span className="muted">{Math.round(s.durationMs / 1000)}s</span>
-              </button>
-            )
-          })}
+      </StepIntro>
+
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {STYLES.map((s) => (
+            <Tile
+              key={s.id}
+              active={current === s.id}
+              title={s.name}
+              meta={`${Math.round(s.durationMs / 1000)}s`}
+              onClick={() => select(s.id)}
+            />
+          ))}
         </div>
+
         {kit && template ? (
-          <div className="cb-anim-preview">
-            <button className="cb-nav" onClick={() => setPlayCount((c) => c + 1)}>
+          <div className="flex flex-col items-center gap-3">
+            <Button outline onClick={() => setPlayCount((c) => c + 1)}>
               ▶ Replay
-            </button>
+            </Button>
             <DeliverablePreview
               key={`${current}-${playCount}`}
               draft={draft}
@@ -53,7 +56,7 @@ export function AnimationStep({ draft, setDraft, deps }: StepProps) {
             />
           </div>
         ) : (
-          <p className="muted">Pick brands + a template first to preview motion.</p>
+          <p className="text-sm text-zinc-500">Pick brands + a template first to preview motion.</p>
         )}
       </div>
     </div>
