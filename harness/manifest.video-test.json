@@ -1,0 +1,25 @@
+{
+  "persona": "dr-m-rogers",
+  "campaign": { "slug": "back-to-school-2026", "name": "Back to School", "year": 2026, "adSetType": "Seasonal" },
+  "animationStyle": "pop-stagger",
+  "deliverables": [
+    {
+      "name": "Seasonal_BackToSchool-2026_Video_V1_Post_AlohaOrthodontics",
+      "brand": "aloha-orthodontics",
+      "template": "rogers-photocard",
+      "version": "V1",
+      "size": "Post",
+      "creativeType": "Video",
+      "durationMs": 4600,
+      "fps": 30,
+      "content": {
+        "headline": "Send Them Back to School With a Confident Smile",
+        "subhead": "Comfort-first braces & Invisalign from a neighborhood team that's with you all year.",
+        "cta": "Meet our team",
+        "disclaimer": "New patients only. Offer valid through 8/31/2026. See office for details.",
+        "offer": "FREE BACK-TO-SCHOOL CONSULT",
+        "photo": "assets/photos/back-to-school/smile-portrait.svg"
+      }
+    }
+  ]
+}

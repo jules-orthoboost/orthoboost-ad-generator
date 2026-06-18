@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
+import clsx from 'clsx'
 import { loadBrandKits, loadCampaignThemes, loadLofiTemplates, loadPersonas } from '../../core/data'
 import { HIFI_TEMPLATES } from '../../templates/hifi'
 import type { FlowDraft } from '../../core/gates'
+import { Button } from '../../components/catalyst/button'
 import { STEP_IDS, STEP_TITLES, gateFor, type StepDeps } from './steps'
 import { PersonaStep } from './PersonaStep'
 import { BrandsStep } from './BrandsStep'
@@ -29,6 +31,8 @@ const emptyDraft = (): FlowDraft => ({
   perClient: {},
 })
 
+type StepState = 'current' | 'done' | 'open' | 'locked'
+
 export function CampaignBuilder() {
   const [draft, setDraft] = useState<FlowDraft>(emptyDraft)
   const [index, setIndex] = useState(0)
@@ -50,22 +54,38 @@ export function CampaignBuilder() {
   const stepProps: StepProps = { draft, setDraft, deps }
 
   return (
-    <div className="cb">
-      <ol className="cb-rail">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
+      <nav aria-label="Builder steps" className="flex flex-col gap-0.5 lg:sticky lg:top-4 lg:self-start">
         {STEP_IDS.map((id, i) => {
-          const state = i === index ? 'current' : gates[i].ok ? 'done' : reachable(i) ? 'open' : 'locked'
+          const locked = !reachable(i)
+          const state: StepState = i === index ? 'current' : gates[i].ok ? 'done' : locked ? 'locked' : 'open'
           return (
-            <li key={id}>
-              <button className={`cb-step ${state}`} disabled={!reachable(i)} onClick={() => setIndex(i)}>
-                <span className="cb-num">{i + 1}</span>
-                {STEP_TITLES[id]}
-              </button>
-            </li>
+            <button
+              key={id}
+              disabled={locked}
+              onClick={() => setIndex(i)}
+              className={clsx(
+                'flex items-center gap-3 rounded-lg px-2.5 py-2 text-left transition',
+                state === 'current' && 'bg-zinc-950/5',
+                state !== 'current' && !locked && 'hover:bg-zinc-950/5',
+                locked && 'cursor-not-allowed',
+              )}
+            >
+              <span
+                className={clsx(
+                  'flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold',
+                  circleClass(state),
+                )}
+              >
+                {state === 'done' ? <CheckIcon /> : i + 1}
+              </span>
+              <span className={clsx('text-sm font-medium', labelClass(state))}>{STEP_TITLES[id]}</span>
+            </button>
           )
         })}
-      </ol>
+      </nav>
 
-      <section className="cb-body">
+      <section className="min-w-0">
         {currentId === 'persona' && <PersonaStep {...stepProps} />}
         {currentId === 'brands' && <BrandsStep {...stepProps} />}
         {currentId === 'campaign' && <CampaignStep {...stepProps} />}
@@ -74,27 +94,57 @@ export function CampaignBuilder() {
         {currentId === 'animation' && <AnimationStep {...stepProps} />}
         {currentId === 'export' && <ExportStep {...stepProps} />}
 
-        <footer className="cb-foot">
-          <button className="cb-nav" disabled={index === 0} onClick={() => setIndex((i) => i - 1)}>
+        <footer className="mt-8 flex items-center gap-4 border-t border-zinc-950/5 pt-5">
+          <Button outline disabled={index === 0} onClick={() => setIndex((i) => i - 1)}>
             Back
-          </button>
+          </Button>
           {!currentGate.ok && (
-            <ul className="cb-missing">
-              {currentGate.missing.slice(0, 4).map((m) => (
-                <li key={m}>{m}</li>
-              ))}
-              {currentGate.missing.length > 4 && <li>+{currentGate.missing.length - 4} more…</li>}
-            </ul>
+            <p className="text-xs text-amber-700">
+              {currentGate.missing[0]}
+              {currentGate.missing.length > 1 && ` · +${currentGate.missing.length - 1} more`}
+            </p>
           )}
-          <button
-            className="cb-nav primary"
+          <Button
+            className="ml-auto"
             disabled={!currentGate.ok || index === STEP_IDS.length - 1}
             onClick={() => setIndex((i) => Math.min(i + 1, STEP_IDS.length - 1))}
           >
             Next
-          </button>
+          </Button>
         </footer>
       </section>
     </div>
+  )
+}
+
+function circleClass(state: StepState) {
+  switch (state) {
+    case 'current':
+      return 'bg-zinc-900 text-white'
+    case 'done':
+      return 'bg-emerald-600 text-white'
+    case 'open':
+      return 'border border-zinc-300 bg-white text-zinc-600'
+    case 'locked':
+      return 'border border-zinc-200 bg-white text-zinc-300'
+  }
+}
+
+function labelClass(state: StepState) {
+  switch (state) {
+    case 'current':
+      return 'text-zinc-950'
+    case 'locked':
+      return 'text-zinc-400'
+    default:
+      return 'text-zinc-700'
+  }
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 14 14" fill="none" className="size-3">
+      <path d="M3 7.5 5.5 10 11 4" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }
