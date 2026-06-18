@@ -6,12 +6,28 @@
 // and screenshots each deliverable to out/<persona>/<name>.png.
 import { readFileSync, mkdirSync, rmSync, writeFileSync, cpSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { spawn } from 'node:child_process'
 import { build, preview } from 'vite'
 import { chromium } from 'playwright'
 
 const ROOT = resolve(import.meta.dirname, '..')
 const OUT = join(ROOT, 'out')
+const TMP = join(OUT, '.frames')
 const CANVAS = { Story: { w: 1080, h: 1920 }, Post: { w: 1080, h: 1350 } }
+const framesCap = process.env.FRAMES_CAP ? Number(process.env.FRAMES_CAP) : Infinity
+
+const ffmpegAvailable = () =>
+  new Promise((res) => {
+    const p = spawn('ffmpeg', ['-version'])
+    p.on('error', () => res(false))
+    p.on('exit', (code) => res(code === 0))
+  })
+const run = (cmd, args) =>
+  new Promise((res, rej) => {
+    const p = spawn(cmd, args, { stdio: 'inherit' })
+    p.on('error', rej)
+    p.on('exit', (code) => (code === 0 ? res() : rej(new Error(`${cmd} exited ${code}`))))
+  })
 
 const configPath = process.argv[2]
 if (!configPath) {
@@ -44,6 +60,8 @@ async function main() {
   const browser = await chromium.launch()
   const context = await browser.newContext({ deviceScaleFactor: 1 })
   const page = await context.newPage()
+  const hasFfmpeg = await ffmpegAvailable()
+  mkdirSync(TMP, { recursive: true })
   const report = []
 
   console.log(`Rendering ${config.deliverables.length} deliverables for ${config.persona}…`)
@@ -54,20 +72,41 @@ async function main() {
       report.push(`FAIL ${d.name} — unknown size ${d.size}`)
       continue
     }
+    const clip = { x: 0, y: 0, width: dims.w, height: dims.h }
     await page.setViewportSize({ width: dims.w, height: dims.h })
     try {
-      await page.goto(`${baseUrl}/render?batch=_batch.json&i=${i}`)
-      await waitReady(page)
-      await page.screenshot({
-        path: join(personaDir, `${d.name}.png`),
-        clip: { x: 0, y: 0, width: dims.w, height: dims.h },
-      })
-      report.push(`OK   ${config.persona}/${d.name}.png`)
+      if (d.creativeType === 'Video') {
+        if (!hasFfmpeg) {
+          report.push(`SKIP ${d.name}.mp4 (ffmpeg not found)`)
+          continue
+        }
+        const fps = d.fps ?? 30
+        const total = Math.min(Math.round(((d.durationMs ?? 5000) / 1000) * fps), framesCap)
+        for (let f = 0; f < total; f++) {
+          await page.goto(`${baseUrl}/render?batch=_batch.json&i=${i}&frame=${f}&fps=${fps}`)
+          await waitReady(page)
+          await page.screenshot({ path: join(TMP, `f-${String(f).padStart(4, '0')}.png`), clip })
+        }
+        await run('ffmpeg', [
+          '-y', '-framerate', String(fps), '-i', join(TMP, 'f-%04d.png'),
+          '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+          join(personaDir, `${d.name}.mp4`),
+        ])
+        rmSync(TMP, { recursive: true, force: true })
+        mkdirSync(TMP, { recursive: true })
+        report.push(`OK   ${config.persona}/${d.name}.mp4`)
+      } else {
+        await page.goto(`${baseUrl}/render?batch=_batch.json&i=${i}`)
+        await waitReady(page)
+        await page.screenshot({ path: join(personaDir, `${d.name}.png`), clip })
+        report.push(`OK   ${config.persona}/${d.name}.png`)
+      }
     } catch (e) {
       report.push(`FAIL ${d.name} — ${e.message}`)
     }
   }
 
+  rmSync(TMP, { recursive: true, force: true })
   await browser.close()
   await server.httpServer.close()
   writeFileSync(join(OUT, 'REPORT.txt'), report.join('\n') + '\n')

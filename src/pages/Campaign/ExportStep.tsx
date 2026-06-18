@@ -1,6 +1,7 @@
 import { loadBrandKits } from '../../core/data'
-import { deliverableName, type Size, type Version } from '../../core/naming'
+import { deliverableName, type CreativeType, type Size, type Version } from '../../core/naming'
 import { HIFI_TEMPLATES } from '../../templates/hifi'
+import { presetDuration } from '../../templates/hifi/presets'
 import { resolveDraftContent } from '../../core/gates'
 import { DeliverablePreview } from './DeliverablePreview'
 import type { StepProps } from './CampaignBuilder'
@@ -26,7 +27,9 @@ export function ExportStep({ draft, deps }: StepProps) {
 
   const versions: Version[] = ['V1', 'V2']
   const sizes: Size[] = ['Story', 'Post']
-  const total = selKits.length * templates.length * versions.length * sizes.length
+  const styleId = draft.animationStyle ?? 'none'
+  const types: CreativeType[] = styleId === 'none' ? ['Image'] : ['Image', 'Video']
+  const total = selKits.length * templates.length * versions.length * sizes.length * types.length
 
   // Live preview tiles: one per (brand × template) at V1 / Post.
   const tiles = selKits.flatMap((kit) =>
@@ -41,26 +44,30 @@ export function ExportStep({ draft, deps }: StepProps) {
       year: campaign.year,
       adSetType: campaign.adSetType,
     },
-    animationStyle: draft.animationStyle ?? 'none',
+    animationStyle: styleId,
     deliverables: selKits.flatMap((kit) =>
       templates.flatMap((t) =>
         versions.flatMap((version) =>
-          sizes.map((size) => ({
-            name: deliverableName({
-              adSetType: campaign.adSetType,
-              theme: campaign.name,
-              year: campaign.year,
-              creativeType: 'Image',
+          sizes.flatMap((size) =>
+            types.map((creativeType) => ({
+              name: deliverableName({
+                adSetType: campaign.adSetType,
+                theme: campaign.name,
+                year: campaign.year,
+                creativeType,
+                version,
+                size,
+                clientName: kit.clientName,
+              }),
+              brand: kit.slug,
+              template: t.manifest.slug,
               version,
               size,
-              clientName: kit.clientName,
-            }),
-            brand: kit.slug,
-            template: t.manifest.slug,
-            version,
-            size,
-            content: resolveDraftContent(draft, version, kit.slug),
-          })),
+              creativeType,
+              ...(creativeType === 'Video' ? { durationMs: presetDuration(styleId), fps: 30 } : {}),
+              content: resolveDraftContent(draft, version, kit.slug),
+            })),
+          ),
         ),
       ),
     ),
