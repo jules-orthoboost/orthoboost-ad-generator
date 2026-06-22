@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Offer Card — full-bleed photo seated under a soft wash, with a centered
@@ -43,9 +44,9 @@ export const Component: HifiTemplateComponent = ({
           </h1>
         )}
         {content.cta && (
-          <span className="oc-cta" style={sty('cta', 'pop-in')}>
+          <FitText as="span" className="oc-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
             {content.cta}
-          </span>
+          </FitText>
         )}
       </div>
     </div>

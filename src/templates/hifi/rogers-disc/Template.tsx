@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Rogers Disc — the Dr. M. Rogers (family-community) hero, photo-free.
@@ -45,16 +46,16 @@ export const Component: HifiTemplateComponent = ({
       )}
       {content.offer && (
         <div className="rd-offer-row">
-          <span className="rd-offer" style={sty('offer', 'pop-in')}>
+          <FitText as="span" className="rd-offer" style={sty('offer', 'pop-in')} deps={[content.offer, size]}>
             {content.offer}
-          </span>
+          </FitText>
         </div>
       )}
       {content.cta && (
         <div className="rd-cta-row">
-          <span className="rd-cta" style={sty('cta', 'pop-in')}>
+          <FitText as="span" className="rd-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
             {content.cta}
-          </span>
+          </FitText>
         </div>
       )}
       {content.disclaimer && (

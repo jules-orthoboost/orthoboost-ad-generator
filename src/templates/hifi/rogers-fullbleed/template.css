@@ -72,6 +72,7 @@
   letter-spacing: 1.4px;
   border-radius: 999px;
   white-space: nowrap;
+  max-width: 900px;
 }
 .rf-cta {
   display: inline-block;
@@ -81,6 +82,7 @@
   border-radius: 999px;
   white-space: nowrap;
   box-shadow: 0 8px 20px rgba(10, 21, 48, 0.4);
+  max-width: 900px;
 }
 
 /* ============ POST (1080x1350) ============ */

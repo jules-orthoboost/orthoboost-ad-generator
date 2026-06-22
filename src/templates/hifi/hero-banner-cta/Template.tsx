@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Hero / Banner / CTA — full-bleed photo, top-center logo, a confident
@@ -47,9 +48,9 @@ export const Component: HifiTemplateComponent = ({
 
       {content.cta && (
         <div className="hbc-cta-wrap">
-          <span className="hbc-cta" style={sty('cta', 'pop-in')}>
+          <FitText as="span" className="hbc-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
             {content.cta}
-          </span>
+          </FitText>
         </div>
       )}
     </div>

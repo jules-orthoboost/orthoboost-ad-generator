@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Rogers Photo Card — a rounded photo card (the client's image) over a warm
@@ -42,14 +43,14 @@ export const Component: HifiTemplateComponent = ({
         </p>
       )}
       {content.offer && (
-        <span className="rp-offer" style={sty('offer', 'pop-in')}>
+        <FitText as="span" className="rp-offer" style={sty('offer', 'pop-in')} deps={[content.offer, size]}>
           {content.offer}
-        </span>
+        </FitText>
       )}
       {content.cta && (
-        <span className="rp-cta" style={sty('cta', 'pop-in')}>
+        <FitText as="span" className="rp-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
           {content.cta}
-        </span>
+        </FitText>
       )}
       {content.disclaimer && (
         <p className="rp-disclaimer" style={sty('disclaimer', 'fade-in')}>

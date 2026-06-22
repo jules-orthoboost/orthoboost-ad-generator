@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Rogers Full Bleed — the client's photo fills the frame under a soft bottom
@@ -47,16 +48,16 @@ export const Component: HifiTemplateComponent = ({
         )}
         {content.offer && (
           <div className="rf-offer-row">
-            <span className="rf-offer" style={sty('offer', 'pop-in')}>
+            <FitText as="span" className="rf-offer" style={sty('offer', 'pop-in')} deps={[content.offer, size]}>
               {content.offer}
-            </span>
+            </FitText>
           </div>
         )}
         {content.cta && (
           <div className="rf-cta-row">
-            <span className="rf-cta" style={sty('cta', 'pop-in')}>
+            <FitText as="span" className="rf-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
               {content.cta}
-            </span>
+            </FitText>
           </div>
         )}
         {content.disclaimer && (
