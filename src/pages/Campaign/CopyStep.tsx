@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import clsx from 'clsx'
 import { loadBrandKits, loadPhotoLibrary } from '../../core/data'
 import { fitProblem, type PerClientVersion, type Version } from '../../core/gates'
@@ -54,6 +54,18 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
       }
     })
 
+  // Editor affordances any selected template opts into (see manifest.fields).
+  const richOffer = deps.templates.some((t) => t.manifest.fields?.richOffer)
+  const showSocial = deps.templates.some((t) => t.manifest.fields?.socialProof)
+
+  const onUpload = (brand: string, e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => updatePC(brand, { photo: String(reader.result) })
+    reader.readAsDataURL(file) // inline data URL: self-contained for preview + export
+  }
+
   const hint = (field: string, text: string) => {
     const p = fitProblem(text ?? '', deps.archetypes, field)
     return p ? <span className="ml-2 text-xs font-semibold text-red-600">{p}</span> : null
@@ -62,8 +74,8 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
   return (
     <div>
       <StepIntro title="Write the copy">
-        Headline, subhead, CTA and disclaimer are shared across every client on this persona. Offer and photo are
-        per client — and you can override any shared line for a single client.
+        Headline, subhead, CTA and disclaimer are shared across every client on this persona. Offer, social proof
+        and photo are per client — and you can override any shared line for a single client.
       </StepIntro>
 
       <Segmented options={['V1', 'V2'] as const} value={version} onChange={setVersion} />
@@ -104,22 +116,85 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
                 <strong className="font-semibold text-zinc-950">{kit.clientName}</strong>
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Field>
-                  <Label>
-                    Offer
-                    {hint('offer', pc.offer ?? '')}
-                  </Label>
-                  <Input
-                    value={pc.offer ?? ''}
-                    placeholder="e.g. $200 off new braces"
-                    onChange={(e) => updatePC(slug, { offer: e.target.value })}
-                  />
-                </Field>
+              <div className="space-y-5">
+                {richOffer ? (
+                  <div className="space-y-3">
+                    <Field>
+                      <Label>Offer label</Label>
+                      <Input
+                        value={pc.offerLabel ?? ''}
+                        placeholder="Plans as low as"
+                        onChange={(e) => updatePC(slug, { offerLabel: e.target.value })}
+                      />
+                    </Field>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Field>
+                        <Label>
+                          Amount
+                          {hint('offer', pc.offer ?? '')}
+                        </Label>
+                        <Input
+                          value={pc.offer ?? ''}
+                          placeholder="$99"
+                          onChange={(e) => updatePC(slug, { offer: e.target.value })}
+                        />
+                      </Field>
+                      <Field>
+                        <Label>Unit</Label>
+                        <Input
+                          value={pc.offerUnit ?? ''}
+                          placeholder="/mo"
+                          onChange={(e) => updatePC(slug, { offerUnit: e.target.value })}
+                        />
+                      </Field>
+                    </div>
+                    <Field>
+                      <Label>Offer fine print</Label>
+                      <Input
+                        value={pc.offerFine ?? ''}
+                        placeholder="$0 down · 0% financing"
+                        onChange={(e) => updatePC(slug, { offerFine: e.target.value })}
+                      />
+                    </Field>
+                  </div>
+                ) : (
+                  <Field>
+                    <Label>
+                      Offer
+                      {hint('offer', pc.offer ?? '')}
+                    </Label>
+                    <Input
+                      value={pc.offer ?? ''}
+                      placeholder="e.g. $200 off new braces"
+                      onChange={(e) => updatePC(slug, { offer: e.target.value })}
+                    />
+                  </Field>
+                )}
+
+                {showSocial && (
+                  <div className="grid grid-cols-[96px_1fr] gap-3">
+                    <Field>
+                      <Label>Rating</Label>
+                      <Input
+                        value={pc.rating ?? ''}
+                        placeholder="4.9"
+                        onChange={(e) => updatePC(slug, { rating: e.target.value })}
+                      />
+                    </Field>
+                    <Field>
+                      <Label>Social proof</Label>
+                      <Input
+                        value={pc.socialProof ?? ''}
+                        placeholder="2,000+ local smiles"
+                        onChange={(e) => updatePC(slug, { socialProof: e.target.value })}
+                      />
+                    </Field>
+                  </div>
+                )}
 
                 <div>
                   <span className="text-sm font-medium text-zinc-950">Photo</span>
-                  <div className="mt-2 flex flex-wrap gap-2">
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
                     {photos.map((url) => (
                       <button
                         key={url}
@@ -134,6 +209,25 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
                         <img src={url} alt={photoLabel(url)} className="size-full object-cover" />
                       </button>
                     ))}
+                    <label
+                      title="Upload a custom photo"
+                      className="flex size-16 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 text-[11px] font-medium text-zinc-500 transition hover:border-zinc-400"
+                    >
+                      Upload
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => onUpload(slug, e)}
+                      />
+                    </label>
+                    {pc.photo?.startsWith('data:') && (
+                      <img
+                        src={pc.photo}
+                        alt="Uploaded"
+                        className="size-16 rounded-lg object-cover ring-2 ring-sky-500"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

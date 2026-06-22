@@ -1,0 +1,21 @@
+{
+  "slug": "everyday-orthodontics",
+  "clientName": "EveryDay Orthodontics",
+  "personaSlug": "dr-a-joe",
+  "colors": {
+    "brand": "#2c74c2",
+    "ink": "#15315a",
+    "surface": "#ffffff",
+    "accent": "#16c2ec",
+    "onBrand": "#0b2b44"
+  },
+  "typography": { "displayFont": "Inter", "bodyFont": "Inter" },
+  "valueProps": ["$0 down", "All ages", "Fast start"],
+  "logo": { "assetPath": "assets/clients/everyday-orthodontics/logo.svg", "aspect": 6.3 },
+  "tagline": "Affordable family orthodontics",
+  "website": "everydayortho.com",
+  "phone": "(555) 010-0100",
+  "address": "123 Main St · Knoxville, TN",
+  "social": "@everydayortho",
+  "radius": 26
+}

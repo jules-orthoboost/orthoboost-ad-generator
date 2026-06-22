@@ -106,6 +106,12 @@ export const BrandKitSchema = z.object({
     assetPath: z.string().min(1),
     aspect: z.number().positive().optional(),
   }),
+  // Optional brand-level contact, auto-applied by templates that render a footer.
+  tagline: z.string().optional(),
+  website: z.string().optional(),
+  phone: z.string().optional(),
+  address: z.string().optional(),
+  social: z.string().optional(),
   radius: z.number().int().min(0).optional(),
   donts: z.array(z.string()).optional(),
   // Exactly three short benefit phrases sourced from the client (Notion USPs + website).
@@ -122,6 +128,11 @@ export const HifiTemplateManifestSchema = z.object({
   // Omit for an evergreen template that fits any campaign.
   suitedCampaigns: z.array(slug).optional(),
   slots: z.array(SlotName).min(1),
+  // Opt-in editor affordances beyond the shared slots. richOffer = label/unit/fine
+  // around the offer; socialProof = an editable rating + trust line.
+  fields: z
+    .object({ richOffer: z.boolean().optional(), socialProof: z.boolean().optional() })
+    .optional(),
 })
 export type HifiTemplateManifest = z.infer<typeof HifiTemplateManifestSchema>
 
@@ -130,10 +141,17 @@ export const SlotContentSchema = z.object({
   headline: z.string().optional(),
   subhead: z.string().optional(),
   cta: z.string().optional(),
-  offer: z.string().optional(),
+  offer: z.string().optional(), // the headline offer/price, e.g. "$99" or "FREE CONSULT"
   disclaimer: z.string().optional(),
   badge: z.string().optional(),
   photo: z.string().optional(), // asset path
+  // Structured offer decorations (templates that opt in via manifest.fields.richOffer).
+  offerLabel: z.string().optional(), // e.g. "Plans as low as"
+  offerUnit: z.string().optional(), // e.g. "/mo"
+  offerFine: z.string().optional(), // e.g. "$0 down · 0% financing"
+  // Social-proof line (templates that opt in via manifest.fields.socialProof).
+  rating: z.string().optional(), // e.g. "4.9"
+  socialProof: z.string().optional(), // e.g. "2,000+ local smiles"
 })
 export type SlotContent = z.infer<typeof SlotContentSchema>
 

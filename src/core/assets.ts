@@ -4,6 +4,7 @@
 export function resolveAsset(p: string): string {
   if (!p) return p
   if (/^https?:\/\//.test(p)) return p
+  if (/^(data|blob):/.test(p)) return p // inline uploads (data URL) / object URLs
   const base = import.meta.env.BASE_URL
   if (p.startsWith(base)) return p
   return `${base}${p.replace(/^\//, '')}`
