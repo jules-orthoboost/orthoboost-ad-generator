@@ -159,16 +159,19 @@
 .jvc-offer-row {
   display: flex;
   align-items: baseline;
+  white-space: nowrap; /* fit-to-width (useFitText) measures this as one line */
 }
 .jvc-amount {
   font-family: var(--display-font);
   font-weight: 800;
+  font-size: 1em; /* row font-size is the ceiling; useFitText shrinks the row */
   line-height: 0.9;
   letter-spacing: -0.02em;
   color: #fff;
 }
 .jvc-unit {
   font-weight: 800;
+  font-size: 0.29em; /* scales with the amount */
   color: #bcd9f6;
   margin-left: 8px;
 }
@@ -297,14 +300,9 @@
 .jvc-Post .jvc-offer-label {
   font-size: 26px;
 }
-.jvc-Post .jvc-amount {
-  font-size: 138px;
-}
-.jvc-Post .jvc-unit {
-  font-size: 40px;
-}
 .jvc-Post .jvc-offer-row {
   margin-top: 2px;
+  font-size: 138px;
 }
 .jvc-Post .jvc-offer-fine {
   margin-top: 12px;
@@ -401,14 +399,9 @@
 .jvc-Story .jvc-offer-label {
   font-size: 30px;
 }
-.jvc-Story .jvc-amount {
-  font-size: 168px;
-}
-.jvc-Story .jvc-unit {
-  font-size: 48px;
-}
 .jvc-Story .jvc-offer-row {
   margin-top: 4px;
+  font-size: 168px;
 }
 .jvc-Story .jvc-offer-fine {
   margin-top: 14px;
