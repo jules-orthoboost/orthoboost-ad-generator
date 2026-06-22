@@ -2,6 +2,7 @@ import './template.css'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { useFitText } from '../useFitText'
 
 /**
  * Value Card (Price-led) — the Dr. A. Joe budget look. A hero photo band up top,
@@ -24,6 +25,8 @@ export const Component: HifiTemplateComponent = ({
   const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
   const headlineLines = (content.headline ?? '').split('\n').filter(Boolean)
   const chips = tokens.valueProps.slice(0, 3)
+  // The price varies in length ($0 … $2,000); shrink it to fit the price column.
+  const offerRef = useFitText<HTMLDivElement>([content.offer, content.offerUnit, size])
 
   return (
     <div className={`jvc jvc-${size}`}>
@@ -92,7 +95,7 @@ export const Component: HifiTemplateComponent = ({
       <div className="jvc-price">
         {content.offerLabel && <div className="jvc-offer-label">{content.offerLabel}</div>}
         {content.offer && (
-          <div className="jvc-offer-row" style={sty('offer', 'pop-in')}>
+          <div ref={offerRef} className="jvc-offer-row" style={sty('offer', 'pop-in')}>
             <span className="jvc-amount">{content.offer}</span>
             {content.offerUnit && <span className="jvc-unit">{content.offerUnit}</span>}
           </div>
