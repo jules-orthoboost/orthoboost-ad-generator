@@ -28,6 +28,13 @@ export type Version = 'V1' | 'V2'
 export interface PerClientVersion {
   offer?: string
   photo?: string
+  // Structured-offer decorations (templates with manifest.fields.richOffer).
+  offerLabel?: string
+  offerUnit?: string
+  offerFine?: string
+  // Social-proof line (templates with manifest.fields.socialProof).
+  rating?: string
+  socialProof?: string
   makeDifferent?: boolean
   override?: PersonaCopyVersion // headline / subhead / cta / disclaimer
 }
@@ -61,6 +68,11 @@ export function resolveDraftContent(draft: FlowDraft, version: Version, brandSlu
     cta: ov.cta ?? shared.cta,
     disclaimer: ov.disclaimer ?? shared.disclaimer,
     offer: pc.offer,
+    offerLabel: pc.offerLabel,
+    offerUnit: pc.offerUnit,
+    offerFine: pc.offerFine,
+    rating: pc.rating,
+    socialProof: pc.socialProof,
     photo: pc.photo,
   }
 }

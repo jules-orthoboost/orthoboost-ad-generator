@@ -10,6 +10,15 @@ export interface ResolvedTokens {
   bodyFont: string
   radius: number
   logoPath: string
+  clientName: string
+  /** Exactly the brand kit's value props (e.g. benefit chips). Empty if unset. */
+  valueProps: string[]
+  /** Brand-level contact, for templates with a footer. Undefined when unset. */
+  tagline?: string
+  website?: string
+  phone?: string
+  address?: string
+  social?: string
   cssVars: Record<string, string>
 }
 
@@ -38,6 +47,13 @@ export function resolveTokens(persona: Persona, kit: BrandKit): ResolvedTokens {
     bodyFont: ty?.bodyFont ?? BASE.bodyFont,
     radius: kit.radius ?? BASE.radius,
     logoPath: kit.logo.assetPath,
+    clientName: kit.clientName,
+    valueProps: kit.valueProps ?? [],
+    tagline: kit.tagline,
+    website: kit.website,
+    phone: kit.phone,
+    address: kit.address,
+    social: kit.social,
   }
   const stack = (f: string) => `${f}, system-ui, sans-serif`
   return {

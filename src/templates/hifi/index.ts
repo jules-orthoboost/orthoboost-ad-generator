@@ -9,6 +9,8 @@ import { manifest as rogersPhotocardManifest } from './rogers-photocard/manifest
 import { Component as RogersPhotocardComponent } from './rogers-photocard/Template'
 import { manifest as rogersFullbleedManifest } from './rogers-fullbleed/manifest'
 import { Component as RogersFullbleedComponent } from './rogers-fullbleed/Template'
+import { manifest as joeValueCardManifest } from './joe-value-card/manifest'
+import { Component as JoeValueCardComponent } from './joe-value-card/Template'
 
 export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [heroManifest.slug]: { manifest: heroManifest, Component: HeroComponent },
@@ -16,6 +18,7 @@ export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [rogersDiscManifest.slug]: { manifest: rogersDiscManifest, Component: RogersDiscComponent },
   [rogersPhotocardManifest.slug]: { manifest: rogersPhotocardManifest, Component: RogersPhotocardComponent },
   [rogersFullbleedManifest.slug]: { manifest: rogersFullbleedManifest, Component: RogersFullbleedComponent },
+  [joeValueCardManifest.slug]: { manifest: joeValueCardManifest, Component: JoeValueCardComponent },
 }
 
 /** Templates for a persona, optionally gated by campaign.
