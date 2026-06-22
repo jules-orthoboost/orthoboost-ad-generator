@@ -229,10 +229,6 @@
   text-align: right;
   white-space: nowrap;
 }
-.jvc-contact-1 {
-  font-weight: 600;
-  color: #fff;
-}
 .jvc-contact-2 {
   color: #9fb6d4;
 }
@@ -328,11 +324,7 @@
 .jvc-Post .jvc-tagline {
   font-size: 17px;
 }
-.jvc-Post .jvc-contact-1 {
-  font-size: 23px;
-}
 .jvc-Post .jvc-contact-2 {
-  margin-top: 8px;
   font-size: 19px;
 }
 
@@ -427,10 +419,6 @@
 .jvc-Story .jvc-tagline {
   font-size: 20px;
 }
-.jvc-Story .jvc-contact-1 {
-  font-size: 26px;
-}
 .jvc-Story .jvc-contact-2 {
-  margin-top: 8px;
   font-size: 22px;
 }

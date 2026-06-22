@@ -116,12 +116,7 @@ export const Component: HifiTemplateComponent = ({
           {tokens.tagline && <span className="jvc-tagline">{tokens.tagline}</span>}
         </div>
         <div className="jvc-contact">
-          {(tokens.phone || tokens.website) && (
-            <div className="jvc-contact-1">{[tokens.phone, tokens.website].filter(Boolean).join('  ·  ')}</div>
-          )}
-          <div className="jvc-contact-2">
-            {[tokens.address, 'New patients welcome'].filter(Boolean).join(' · ')}
-          </div>
+          <div className="jvc-contact-2">New patients welcome</div>
         </div>
       </div>
     </div>
