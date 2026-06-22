@@ -3,6 +3,7 @@ import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
 import { useFitText } from '../useFitText'
+import { FitText } from '../FitText'
 
 /**
  * Value Card (Price-led) — the Dr. A. Joe budget look. A hero photo band up top,
@@ -100,11 +101,15 @@ export const Component: HifiTemplateComponent = ({
             {content.offerUnit && <span className="jvc-unit">{content.offerUnit}</span>}
           </div>
         )}
-        {content.offerFine && <div className="jvc-offer-fine">{content.offerFine}</div>}
+        {content.offerFine && (
+          <FitText as="div" className="jvc-offer-fine" deps={[content.offerFine, size]}>
+            {content.offerFine}
+          </FitText>
+        )}
         {content.cta && (
-          <span className="jvc-cta" style={sty('cta', 'pop-in')}>
+          <FitText as="span" className="jvc-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
             {content.cta} <span className="jvc-cta-arrow">→</span>
-          </span>
+          </FitText>
         )}
         {content.disclaimer && <div className="jvc-disclaimer">{content.disclaimer}</div>}
       </div>

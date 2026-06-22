@@ -307,6 +307,7 @@
 .jvc-Post .jvc-cta {
   margin-top: 28px;
   width: 300px;
+  max-width: 300px;
   height: 86px;
   font-size: 26px;
 }
@@ -402,6 +403,7 @@
 .jvc-Story .jvc-cta {
   margin-top: 34px;
   width: 360px;
+  max-width: 360px;
   height: 96px;
   font-size: 30px;
 }

@@ -85,6 +85,7 @@
   border-radius: 999px;
   box-shadow: 0 14px 38px rgba(8, 15, 28, 0.34);
   white-space: nowrap;
+  max-width: 900px;
 }
 
 /* ---- Story (1080x1920): more vertical room, respect 250/340 safe bands ---- */
