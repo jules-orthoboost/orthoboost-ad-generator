@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { hexToRgb, rgbToHex, relativeLuminance, contrastRatio, meetsAA } from './contrast'
+import { hexToRgb, rgbToHex, relativeLuminance, contrastRatio, meetsAA, pickLegibleColor } from './contrast'
 
 describe('hexToRgb / rgbToHex', () => {
   it('parses 6-digit hex', () => {
@@ -14,6 +14,10 @@ describe('hexToRgb / rgbToHex', () => {
   })
   it('clamps out-of-range channels', () => {
     expect(rgbToHex({ r: 300, g: -5, b: 128 })).toBe('#ff0080')
+  })
+  it('throws on invalid hex', () => {
+    expect(() => hexToRgb('#xyz')).toThrow()
+    expect(() => hexToRgb('not-a-color')).toThrow()
   })
 })
 
@@ -42,8 +46,6 @@ describe('meetsAA', () => {
     expect(meetsAA(2.99, { large: true })).toBe(false)
   })
 })
-
-import { pickLegibleColor } from './contrast'
 
 describe('pickLegibleColor', () => {
   const ratio = (a: string, b: string) => contrastRatio(a, b)

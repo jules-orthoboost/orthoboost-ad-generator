@@ -67,6 +67,7 @@ export function pickLegibleColor(
   opts?: { large?: boolean },
 ): string {
   const passes = (c: string) => meetsAA(contrastRatio(c, against), opts)
+  // Higher contrast wins; ties resolve to `a` (first occurrence / earliest palette entry).
   const better = (a: string, b: string) =>
     contrastRatio(a, against) >= contrastRatio(b, against) ? a : b
 
