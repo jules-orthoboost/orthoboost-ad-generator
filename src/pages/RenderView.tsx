@@ -39,6 +39,7 @@ const useRenderReady = (when: boolean) =>
  * navigates here per deliverable and screenshots `.render-root`. Two modes:
  *
  *   campaign: /render?campaign=<slug>&version=V1&size=Story[&frame=N&fps=30][&reduced=1]
+ *             (`version` is a filename/back-compat token; ignored for content selection)
  *   batch:    /render?batch=<served-url>&i=<index>[&frame=N&fps=30][&reduced=1]
  */
 export function RenderView() {
