@@ -154,21 +154,16 @@ describe('CampaignSchema', () => {
     theme: 'Back To School',
     year: 2026,
     hifiTemplateSlug: 'hero-banner-cta',
-    versions: {
-      V1: { content: { headline: 'A', cta: 'Book', photo: 'assets/photos/back-to-school/classroom-warm.svg' } },
-      V2: { content: { headline: 'B', cta: 'Book', photo: 'assets/photos/back-to-school/smile-portrait.svg' } },
-    },
+    content: { headline: 'A', cta: 'Book', photo: 'assets/photos/back-to-school/classroom-warm.svg' },
   }
   it('accepts a complete campaign', () => {
-    expect(CampaignSchema.parse(base).versions.V1.content.headline).toBe('A')
-  })
-  it('requires both versions', () => {
-    const bad = structuredClone(base) as Record<string, unknown>
-    delete (bad.versions as Record<string, unknown>).V2
-    expect(() => CampaignSchema.parse(bad)).toThrow()
+    expect(CampaignSchema.parse(base).content.headline).toBe('A')
   })
   it('rejects a bad ad set type', () => {
     expect(() => CampaignSchema.parse({ ...base, adSetType: 'Holiday' })).toThrow()
+  })
+  it('rejects a bad slug', () => {
+    expect(() => CampaignSchema.parse({ ...base, slug: 'Bad Slug' })).toThrow()
   })
 })
 

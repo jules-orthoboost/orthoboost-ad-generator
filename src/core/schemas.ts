@@ -155,12 +155,6 @@ export const SlotContentSchema = z.object({
 })
 export type SlotContent = z.infer<typeof SlotContentSchema>
 
-export const CampaignVersionSchema = z.object({
-  content: SlotContentSchema,
-  notes: z.string().optional(),
-})
-export type CampaignVersion = z.infer<typeof CampaignVersionSchema>
-
 export const CampaignSchema = z.object({
   slug,
   clientSlug: slug,
@@ -168,7 +162,8 @@ export const CampaignSchema = z.object({
   theme: z.string().min(1),
   year: z.number().int().min(2020).max(2100),
   hifiTemplateSlug: slug,
-  versions: z.object({ V1: CampaignVersionSchema, V2: CampaignVersionSchema }),
+  content: SlotContentSchema,
+  notes: z.string().optional(),
 })
 export type Campaign = z.infer<typeof CampaignSchema>
 

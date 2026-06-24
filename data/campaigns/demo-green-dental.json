@@ -5,22 +5,10 @@
   "theme": "Healthy Smiles",
   "year": 2026,
   "hifiTemplateSlug": "hero-banner-cta",
-  "versions": {
-    "V1": {
-      "content": {
-        "headline": "Whole-body dentistry, beautifully done",
-        "subhead": "Holistic care and modern orthodontics in Alexandria.",
-        "cta": "Book your visit",
-        "photo": "assets/photos/back-to-school/smile-portrait.svg"
-      }
-    },
-    "V2": {
-      "content": {
-        "headline": "Care that sees the whole you",
-        "subhead": "Mercury-free, airway-focused, beautifully modern.",
-        "cta": "Start your consult",
-        "photo": "assets/photos/back-to-school/classroom-warm.svg"
-      }
-    }
+  "content": {
+    "headline": "Whole-body dentistry, beautifully done",
+    "subhead": "Holistic care and modern orthodontics in Alexandria.",
+    "cta": "Book your visit",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
   }
 }

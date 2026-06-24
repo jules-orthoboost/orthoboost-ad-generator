@@ -59,7 +59,7 @@ export interface PersonaCopyVersion {
 export interface CopyLibraryEntry {
   campaignTheme: string
   year: number
-  personas: Record<string, { V1?: PersonaCopyVersion; V2?: PersonaCopyVersion }>
+  personas: Record<string, PersonaCopyVersion>
 }
 const copyKey = (theme: string, year: number) => `${theme.trim().toLowerCase()}|${year}`
 
@@ -78,9 +78,8 @@ export function sharedCopy(
   theme: string,
   year: number,
   personaSlug: string,
-  version: 'V1' | 'V2',
 ): PersonaCopyVersion | undefined {
-  return lib[copyKey(theme, year)]?.personas?.[personaSlug]?.[version]
+  return lib[copyKey(theme, year)]?.personas?.[personaSlug]
 }
 
 /** Copy library keyed by campaign slug (the data/copy filename without .json). */

@@ -5,38 +5,18 @@
   "theme": "Back To School",
   "year": 2026,
   "hifiTemplateSlug": "joe-value-card",
-  "versions": {
-    "V1": {
-      "content": {
-        "headline": "Back-to-school smiles\nyou can afford.",
-        "subhead": "Flexible monthly plans with no hidden fees.",
-        "cta": "Book free consult",
-        "disclaimer": "Estimate. Subject to credit approval.",
-        "offer": "$99",
-        "offerLabel": "Plans as low as",
-        "offerUnit": "/mo",
-        "offerFine": "$0 down · 0% financing",
-        "rating": "4.9",
-        "socialProof": "2,000+ local smiles",
-        "photo": "assets/photos/back-to-school/smile-portrait.svg"
-      },
-      "notes": "Brand / value version — mirrors the source ad."
-    },
-    "V2": {
-      "content": {
-        "headline": "Start school with\na confident smile.",
-        "subhead": "Affordable braces & aligners for the whole family.",
-        "cta": "Claim $0-down offer",
-        "disclaimer": "Estimate. Subject to credit approval.",
-        "offer": "$0",
-        "offerLabel": "Get started for",
-        "offerUnit": "down",
-        "offerFine": "Low monthly plans · 0% financing",
-        "rating": "4.9",
-        "socialProof": "2,000+ local smiles",
-        "photo": "assets/photos/back-to-school/classroom-warm.svg"
-      },
-      "notes": "$0-down version."
-    }
-  }
+  "content": {
+    "headline": "Back-to-school smiles\nyou can afford.",
+    "subhead": "Flexible monthly plans with no hidden fees.",
+    "cta": "Book free consult",
+    "disclaimer": "Estimate. Subject to credit approval.",
+    "offer": "$99",
+    "offerLabel": "Plans as low as",
+    "offerUnit": "/mo",
+    "offerFine": "$0 down · 0% financing",
+    "rating": "4.9",
+    "socialProof": "2,000+ local smiles",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
+  },
+  "notes": "Brand / value version — mirrors the source ad."
 }

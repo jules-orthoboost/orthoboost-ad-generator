@@ -62,7 +62,6 @@ export function RenderView() {
   return (
     <CampaignRender
       campaignSlug={params.get('campaign') ?? ''}
-      version={(params.get('version') ?? 'V1') as 'V1' | 'V2'}
       size={(params.get('size') ?? 'Story') as SizeKey}
       frameNowMs={frameNowMs}
       reduced={reduced}
@@ -72,13 +71,11 @@ export function RenderView() {
 
 function CampaignRender({
   campaignSlug,
-  version,
   size,
   frameNowMs,
   reduced,
 }: {
   campaignSlug: string
-  version: 'V1' | 'V2'
   size: SizeKey
   frameNowMs?: number
   reduced: boolean
@@ -97,8 +94,8 @@ function CampaignRender({
   const archetype = lofi[reg.manifest.archetype]
   // Shared per-persona copy (headline/subhead/cta) wins; per-client content
   // supplies the offer + photo (and may override copy if explicitly set).
-  const content = campaign.versions[version].content
-  const shared = sharedCopy(copyLib, campaign.theme, campaign.year, kit.personaSlug, version)
+  const content = campaign.content
+  const shared = sharedCopy(copyLib, campaign.theme, campaign.year, kit.personaSlug)
   const merged = {
     ...content,
     headline: content.headline ?? shared?.headline,
