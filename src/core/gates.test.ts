@@ -16,12 +16,9 @@ const base: FlowDraft = {
   brandSlugs: ['aloha-orthodontics'],
   campaignSlug: 'back-to-school-2026',
   templateSlugs: ['rogers-photocard'],
-  shared: {
-    V1: { headline: 'Hi', subhead: 'There', cta: 'Book' },
-    V2: { headline: 'Hi', subhead: 'There', cta: 'Book' },
-  },
+  shared: { headline: 'Hi', subhead: 'There', cta: 'Book' },
   perClient: {
-    'aloha-orthodontics': { V1: { offer: 'Free consult' }, V2: { offer: 'Free consult' } },
+    'aloha-orthodontics': { offer: 'Free consult' },
   },
 }
 
@@ -34,16 +31,16 @@ it('selection gates require their field', () => {
   expect(templatesGate({ ...base, templateSlugs: [] }).ok).toBe(false)
 })
 
-it('copyGate needs shared headlines and a per-client offer', () => {
+it('copyGate needs a shared headline and a per-client offer', () => {
   expect(copyGate(base).ok).toBe(true)
-  const noOffer = { ...base, perClient: { 'aloha-orthodontics': { V1: {}, V2: {} } } }
+  const noOffer = { ...base, perClient: { 'aloha-orthodontics': {} } }
   expect(copyGate(noOffer).ok).toBe(false)
-  const noHead = { ...base, shared: { V1: { cta: 'Book' }, V2: { cta: 'Book' } } }
+  const noHead = { ...base, shared: { cta: 'Book' } }
   expect(copyGate(noHead).missing.join(' ')).toMatch(/headline/i)
 })
 
 it('resolveDraftContent merges shared copy with per-client offer/photo', () => {
-  const c = resolveDraftContent(base, 'V1', 'aloha-orthodontics')
+  const c = resolveDraftContent(base, 'aloha-orthodontics')
   expect(c.headline).toBe('Hi')
   expect(c.offer).toBe('Free consult')
 })
@@ -52,17 +49,14 @@ it('"make different" overrides shared copy for one client', () => {
   const draft: FlowDraft = {
     ...base,
     perClient: {
-      'aloha-orthodontics': {
-        V1: { offer: 'X', makeDifferent: true, override: { headline: 'Custom' } },
-        V2: {},
-      },
+      'aloha-orthodontics': { offer: 'X', makeDifferent: true, override: { headline: 'Custom' } },
     },
   }
-  expect(resolveDraftContent(draft, 'V1', 'aloha-orthodontics').headline).toBe('Custom')
+  expect(resolveDraftContent(draft, 'aloha-orthodontics').headline).toBe('Custom')
   // override ignored when the toggle is off
-  const off = { ...draft.perClient['aloha-orthodontics'].V1, makeDifferent: false }
-  const draft2 = { ...draft, perClient: { 'aloha-orthodontics': { V1: off, V2: {} } } }
-  expect(resolveDraftContent(draft2, 'V1', 'aloha-orthodontics').headline).toBe('Hi')
+  const off = { ...draft.perClient['aloha-orthodontics'], makeDifferent: false }
+  const draft2 = { ...draft, perClient: { 'aloha-orthodontics': off } }
+  expect(resolveDraftContent(draft2, 'aloha-orthodontics').headline).toBe('Hi')
 })
 
 const archetype = {

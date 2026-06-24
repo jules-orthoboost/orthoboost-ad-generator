@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { loadBrandKits } from '../../core/data'
 import { deliverableName, type CreativeType, type Size, type Version } from '../../core/naming'
 import { HIFI_TEMPLATES } from '../../templates/hifi'
@@ -5,7 +6,7 @@ import { presetDuration } from '../../templates/hifi/presets'
 import { resolveDraftContent } from '../../core/gates'
 import { Button } from '../../components/catalyst/button'
 import { DeliverablePreview } from './DeliverablePreview'
-import { StepIntro } from './ui'
+import { SectionLabel, Segmented, StepIntro } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
@@ -27,11 +28,11 @@ export function ExportStep({ draft, deps }: StepProps) {
     return <p className="text-sm text-zinc-500">Finish the earlier steps first.</p>
   }
 
-  const versions: Version[] = ['V1', 'V2']
+  const [version, setVersion] = useState<Version>('V1')
   const sizes: Size[] = ['Story', 'Post']
   const styleId = draft.animationStyle ?? 'none'
   const types: CreativeType[] = styleId === 'none' ? ['Image'] : ['Image', 'Video']
-  const total = selKits.length * templates.length * versions.length * sizes.length * types.length
+  const total = selKits.length * templates.length * sizes.length * types.length
 
   // Live preview tiles: one per (brand × template) at V1 / Post.
   const tiles = selKits.flatMap((kit) =>
@@ -49,27 +50,25 @@ export function ExportStep({ draft, deps }: StepProps) {
     animationStyle: styleId,
     deliverables: selKits.flatMap((kit) =>
       templates.flatMap((t) =>
-        versions.flatMap((version) =>
-          sizes.flatMap((size) =>
-            types.map((creativeType) => ({
-              name: deliverableName({
-                adSetType: campaign.adSetType,
-                theme: campaign.name,
-                year: campaign.year,
-                creativeType,
-                version,
-                size,
-                clientName: kit.clientName,
-              }),
-              brand: kit.slug,
-              template: t.manifest.slug,
+        sizes.flatMap((size) =>
+          types.map((creativeType) => ({
+            name: deliverableName({
+              adSetType: campaign.adSetType,
+              theme: campaign.name,
+              year: campaign.year,
+              creativeType,
               version,
               size,
-              creativeType,
-              ...(creativeType === 'Video' ? { durationMs: presetDuration(styleId), fps: 30 } : {}),
-              content: resolveDraftContent(draft, version, kit.slug),
-            })),
-          ),
+              clientName: kit.clientName,
+            }),
+            brand: kit.slug,
+            template: t.manifest.slug,
+            version,
+            size,
+            creativeType,
+            ...(creativeType === 'Video' ? { durationMs: presetDuration(styleId), fps: 30 } : {}),
+            content: resolveDraftContent(draft, kit.slug),
+          })),
         ),
       ),
     ),
@@ -78,9 +77,13 @@ export function ExportStep({ draft, deps }: StepProps) {
   return (
     <div>
       <StepIntro title={`Export — ${persona.name}`}>
-        {selKits.length} brands × {templates.length} templates × {versions.length} versions × {sizes.length} sizes
+        {selKits.length} brands × {templates.length} templates × {sizes.length} sizes
         {styleId !== 'none' ? ' × image + video' : ''} = {total} deliverables, grouped under {persona.name}.
       </StepIntro>
+      <div className="mb-4 max-w-xs">
+        <SectionLabel>Version label (filename only)</SectionLabel>
+        <Segmented options={['V1', 'V2'] as const} value={version} onChange={setVersion} />
+      </div>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-zinc-950/10 bg-zinc-50 p-4">
         <Button onClick={() => download(`${persona.slug}_${campaign.slug}_batch.json`, buildConfig())}>
@@ -109,7 +112,6 @@ export function ExportStep({ draft, deps }: StepProps) {
               draft={draft}
               kit={kits[kit.slug]}
               templateSlug={templateSlug}
-              version="V1"
               size="Post"
               fitHeight={300}
             />
