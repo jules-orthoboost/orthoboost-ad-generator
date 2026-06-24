@@ -9,7 +9,7 @@ const campaign = {
   theme: 'X',
   year: 2026,
   hifiTemplateSlug: 'hero-banner-cta',
-  versions: { V1: { content: {} }, V2: { content: {} } },
+  content: {},
 } as Campaign
 
 describe('buildContentsPayload', () => {
