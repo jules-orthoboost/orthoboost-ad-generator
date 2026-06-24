@@ -52,11 +52,14 @@ export function meetsAA(ratio: number, opts?: { large?: boolean }): boolean {
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
 /**
- * A hex color guaranteed to meet AA against `against`.
- * 1) highest-contrast palette color that already passes, else
- * 2) ramp the highest-contrast palette color (or a near-tone when the palette is
- *    empty) toward the background-appropriate extreme until it passes. The endpoint
- *    is true black/white, which passes for any background, so this never fails.
+ * Returns a hex color guaranteed to meet WCAG 2.1 AA against `against`.
+ *
+ * Algorithm:
+ * 1) If any palette color already passes, return the one with the highest contrast.
+ * 2) Otherwise, pick the extreme (black or white) that has the *higher* contrast
+ *    against `against` — this handles mid-tones like #777777 where black beats white —
+ *    and linearly ramp the best-available starting color toward that extreme until
+ *    AA is met. The endpoint is always guaranteed to pass, so this function never fails.
  */
 export function pickLegibleColor(
   against: string,
