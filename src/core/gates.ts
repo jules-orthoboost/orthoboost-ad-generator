@@ -21,8 +21,6 @@ export const SLOT_FONT_PX: Record<string, number> = {
   badge: 40,
 }
 
-export type Version = 'V1' | 'V2'
-
 /** Per-client, per-version data: the always-per-client offer + photo, plus an
  * optional "make different" override of the otherwise-shared copy. */
 export interface PerClientVersion {
@@ -39,28 +37,23 @@ export interface PerClientVersion {
   override?: PersonaCopyVersion // headline / subhead / cta / disclaimer
 }
 
-/** The whole linear-builder state: one persona, many brands, one campaign,
- * many templates, shared copy, and per-client offer/photo/overrides. */
 export interface FlowDraft {
   personaSlug?: string
   brandSlugs: string[]
   campaignSlug?: string
   templateSlugs: string[]
-  shared: { V1: PersonaCopyVersion; V2: PersonaCopyVersion }
-  perClient: Record<string, { V1: PerClientVersion; V2: PerClientVersion }>
+  shared: PersonaCopyVersion
+  perClient: Record<string, PerClientVersion>
   animationStyle?: string
 }
 
-export const emptyPerClient = (): { V1: PerClientVersion; V2: PerClientVersion } => ({
-  V1: {},
-  V2: {},
-})
+export const emptyPerClient = (): PerClientVersion => ({})
 
-/** Final SlotContent for a (version, brand): shared copy, overridden when the
- * client is "make different", plus that client's own offer + photo. */
-export function resolveDraftContent(draft: FlowDraft, version: Version, brandSlug: string): SlotContent {
-  const shared = draft.shared[version]
-  const pc = draft.perClient[brandSlug]?.[version] ?? {}
+/** Final SlotContent for a brand: shared copy, overridden when the client is
+ * "make different", plus that client's own offer + photo. */
+export function resolveDraftContent(draft: FlowDraft, brandSlug: string): SlotContent {
+  const shared = draft.shared
+  const pc = draft.perClient[brandSlug] ?? {}
   const ov = pc.makeDifferent ? pc.override ?? {} : {}
   return {
     headline: ov.headline ?? shared.headline,
@@ -106,13 +99,9 @@ export const templatesGate = (d: FlowDraft) =>
 
 export function copyGate(d: FlowDraft): GateResult {
   const missing: string[] = []
-  for (const v of ['V1', 'V2'] as Version[]) {
-    if (!d.shared[v].headline?.trim()) missing.push(`${v}: shared headline is empty`)
-  }
+  if (!d.shared.headline?.trim()) missing.push('Shared headline is empty')
   for (const b of d.brandSlugs) {
-    for (const v of ['V1', 'V2'] as Version[]) {
-      if (!d.perClient[b]?.[v]?.offer?.trim()) missing.push(`${b} · ${v}: offer is empty`)
-    }
+    if (!d.perClient[b]?.offer?.trim()) missing.push(`${b}: offer is empty`)
   }
   return result(missing)
 }

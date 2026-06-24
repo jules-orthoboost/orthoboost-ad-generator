@@ -63,7 +63,7 @@ export function Tile({
   )
 }
 
-/** Compact two-or-more option toggle (e.g. V1 / V2). */
+/** Compact two-or-more option toggle. */
 export function Segmented<T extends string>({
   options,
   value,

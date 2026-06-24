@@ -49,7 +49,6 @@ export function AnimationStep({ draft, setDraft, deps }: StepProps) {
               draft={draft}
               kit={kits[kit.slug]}
               templateSlug={template}
-              version="V1"
               size="Post"
               fitHeight={420}
               playing

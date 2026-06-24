@@ -1,14 +1,14 @@
-import { useState, type ChangeEvent } from 'react'
+import { type ChangeEvent } from 'react'
 import clsx from 'clsx'
 import { loadBrandKits, loadPhotoLibrary } from '../../core/data'
-import { fitProblem, type PerClientVersion, type Version } from '../../core/gates'
+import { fitProblem, type PerClientVersion } from '../../core/gates'
 import type { PersonaCopyVersion } from '../../core/data'
 import { Field, Label } from '../../components/catalyst/fieldset'
 import { Input } from '../../components/catalyst/input'
 import { Textarea } from '../../components/catalyst/textarea'
 import { Checkbox, CheckboxField } from '../../components/catalyst/checkbox'
 import { DeliverablePreview } from './DeliverablePreview'
-import { SectionLabel, Segmented, StepIntro } from './ui'
+import { SectionLabel, StepIntro } from './ui'
 import type { StepProps } from './CampaignBuilder'
 
 const kits = loadBrandKits()
@@ -25,33 +25,23 @@ const LABELS: Record<string, string> = {
 }
 
 export function CopyStep({ draft, setDraft, deps }: StepProps) {
-  const [version, setVersion] = useState<Version>('V1')
   const previewKit = deps.kits[0]
   const previewTemplate = draft.templateSlugs[0]
 
   const setShared = (field: keyof PersonaCopyVersion, value: string) =>
-    setDraft((d) => ({
-      ...d,
-      shared: { ...d.shared, [version]: { ...d.shared[version], [field]: value } },
-    }))
+    setDraft((d) => ({ ...d, shared: { ...d.shared, [field]: value } }))
 
   const updatePC = (brand: string, patch: Partial<PerClientVersion>) =>
     setDraft((d) => {
-      const cur = d.perClient[brand] ?? { V1: {}, V2: {} }
-      return {
-        ...d,
-        perClient: { ...d.perClient, [brand]: { ...cur, [version]: { ...cur[version], ...patch } } },
-      }
+      const cur = d.perClient[brand] ?? {}
+      return { ...d, perClient: { ...d.perClient, [brand]: { ...cur, ...patch } } }
     })
 
   const setOverride = (brand: string, field: keyof PersonaCopyVersion, value: string) =>
     setDraft((d) => {
-      const cur = d.perClient[brand] ?? { V1: {}, V2: {} }
-      const ov = { ...(cur[version].override ?? {}), [field]: value }
-      return {
-        ...d,
-        perClient: { ...d.perClient, [brand]: { ...cur, [version]: { ...cur[version], override: ov } } },
-      }
+      const cur = d.perClient[brand] ?? {}
+      const ov = { ...(cur.override ?? {}), [field]: value }
+      return { ...d, perClient: { ...d.perClient, [brand]: { ...cur, override: ov } } }
     })
 
   // Editor affordances any selected template opts into (see manifest.fields).
@@ -78,12 +68,10 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
         and photo are per client — and you can override any shared line for a single client.
       </StepIntro>
 
-      <Segmented options={['V1', 'V2'] as const} value={version} onChange={setVersion} />
-
       <SectionLabel>Shared across all {deps.kits.length} clients</SectionLabel>
       <div className="max-w-xl space-y-5">
         {SHARED_FIELDS.map((field) => {
-          const value = draft.shared[version][field] ?? ''
+          const value = draft.shared[field] ?? ''
           const multiline = field === 'headline' || field === 'subhead'
           return (
             <Field key={field}>
@@ -101,11 +89,11 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
         })}
       </div>
 
-      <SectionLabel>Per client — offer, photo &amp; overrides ({version})</SectionLabel>
+      <SectionLabel>Per client — offer, photo &amp; overrides</SectionLabel>
       <div className="space-y-4">
         {draft.brandSlugs.map((slug) => {
           const kit = kits[slug]
-          const pc = draft.perClient[slug]?.[version] ?? {}
+          const pc = draft.perClient[slug] ?? {}
           return (
             <div key={slug} className="rounded-xl border border-zinc-950/10 p-4">
               <div className="mb-4 flex items-center gap-2">
@@ -248,7 +236,7 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
                     <Field key={field}>
                       <Label>{LABELS[field]}</Label>
                       <Input
-                        value={pc.override?.[field] ?? draft.shared[version][field] ?? ''}
+                        value={pc.override?.[field] ?? draft.shared[field] ?? ''}
                         onChange={(e) => setOverride(slug, field, e.target.value)}
                       />
                     </Field>
@@ -268,7 +256,6 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
               draft={draft}
               kit={kits[previewKit.slug]}
               templateSlug={previewTemplate}
-              version={version}
               size="Post"
               fitHeight={420}
             />

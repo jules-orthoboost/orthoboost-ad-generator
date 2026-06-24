@@ -27,7 +27,7 @@ export interface StepProps {
 const emptyDraft = (): FlowDraft => ({
   brandSlugs: [],
   templateSlugs: [],
-  shared: { V1: {}, V2: {} },
+  shared: {},
   perClient: {},
 })
 

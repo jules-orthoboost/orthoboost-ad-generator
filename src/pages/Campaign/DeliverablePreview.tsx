@@ -4,7 +4,7 @@ import { resolveAsset } from '../../core/assets'
 import { HIFI_TEMPLATES } from '../../templates/hifi'
 import { TemplateFrame } from '../../templates/hifi/TemplateFrame'
 import { applyPreset } from '../../templates/hifi/presets'
-import { resolveDraftContent, type FlowDraft, type Version } from '../../core/gates'
+import { resolveDraftContent, type FlowDraft } from '../../core/gates'
 import type { BrandKit, SizeKey } from '../../core/schemas'
 
 const personas = loadPersonas()
@@ -15,7 +15,6 @@ export function DeliverablePreview({
   draft,
   kit,
   templateSlug,
-  version,
   size,
   fitHeight,
   playing,
@@ -24,7 +23,6 @@ export function DeliverablePreview({
   draft: FlowDraft
   kit: BrandKit
   templateSlug: string
-  version: Version
   size: SizeKey
   fitHeight: number
   playing?: boolean
@@ -36,7 +34,7 @@ export function DeliverablePreview({
   const tokens = resolveTokens(persona, kit)
   const grammar = lofi[reg.manifest.archetype].videoGrammar
   const motion = applyPreset(grammar.beats, grammar.durationMs, draft.animationStyle)
-  const content = resolveDraftContent(draft, version, kit.slug)
+  const content = resolveDraftContent(draft, kit.slug)
   const resolved = { ...content, photo: content.photo ? resolveAsset(content.photo) : undefined }
   return (
     <TemplateFrame size={size} tokens={tokens} fitHeight={fitHeight}>
