@@ -16,6 +16,7 @@ export function CampaignStep({ draft, setDraft }: StepProps) {
     setDraft((d) => {
       // Prefill shared copy from the persona library for this campaign (editable next step).
       const lib = d.personaSlug ? copyBySlug[slug]?.personas?.[d.personaSlug] : undefined
+      // V2 library copy intentionally dropped here; Task 2 migrates the data to a single copy set.
       const shared = lib ? pick(lib.V1) : d.shared
       return { ...d, campaignSlug: slug, templateSlugs: [], shared }
     })

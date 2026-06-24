@@ -24,11 +24,12 @@ function download(name: string, data: unknown) {
 
 export function ExportStep({ draft, deps }: StepProps) {
   const { persona, campaign, kits: selKits, templates } = deps
+  const [version, setVersion] = useState<Version>('V1')
   if (!persona || !campaign || selKits.length === 0 || templates.length === 0) {
     return <p className="text-sm text-zinc-500">Finish the earlier steps first.</p>
   }
 
-  const [version, setVersion] = useState<Version>('V1')
+
   const sizes: Size[] = ['Story', 'Post']
   const styleId = draft.animationStyle ?? 'none'
   const types: CreativeType[] = styleId === 'none' ? ['Image'] : ['Image', 'Video']
@@ -103,7 +104,7 @@ export function ExportStep({ draft, deps }: StepProps) {
       </div>
 
       <h3 className="mt-8 mb-1 text-sm font-semibold text-zinc-950">
-        Preview · V1 / Post ({Math.min(tiles.length, PREVIEW_CAP)} of {tiles.length})
+        Preview · {version} / Post ({Math.min(tiles.length, PREVIEW_CAP)} of {tiles.length})
       </h3>
       <div className="mt-3 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {tiles.slice(0, PREVIEW_CAP).map(({ kit, templateSlug }) => (
