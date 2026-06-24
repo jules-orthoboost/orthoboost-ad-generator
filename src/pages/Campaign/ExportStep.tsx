@@ -35,7 +35,7 @@ export function ExportStep({ draft, deps }: StepProps) {
   const types: CreativeType[] = styleId === 'none' ? ['Image'] : ['Image', 'Video']
   const total = selKits.length * templates.length * sizes.length * types.length
 
-  // Live preview tiles: one per (brand × template) at V1 / Post.
+  // Live preview tiles: one per (brand × template), Post size.
   const tiles = selKits.flatMap((kit) =>
     templates.map((t) => ({ kit, templateSlug: t.manifest.slug })),
   )

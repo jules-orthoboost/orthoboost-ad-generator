@@ -165,6 +165,11 @@ describe('CampaignSchema', () => {
   it('rejects a bad slug', () => {
     expect(() => CampaignSchema.parse({ ...base, slug: 'Bad Slug' })).toThrow()
   })
+  it('rejects a campaign missing content', () => {
+    const bad = structuredClone(base) as Record<string, unknown>
+    delete bad.content
+    expect(() => CampaignSchema.parse(bad)).toThrow()
+  })
 })
 
 describe('RenderManifestSchema', () => {
