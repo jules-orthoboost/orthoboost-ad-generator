@@ -1,4 +1,4 @@
-import type { LofiTemplate, SizeKey, SlotContent } from './schemas'
+import type { LofiTemplate, SizeKey, SlotContent, Range } from './schemas'
 import { estimateFit } from './fit'
 import type { PersonaCopyVersion } from './data'
 
@@ -49,6 +49,8 @@ export interface FlowDraft {
   shared: { V1: PersonaCopyVersion; V2: PersonaCopyVersion }
   perClient: Record<string, { V1: PerClientVersion; V2: PerClientVersion }>
   animationStyle?: string
+  /** Word-level highlight ranges for the shared headline/subhead. */
+  sharedHighlights?: { headline?: Range[]; subhead?: Range[] }
 }
 
 export const emptyPerClient = (): { V1: PerClientVersion; V2: PerClientVersion } => ({
@@ -62,6 +64,13 @@ export function resolveDraftContent(draft: FlowDraft, version: Version, brandSlu
   const shared = draft.shared[version]
   const pc = draft.perClient[brandSlug]?.[version] ?? {}
   const ov = pc.makeDifferent ? pc.override ?? {} : {}
+  const hl = draft.sharedHighlights
+  const highlights = hl
+    ? {
+        headline: ov.headline === undefined ? hl.headline : undefined,
+        subhead: ov.subhead === undefined ? hl.subhead : undefined,
+      }
+    : undefined
   return {
     headline: ov.headline ?? shared.headline,
     subhead: ov.subhead ?? shared.subhead,
@@ -74,6 +83,7 @@ export function resolveDraftContent(draft: FlowDraft, version: Version, brandSlu
     rating: pc.rating,
     socialProof: pc.socialProof,
     photo: pc.photo,
+    highlights,
   }
 }
 
