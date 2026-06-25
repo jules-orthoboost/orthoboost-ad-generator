@@ -31,13 +31,13 @@ export function Highlighted({ text, ranges, tokens, offset = 0 }: Props): ReactN
 
   const out: ReactNode[] = []
   let cursor = 0
-  norm.forEach((r, i) => {
+  norm.forEach((r) => {
     const start = Math.max(r.start, cursor)
     if (start >= r.end) return // fully covered by a prior (overlapping) range
     if (start > cursor) out.push(text.slice(cursor, start))
     out.push(
       <mark
-        key={i}
+        key={`${r.start}-${r.end}`}
         style={{
           background: hlColor,
           color: textColor,
@@ -53,5 +53,5 @@ export function Highlighted({ text, ranges, tokens, offset = 0 }: Props): ReactN
     cursor = r.end
   })
   if (cursor < text.length) out.push(text.slice(cursor))
-  return out
+  return <>{out}</>
 }

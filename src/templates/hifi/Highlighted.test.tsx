@@ -40,6 +40,12 @@ describe('Highlighted', () => {
     expect((out.match(/<mark/g) ?? []).length).toBeGreaterThanOrEqual(2)
   })
 
+  it('ignores a zero-width range', () => {
+    const out = html(<Highlighted text="Hello" ranges={[{ start: 3, end: 3 }]} tokens={tokens} />)
+    expect(out).toBe('Hello')
+    expect(out).not.toContain('<mark')
+  })
+
   it('subtracts the offset (per-line rendering)', () => {
     // Global range 10..12 on a line that starts at global offset 8 -> local 2..4.
     const out = html(<Highlighted text="abcdef" ranges={[{ start: 10, end: 12 }]} tokens={tokens} offset={8} />)
