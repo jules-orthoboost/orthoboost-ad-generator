@@ -4,6 +4,7 @@ import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
 import { useFitText } from '../useFitText'
 import { FitText } from '../FitText'
+import { Highlighted } from '../Highlighted'
 
 /**
  * Value Card (Price-led) — the Dr. A. Joe budget look. A hero photo band up top,
@@ -24,7 +25,13 @@ export const Component: HifiTemplateComponent = ({
 }) => {
   const now = useClock(playing, reducedMotion, frameNowMs)
   const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
-  const headlineLines = (content.headline ?? '').split('\n').filter(Boolean)
+  const rawLines = (content.headline ?? '').split('\n')
+  let off = 0
+  const lines = rawLines.map((line) => {
+    const start = off
+    off += line.length + 1 // +1 for the '\n' that split removed
+    return { line, start }
+  }).filter((l) => l.line)
   const chips = tokens.valueProps.slice(0, 3)
   // The price varies in length ($0 … $2,000); shrink it to fit the price column.
   const offerRef = useFitText<HTMLDivElement>([content.offer, content.offerUnit, size])
@@ -64,18 +71,18 @@ export const Component: HifiTemplateComponent = ({
 
       {/* copy card (left) */}
       <div className="jvc-card">
-        {headlineLines.length > 0 && (
+        {lines.length > 0 && (
           <h1 className="jvc-headline" style={sty('headline', 'rise-in')}>
-            {headlineLines.map((line, i) => (
+            {lines.map(({ line, start }, i) => (
               <span key={i} className={i === 0 ? 'jvc-hl' : 'jvc-hl jvc-hl-accent'}>
-                {line}
+                <Highlighted text={line} ranges={content.highlights?.headline} tokens={tokens} offset={start} />
               </span>
             ))}
           </h1>
         )}
         {content.subhead && (
           <p className="jvc-subhead" style={sty('subhead', 'rise-in')}>
-            {content.subhead}
+            <Highlighted text={content.subhead ?? ''} ranges={content.highlights?.subhead} tokens={tokens} />
           </p>
         )}
         {chips.length > 0 && (
