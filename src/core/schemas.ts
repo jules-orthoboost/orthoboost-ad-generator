@@ -33,6 +33,17 @@ export type SizeKey = keyof typeof CANVAS
 export const SlotName = z.enum(['headline', 'subhead', 'cta', 'offer', 'disclaimer', 'photo', 'logo', 'badge'])
 export type Slot = z.infer<typeof SlotName>
 
+export const RangeSchema = z.object({
+  start: z.number().int().min(0),
+  end: z.number().int().min(0),
+})
+export type Range = z.infer<typeof RangeSchema>
+
+export const HighlightsSchema = z.object({
+  headline: z.array(RangeSchema).optional(),
+  subhead: z.array(RangeSchema).optional(),
+})
+
 const ZoneSchema = z.object({
   slot: SlotName,
   x: z.number().int().min(0),
@@ -152,6 +163,8 @@ export const SlotContentSchema = z.object({
   // Social-proof line (templates that opt in via manifest.fields.socialProof).
   rating: z.string().optional(), // e.g. "4.9"
   socialProof: z.string().optional(), // e.g. "2,000+ local smiles"
+  // Word-level highlight ranges per field (character offsets into the rendered text).
+  highlights: HighlightsSchema.optional(),
 })
 export type SlotContent = z.infer<typeof SlotContentSchema>
 
