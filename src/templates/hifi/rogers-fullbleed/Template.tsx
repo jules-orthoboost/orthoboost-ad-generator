@@ -3,6 +3,7 @@ import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
 import { FitText } from '../FitText'
+import { Highlighted } from '../Highlighted'
 
 /**
  * Rogers Full Bleed — the client's photo fills the frame under a soft bottom
@@ -13,6 +14,7 @@ import { FitText } from '../FitText'
 export const Component: HifiTemplateComponent = ({
   size,
   content,
+  tokens,
   logoUrl,
   beats,
   playing,
@@ -38,12 +40,12 @@ export const Component: HifiTemplateComponent = ({
       <div className="rf-stack">
         {content.headline && (
           <h1 className="rf-headline" style={sty('headline', 'rise-in')}>
-            {content.headline}
+            <Highlighted text={content.headline ?? ''} ranges={content.highlights?.headline} tokens={tokens} />
           </h1>
         )}
         {content.subhead && (
           <p className="rf-subhead" style={sty('subhead', 'rise-in')}>
-            {content.subhead}
+            <Highlighted text={content.subhead ?? ''} ranges={content.highlights?.subhead} tokens={tokens} />
           </p>
         )}
         {content.offer && (

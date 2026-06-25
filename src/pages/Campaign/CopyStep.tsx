@@ -1,8 +1,9 @@
-import { type ChangeEvent } from 'react'
+import { useRef, type ChangeEvent } from 'react'
 import clsx from 'clsx'
 import { loadBrandKits, loadPhotoLibrary } from '../../core/data'
 import { fitProblem, type PerClientVersion } from '../../core/gates'
 import type { PersonaCopyVersion } from '../../core/data'
+import type { Range } from '../../core/schemas'
 import { Field, Label } from '../../components/catalyst/fieldset'
 import { Input } from '../../components/catalyst/input'
 import { Textarea } from '../../components/catalyst/textarea'
@@ -27,6 +28,29 @@ const LABELS: Record<string, string> = {
 export function CopyStep({ draft, setDraft, deps }: StepProps) {
   const previewKit = deps.kits[0]
   const previewTemplate = draft.templateSlugs[0]
+
+  const HIGHLIGHTABLE = ['headline', 'subhead'] as const
+  const fieldRefs = {
+    headline: useRef<HTMLTextAreaElement>(null),
+    subhead: useRef<HTMLTextAreaElement>(null),
+  }
+  const addHighlight = (field: 'headline' | 'subhead') => {
+    const el = fieldRefs[field].current
+    if (!el) return
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    if (start == null || end == null || start >= end) return
+    setDraft((d) => {
+      const cur = d.sharedHighlights?.[field] ?? []
+      const next: Range[] = [...cur, { start, end }]
+      return { ...d, sharedHighlights: { ...d.sharedHighlights, [field]: next } }
+    })
+  }
+  const removeHighlight = (field: 'headline' | 'subhead', i: number) =>
+    setDraft((d) => {
+      const cur = d.sharedHighlights?.[field] ?? []
+      return { ...d, sharedHighlights: { ...d.sharedHighlights, [field]: cur.filter((_, j) => j !== i) } }
+    })
 
   const setShared = (field: keyof PersonaCopyVersion, value: string) =>
     setDraft((d) => ({ ...d, shared: { ...d.shared, [field]: value } }))
@@ -73,6 +97,7 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
         {SHARED_FIELDS.map((field) => {
           const value = draft.shared[field] ?? ''
           const multiline = field === 'headline' || field === 'subhead'
+          const highlightable = (HIGHLIGHTABLE as readonly string[]).includes(field)
           return (
             <Field key={field}>
               <Label>
@@ -80,9 +105,40 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
                 {hint(field, value)}
               </Label>
               {multiline ? (
-                <Textarea rows={2} value={value} onChange={(e) => setShared(field, e.target.value)} />
+                <Textarea
+                  ref={highlightable ? fieldRefs[field as 'headline' | 'subhead'] : undefined}
+                  rows={2}
+                  value={value}
+                  onChange={(e) => setShared(field, e.target.value)}
+                />
               ) : (
                 <Input value={value} onChange={(e) => setShared(field, e.target.value)} />
+              )}
+              {highlightable && (
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => addHighlight(field as 'headline' | 'subhead')}
+                    className="rounded-md bg-zinc-900 px-2.5 py-1 text-xs font-semibold text-white hover:bg-zinc-700"
+                  >
+                    Highlight selection
+                  </button>
+                  {(draft.sharedHighlights?.[field as 'headline' | 'subhead'] ?? []).map((r, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1 rounded bg-amber-200 px-1.5 py-0.5 text-xs text-zinc-900"
+                    >
+                      {value.slice(r.start, r.end) || '…'}
+                      <button
+                        type="button"
+                        onClick={() => removeHighlight(field as 'headline' | 'subhead', i)}
+                        className="font-bold"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
               )}
             </Field>
           )

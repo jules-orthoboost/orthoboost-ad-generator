@@ -1,4 +1,5 @@
 import type { Persona, BrandKit } from './schemas'
+import { contrastRatio, meetsAA, pickLegibleColor } from './contrast'
 
 export interface ResolvedTokens {
   brand: string
@@ -37,7 +38,7 @@ const BASE = {
 export function resolveTokens(persona: Persona, kit: BrandKit): ResolvedTokens {
   const c = kit.colors
   const ty = kit.typography
-  const resolved = {
+  const base = {
     brand: c.brand,
     ink: c.ink ?? BASE.ink,
     surface: c.surface ?? BASE.surface,
@@ -55,6 +56,16 @@ export function resolveTokens(persona: Persona, kit: BrandKit): ResolvedTokens {
     address: kit.address,
     social: kit.social,
   }
+
+  // §6 legibility: body text on surface and text on brand must clear AA.
+  // Non-destructive — backgrounds are preserved; only a failing text role is swapped.
+  const palette = [...new Set([base.brand, base.ink, base.surface, base.accent, base.onBrand])]
+  const ink = meetsAA(contrastRatio(base.ink, base.surface)) ? base.ink : pickLegibleColor(base.surface, palette)
+  const onBrand = meetsAA(contrastRatio(base.onBrand, base.brand))
+    ? base.onBrand
+    : pickLegibleColor(base.brand, palette)
+  const resolved = { ...base, ink, onBrand }
+
   const stack = (f: string) => `${f}, system-ui, sans-serif`
   return {
     ...resolved,

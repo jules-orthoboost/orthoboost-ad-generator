@@ -1,4 +1,4 @@
-import type { LofiTemplate, SizeKey, SlotContent } from './schemas'
+import type { LofiTemplate, SizeKey, SlotContent, Range } from './schemas'
 import { estimateFit } from './fit'
 import type { PersonaCopyVersion } from './data'
 
@@ -44,6 +44,8 @@ export interface FlowDraft {
   templateSlugs: string[]
   shared: PersonaCopyVersion
   perClient: Record<string, PerClientVersion>
+  /** Word-level highlight ranges for the shared headline/subhead. */
+  sharedHighlights?: { headline?: Range[]; subhead?: Range[] }
   animationStyle?: string
 }
 
@@ -55,6 +57,15 @@ export function resolveDraftContent(draft: FlowDraft, brandSlug: string): SlotCo
   const shared = draft.shared
   const pc = draft.perClient[brandSlug] ?? {}
   const ov = pc.makeDifferent ? pc.override ?? {} : {}
+  // Word-level highlights apply to the shared text; drop a field's highlights
+  // when this client overrides that field (offsets wouldn't match the override).
+  const hl = draft.sharedHighlights
+  const highlights = hl
+    ? {
+        headline: ov.headline === undefined ? hl.headline : undefined,
+        subhead: ov.subhead === undefined ? hl.subhead : undefined,
+      }
+    : undefined
   return {
     headline: ov.headline ?? shared.headline,
     subhead: ov.subhead ?? shared.subhead,
@@ -67,6 +78,7 @@ export function resolveDraftContent(draft: FlowDraft, brandSlug: string): SlotCo
     rating: pc.rating,
     socialProof: pc.socialProof,
     photo: pc.photo,
+    highlights,
   }
 }
 

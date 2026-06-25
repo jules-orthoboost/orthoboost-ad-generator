@@ -3,6 +3,7 @@ import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
 import { FitText } from '../FitText'
+import { Highlighted } from '../Highlighted'
 
 /**
  * Offer Card — full-bleed photo seated under a soft wash, with a centered
@@ -12,6 +13,7 @@ import { FitText } from '../FitText'
 export const Component: HifiTemplateComponent = ({
   size,
   content,
+  tokens,
   logoUrl,
   beats,
   playing,
@@ -40,7 +42,7 @@ export const Component: HifiTemplateComponent = ({
         )}
         {content.headline && (
           <h1 className="oc-headline" style={sty('headline', 'rise-in')}>
-            {content.headline}
+            <Highlighted text={content.headline ?? ''} ranges={content.highlights?.headline} tokens={tokens} />
           </h1>
         )}
         {content.cta && (
