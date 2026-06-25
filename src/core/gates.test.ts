@@ -65,6 +65,25 @@ it('"make different" overrides shared copy for one client', () => {
   expect(resolveDraftContent(draft2, 'V1', 'aloha-orthodontics').headline).toBe('Hi')
 })
 
+it('attaches shared highlights to resolved content', () => {
+  const draft: FlowDraft = { ...base, sharedHighlights: { headline: [{ start: 0, end: 2 }] } }
+  expect(resolveDraftContent(draft, 'V1', 'aloha-orthodontics').highlights?.headline).toEqual([{ start: 0, end: 2 }])
+})
+
+it('drops a field\'s highlights when the client overrides that field', () => {
+  const draft: FlowDraft = {
+    ...base,
+    sharedHighlights: { headline: [{ start: 0, end: 2 }] },
+    perClient: {
+      'aloha-orthodontics': {
+        V1: { offer: 'X', makeDifferent: true, override: { headline: 'Custom' } },
+        V2: { offer: 'Free consult' },
+      },
+    },
+  }
+  expect(resolveDraftContent(draft, 'V1', 'aloha-orthodontics').highlights?.headline).toBeUndefined()
+})
+
 const archetype = {
   zones: {
     Story: [{ slot: 'headline', x: 90, y: 460, w: 900, h: 300, layer: 1, maxLines: 2 }],

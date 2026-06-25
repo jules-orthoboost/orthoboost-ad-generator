@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react'
+import { useState, useRef, type ChangeEvent } from 'react'
 import clsx from 'clsx'
 import { loadBrandKits, loadPhotoLibrary } from '../../core/data'
 import { fitProblem, type PerClientVersion, type Version } from '../../core/gates'
@@ -10,6 +10,7 @@ import { Checkbox, CheckboxField } from '../../components/catalyst/checkbox'
 import { DeliverablePreview } from './DeliverablePreview'
 import { SectionLabel, Segmented, StepIntro } from './ui'
 import type { StepProps } from './CampaignBuilder'
+import type { Range } from '../../core/schemas'
 
 const kits = loadBrandKits()
 const photos = loadPhotoLibrary()
@@ -66,6 +67,31 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
     reader.readAsDataURL(file) // inline data URL: self-contained for preview + export
   }
 
+  const HIGHLIGHTABLE = ['headline', 'subhead'] as const
+  const fieldRefs = {
+    headline: useRef<HTMLTextAreaElement>(null),
+    subhead: useRef<HTMLTextAreaElement>(null),
+  }
+
+  const addHighlight = (field: 'headline' | 'subhead') => {
+    const el = fieldRefs[field].current
+    if (!el) return
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    if (start == null || end == null || start >= end) return
+    setDraft((d) => {
+      const cur = d.sharedHighlights?.[field] ?? []
+      const next: Range[] = [...cur, { start, end }]
+      return { ...d, sharedHighlights: { ...d.sharedHighlights, [field]: next } }
+    })
+  }
+
+  const removeHighlight = (field: 'headline' | 'subhead', i: number) =>
+    setDraft((d) => {
+      const cur = d.sharedHighlights?.[field] ?? []
+      return { ...d, sharedHighlights: { ...d.sharedHighlights, [field]: cur.filter((_, j) => j !== i) } }
+    })
+
   const hint = (field: string, text: string) => {
     const p = fitProblem(text ?? '', deps.archetypes, field)
     return p ? <span className="ml-2 text-xs font-semibold text-red-600">{p}</span> : null
@@ -92,7 +118,33 @@ export function CopyStep({ draft, setDraft, deps }: StepProps) {
                 {hint(field, value)}
               </Label>
               {multiline ? (
-                <Textarea rows={2} value={value} onChange={(e) => setShared(field, e.target.value)} />
+                <>
+                  <Textarea
+                    rows={2}
+                    value={value}
+                    onChange={(e) => setShared(field, e.target.value)}
+                    ref={fieldRefs[field as 'headline' | 'subhead']}
+                  />
+                  {(HIGHLIGHTABLE as readonly string[]).includes(field) && (
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => addHighlight(field as 'headline' | 'subhead')}
+                        className="rounded-md bg-zinc-900 px-2.5 py-1 text-xs font-semibold text-white hover:bg-zinc-700"
+                      >
+                        Highlight selection
+                      </button>
+                      {(draft.sharedHighlights?.[field as 'headline' | 'subhead'] ?? []).map((r, i) => (
+                        <span key={i} className="inline-flex items-center gap-1 rounded bg-amber-200 px-1.5 py-0.5 text-xs text-zinc-900">
+                          {(value as string).slice(r.start, r.end) || '…'}
+                          <button type="button" onClick={() => removeHighlight(field as 'headline' | 'subhead', i)} className="font-bold">
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </>
               ) : (
                 <Input value={value} onChange={(e) => setShared(field, e.target.value)} />
               )}
