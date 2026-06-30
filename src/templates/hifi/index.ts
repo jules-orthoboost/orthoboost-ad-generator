@@ -13,6 +13,8 @@ import { manifest as joeValueCardManifest } from './joe-value-card/manifest'
 import { Component as JoeValueCardComponent } from './joe-value-card/Template'
 import { manifest as yangSpecSheetManifest } from './yang-spec-sheet/manifest'
 import { Component as YangSpecSheetComponent } from './yang-spec-sheet/Template'
+import { manifest as housePortraitManifest } from './house-portrait/manifest'
+import { Component as HousePortraitComponent } from './house-portrait/Template'
 
 export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [heroManifest.slug]: { manifest: heroManifest, Component: HeroComponent },
@@ -22,6 +24,7 @@ export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [rogersFullbleedManifest.slug]: { manifest: rogersFullbleedManifest, Component: RogersFullbleedComponent },
   [joeValueCardManifest.slug]: { manifest: joeValueCardManifest, Component: JoeValueCardComponent },
   [yangSpecSheetManifest.slug]: { manifest: yangSpecSheetManifest, Component: YangSpecSheetComponent },
+  [housePortraitManifest.slug]: { manifest: housePortraitManifest, Component: HousePortraitComponent },
 }
 
 /** Templates for a persona, optionally gated by campaign.

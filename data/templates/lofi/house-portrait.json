@@ -1,0 +1,47 @@
+{
+  "slug": "house-portrait",
+  "name": "Family Portrait (Premium)",
+  "description": "Dr. G. House premium-family look: a warm cream sheet with a framed portrait, a confident multi-line headline, a tinted supporting panel, a new-patient offer, a filled CTA and a star trust line, with a centred brand lockup. Post is photo-left / copy-right; Story stacks a framed portrait over the copy.",
+  "slots": ["photo", "logo", "badge", "headline", "subhead", "offer", "cta", "disclaimer"],
+  "zones": {
+    "Post": [
+      { "slot": "photo", "x": 72, "y": 150, "w": 448, "h": 1050, "layer": 0 },
+      { "slot": "badge", "x": 96, "y": 178, "w": 200, "h": 64, "layer": 2 },
+      { "slot": "headline", "x": 560, "y": 196, "w": 456, "h": 300, "layer": 1, "maxLines": 4 },
+      { "slot": "subhead", "x": 560, "y": 540, "w": 456, "h": 180, "layer": 1, "maxLines": 3 },
+      { "slot": "offer", "x": 560, "y": 760, "w": 456, "h": 90, "layer": 1 },
+      { "slot": "cta", "x": 560, "y": 872, "w": 438, "h": 76, "layer": 2 },
+      { "slot": "disclaimer", "x": 560, "y": 978, "w": 456, "h": 40, "layer": 1 },
+      { "slot": "logo", "x": 336, "y": 1160, "w": 408, "h": 96, "layer": 2 }
+    ],
+    "Story": [
+      { "slot": "photo", "x": 270, "y": 150, "w": 540, "h": 700, "layer": 0 },
+      { "slot": "badge", "x": 296, "y": 178, "w": 200, "h": 64, "layer": 2 },
+      { "slot": "headline", "x": 64, "y": 900, "w": 952, "h": 280, "layer": 1, "maxLines": 3 },
+      { "slot": "subhead", "x": 64, "y": 1200, "w": 952, "h": 150, "layer": 1, "maxLines": 2 },
+      { "slot": "offer", "x": 64, "y": 1376, "w": 952, "h": 80, "layer": 1 },
+      { "slot": "cta", "x": 64, "y": 1480, "w": 438, "h": 84, "layer": 2 },
+      { "slot": "disclaimer", "x": 64, "y": 1588, "w": 952, "h": 40, "layer": 1 },
+      { "slot": "logo", "x": 336, "y": 1700, "w": 408, "h": 96, "layer": 2 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+  },
+  "videoGrammar": {
+    "durationMs": 8000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "badge", "effect": "pop-in" },
+      { "atMs": 600, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1100, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1500, "slot": "offer", "effect": "fade-in" },
+      { "atMs": 1900, "slot": "cta", "effect": "pop-in" },
+      { "atMs": 2300, "slot": "logo", "effect": "fade-in" }
+    ]
+  }
+}
