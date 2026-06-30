@@ -1,0 +1,7 @@
+{
+  "campaignSlug": "yang-bts-2026",
+  "requested": [
+    { "version": "V1", "size": "Post", "creativeType": "Image" },
+    { "version": "V1", "size": "Story", "creativeType": "Image" }
+  ]
+}
