@@ -1,0 +1,47 @@
+{
+  "slug": "yang-spec-sheet",
+  "name": "Spec Sheet (Authority)",
+  "description": "Dr. C. Yang ORTHO_DATA look: a dark clinical spec-sheet. Eyebrow + multi-line authority headline, subhead, CTA and a minimal seasonal offer on the left; a framed specimen photo and a credentials/outcomes panel on the right; brand logo in the footer.",
+  "slots": ["photo", "logo", "badge", "headline", "subhead", "offer", "cta", "disclaimer"],
+  "zones": {
+    "Post": [
+      { "slot": "photo", "x": 620, "y": 140, "w": 396, "h": 560, "layer": 0 },
+      { "slot": "badge", "x": 64, "y": 128, "w": 540, "h": 40, "layer": 2 },
+      { "slot": "headline", "x": 64, "y": 220, "w": 540, "h": 300, "layer": 1, "maxLines": 3 },
+      { "slot": "subhead", "x": 64, "y": 528, "w": 540, "h": 130, "layer": 1, "maxLines": 3 },
+      { "slot": "cta", "x": 64, "y": 690, "w": 340, "h": 72, "layer": 2 },
+      { "slot": "offer", "x": 64, "y": 820, "w": 480, "h": 130, "layer": 1 },
+      { "slot": "disclaimer", "x": 64, "y": 975, "w": 540, "h": 40, "layer": 1 },
+      { "slot": "logo", "x": 64, "y": 1180, "w": 360, "h": 120, "layer": 2 }
+    ],
+    "Story": [
+      { "slot": "photo", "x": 600, "y": 172, "w": 416, "h": 840, "layer": 0 },
+      { "slot": "badge", "x": 64, "y": 150, "w": 540, "h": 40, "layer": 2 },
+      { "slot": "headline", "x": 64, "y": 250, "w": 540, "h": 300, "layer": 1, "maxLines": 3 },
+      { "slot": "subhead", "x": 64, "y": 560, "w": 540, "h": 130, "layer": 1, "maxLines": 3 },
+      { "slot": "cta", "x": 64, "y": 720, "w": 340, "h": 72, "layer": 2 },
+      { "slot": "offer", "x": 64, "y": 1180, "w": 520, "h": 160, "layer": 1 },
+      { "slot": "disclaimer", "x": 64, "y": 1410, "w": 520, "h": 60, "layer": 1 },
+      { "slot": "logo", "x": 64, "y": 1540, "w": 360, "h": 120, "layer": 2 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 64 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 64 }
+  },
+  "videoGrammar": {
+    "durationMs": 8000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "badge", "effect": "fade-in" },
+      { "atMs": 600, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1100, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1500, "slot": "cta", "effect": "pop-in" },
+      { "atMs": 1900, "slot": "offer", "effect": "pop-in" },
+      { "atMs": 2300, "slot": "logo", "effect": "fade-in" }
+    ]
+  }
+}
