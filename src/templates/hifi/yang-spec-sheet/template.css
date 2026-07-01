@@ -1,304 +1,34 @@
-@import '../effects.css';
-
-/* ---------------------------------------------------------------------------
-   Spec Sheet (Authority) — Dr. C. Yang "ORTHO_DATA". A dark clinical sheet.
-   The deep navy ground + blueprint grid are baked (the persona signature);
-   the brand kit drives --accent (eyebrow tick, CTA outline, ticks, stat number,
-   credential indices), the value-prop credentials, the logo and the contact.
---------------------------------------------------------------------------- */
+/* Spec Sheet (Authority) — Dr. C. Yang.
+   Exact Figma vector art base (yss-art); editable fields overlaid at exact
+   coordinates by the component's inline styles. */
 .yss {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  font-family: var(--body-font);
-  color: #eaf1fb;
 }
-.yss-bg {
+.yss-art {
   position: absolute;
   inset: 0;
-  background: linear-gradient(155deg, #0c2148 0%, #0a1830 58%, #081325 100%);
 }
-.yss-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(150, 180, 220, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(150, 180, 220, 0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* eyebrow */
-.yss-eyebrow {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  color: #9fb6d8;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.yss-eyebrow-tick {
-  display: inline-block;
-  width: 34px;
-  height: 3px;
-  background: var(--accent);
-  flex: none;
-}
-.yss-eyebrow-text {
-  max-width: 880px; /* FitText budget so a long label never clips the edge */
-}
-
-/* left column — headline / subhead / CTA */
-.yss-main {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.yss-headline {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--display-font);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-}
-.yss-hl {
-  color: #f3f7fd;
-}
-.yss-hl-accent {
-  color: var(--accent);
-}
-.yss-subhead {
-  margin: 0;
-  font-weight: 600;
-  color: #9fb6d8;
-  line-height: 1.35;
-}
-.yss-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  align-self: flex-start;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  background: transparent;
-  font-weight: 800;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.yss-cta-arrow {
-  font-weight: 800;
-}
-
-/* seasonal offer + disclaimer */
-.yss-pitch {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-}
-.yss-offer-label {
-  color: #9fb6d8;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.yss-offer-row {
-  display: flex;
-  align-items: baseline;
-  white-space: nowrap; /* useFitText measures this single line */
-}
-.yss-amount {
-  font-family: var(--display-font);
-  font-weight: 800;
-  font-size: 1em; /* row font-size is the ceiling; useFitText shrinks the row */
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-}
-.yss-unit {
-  font-size: 0.3em;
-  font-weight: 800;
-  color: #9fb6d8;
-  margin-left: 0.4em;
-}
-.yss-disclaimer {
-  color: #7e93b4;
-  font-weight: 600;
-}
-
-/* right column — framed specimen photo */
-.yss-side {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-}
-.yss-photo-frame {
-  position: relative;
-  border: 1px solid rgba(159, 182, 216, 0.5);
-  background: #0a1830;
+.yss-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .yss-photo {
   position: absolute;
-  inset: 6px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.yss-photo-img {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
 }
-.yss-photo-ph {
-  position: absolute;
-  inset: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(160deg, #13315f, #0c1f3f);
-}
-.yss-photo-tag {
-  color: #7e93b4;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  font-size: 14px;
-}
-.yss-tick {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--accent);
-}
-.yss-tick-tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-.yss-tick-tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
-.yss-tick-bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
-.yss-tick-br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
-
-/* outcomes / credentials panel */
-.yss-panel {
-  border: 1px solid rgba(159, 182, 216, 0.28);
-  background: rgba(13, 32, 64, 0.55);
-  display: flex;
-  flex-direction: column;
-}
-.yss-stat {
-  display: flex;
-  flex-direction: column;
-}
-.yss-stat-num {
-  font-family: var(--display-font);
-  font-weight: 800;
-  color: var(--accent);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.yss-stat-label {
-  color: #9fb6d8;
-  font-weight: 600;
-}
-.yss-creds {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-}
-.yss-creds li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6em;
-  color: #cdd9ec;
-  font-weight: 600;
-  border-top: 1px solid rgba(159, 182, 216, 0.16);
-}
-.yss-creds-idx {
-  color: var(--accent);
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  flex: none;
-}
-.yss-creds-text {
-  flex: 1;
-}
-
-/* footer */
-.yss-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(159, 182, 216, 0.18);
-  background: rgba(8, 18, 40, 0.6);
-}
-.yss-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
 .yss-logo {
+  position: absolute;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1); /* white lockup on the dark sheet */
+  filter: brightness(0) invert(1);
 }
-.yss-tagline {
-  color: #7e93b4;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-.yss-contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  color: #9fb6d8;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* ===================== Post (1080 x 1350) ===================== */
-.yss-Post .yss-eyebrow { left: 64px; top: 96px; font-size: 22px; }
-.yss-Post .yss-main { left: 64px; top: 214px; width: 524px; }
-.yss-Post .yss-headline { font-size: 76px; }
-.yss-Post .yss-subhead { margin-top: 30px; font-size: 26px; }
-.yss-Post .yss-cta { margin-top: 36px; padding: 17px 34px; font-size: 24px; }
-.yss-Post .yss-pitch { left: 64px; top: 824px; width: 524px; }
-.yss-Post .yss-offer-label { font-size: 23px; }
-.yss-Post .yss-offer-row { margin-top: 2px; font-size: 150px; }
-.yss-Post .yss-disclaimer { margin-top: 26px; font-size: 19px; max-width: 524px; }
-.yss-Post .yss-side { left: 620px; top: 140px; width: 396px; }
-.yss-Post .yss-photo-frame { height: 520px; }
-.yss-Post .yss-panel { margin-top: 24px; padding: 26px 28px; }
-.yss-Post .yss-stat-num { font-size: 62px; }
-.yss-Post .yss-stat-label { margin-top: 4px; font-size: 20px; }
-.yss-Post .yss-creds { margin-top: 20px; font-size: 21px; }
-.yss-Post .yss-creds li { padding: 14px 0; }
-.yss-Post .yss-creds-idx { font-size: 17px; }
-.yss-Post .yss-footer { height: 116px; padding: 0 64px; }
-.yss-Post .yss-logo { height: 46px; }
-.yss-Post .yss-tagline { font-size: 17px; }
-.yss-Post .yss-contact { font-size: 19px; }
-
-/* ===================== Story (1080 x 1920) ===================== */
-.yss-Story .yss-eyebrow { left: 64px; top: 256px; font-size: 24px; }
-.yss-Story .yss-eyebrow-text { max-width: 430px; } /* stay clear of the photo at x600 */
-.yss-Story .yss-main { left: 64px; top: 342px; width: 540px; }
-.yss-Story .yss-headline { font-size: 84px; }
-.yss-Story .yss-subhead { margin-top: 32px; font-size: 30px; }
-.yss-Story .yss-cta { margin-top: 40px; padding: 19px 38px; font-size: 28px; }
-.yss-Story .yss-pitch { left: 64px; top: 1150px; width: 540px; }
-.yss-Story .yss-offer-label { font-size: 26px; }
-.yss-Story .yss-offer-row { margin-top: 4px; font-size: 176px; }
-.yss-Story .yss-disclaimer { margin-top: 28px; font-size: 22px; max-width: 540px; }
-.yss-Story .yss-side { left: 600px; top: 172px; width: 416px; }
-.yss-Story .yss-photo-frame { height: 700px; }
-.yss-Story .yss-panel { margin-top: 28px; padding: 30px 32px; }
-.yss-Story .yss-stat-num { font-size: 76px; }
-.yss-Story .yss-stat-label { margin-top: 6px; font-size: 24px; }
-.yss-Story .yss-creds { margin-top: 24px; font-size: 25px; }
-.yss-Story .yss-creds li { padding: 16px 0; }
-.yss-Story .yss-creds-idx { font-size: 20px; }
-.yss-Story .yss-footer { height: 150px; padding: 0 64px; }
-.yss-Story .yss-logo { height: 56px; }
-.yss-Story .yss-tagline { font-size: 20px; }
-.yss-Story .yss-contact { font-size: 22px; }
