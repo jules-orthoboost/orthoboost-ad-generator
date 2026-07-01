@@ -2,6 +2,8 @@ import './template.css'
 import type { ReactNode, CSSProperties } from 'react'
 import postArt from './art.post.svg?raw'
 import storyArt from './art.story.svg?raw'
+import postIcons from './art.icons.post.svg?raw'
+import storyIcons from './art.icons.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
@@ -57,6 +59,7 @@ export const Component: HifiTemplateComponent = ({
   const pos = POS[size]
   const col = (c?: string) => (c === 'accent' ? tokens.accent : COLORS[c ?? 'white'])
   const art = (size === 'Story' ? storyArt : postArt).replaceAll('#2E6DFF', tokens.accent)
+  const icons = (size === 'Story' ? storyIcons : postIcons).replaceAll('#2E6DFF', tokens.accent)
 
   const hl = (content.headline ?? '').split('\n')
 
@@ -83,6 +86,9 @@ export const Component: HifiTemplateComponent = ({
           <div className="yss-photo-img" style={{ backgroundImage: `url(${content.photo})` }} />
         </div>
       )}
+
+      {/* step icons — foreground layer so they sit on top of the photo (as in Figma) */}
+      <div className="yss-icons" dangerouslySetInnerHTML={{ __html: icons }} />
 
       {content.badge && T(pos.eyebrow, content.badge, { display: false })}
 
