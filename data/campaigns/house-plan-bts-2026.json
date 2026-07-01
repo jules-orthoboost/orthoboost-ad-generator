@@ -6,15 +6,15 @@
   "year": 2026,
   "hifiTemplateSlug": "house-family-plan",
   "content": {
-    "badge": "Family Plan",
+    "badge": "Family\nPlan",
     "headline": "More confidence,\nmore comfort,\nfor the family.",
-    "subhead": "Modern, expert care — ready for back to school.",
+    "subhead": "Modern, expert care,\nready for back to school.",
     "cta": "Plan your year",
-    "disclaimer": "All ages. New patients welcome.",
+    "disclaimer": "All ages. New patients welcome",
     "offer": "$1000 OFF",
-    "offerLabel": "Plans starting from",
-    "offerFine": "Full treatment — braces or Invisalign",
+    "offerLabel": "PLANS STARTING FROM",
+    "offerFine": "FULL TREATMENT\nBRACES OR INVISALIGN",
     "photo": "assets/photos/back-to-school/smile-portrait.svg"
   },
-  "notes": "House family-plan checklist card — back-to-school savings demo."
+  "notes": "House family-plan checklist card — SVG-exact rebuild."
 }

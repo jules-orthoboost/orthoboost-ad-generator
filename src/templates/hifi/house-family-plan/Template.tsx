@@ -1,127 +1,116 @@
 import './template.css'
+import type { ReactNode, CSSProperties } from 'react'
+import postArt from './art.post.svg?raw'
+import storyArt from './art.story.svg?raw'
+import postCard from './art.card.post.svg?raw'
+import storyCard from './art.card.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
-import { useFitText } from '../useFitText'
-import { FitText } from '../FitText'
-import { Highlighted } from '../Highlighted'
 
 /**
- * Family Plan (Checklist) — the Dr. G. House family-plan look. A family photo up
- * top over a deep teal section: a warm multi-line headline, subhead and brand
- * lockup on the left, and a floating white plan card on the right with a
- * checklist (the kit's value props) and a structured savings offer, plus a
- * filled CTA. Brand kit drives --brand / --accent, the checklist, logo & tagline.
+ * Family Plan (Checklist) — Dr. G. House v5. Exact reproduction of the Figma
+ * frame: teal ground + benefit-icon chips + CTA pill are the frame's vector art
+ * (SVG, CTA tinted to kit brand); a family photo band sits on top, and a white
+ * plan card is a foreground layer over the photo. Every field at exact coords.
  */
+const COLORS: Record<string, string> = {
+  white: '#ffffff', sub: '#cfeceb', cardInk: '#0e2b2b', ink: '#16282b', grey: '#5a6b6d', cta: '#07313a',
+}
+const CHECKLIST = ['Braces & clear aligners', 'Early-treatment exams', '3D digital scans', 'Flexible financing', 'Free first visit']
+
+type P = { x: number; y: number; s?: number; c?: string; w?: number; right?: boolean; lh?: number }
+const POS: Record<'Post' | 'Story', Record<string, P>> = {
+  Post: {
+    head: { x: 72, y: 900, s: 46, lh: 1.26 }, sub: { x: 72, y: 1095, s: 24, c: 'sub', w: 340, lh: 1.25 },
+    title: { x: 596, y: 460, s: 50, c: 'cardInk', lh: 1.12 },
+    check0: { x: 596, y: 616, s: 22 }, checkStep: { x: 0, y: 42, s: 0 },
+    offlabel: { x: 596, y: 867, s: 13, c: 'cardInk' }, offer: { x: 596, y: 892, s: 40, c: 'cardInk' },
+    offfine: { x: 808, y: 896, s: 13, c: 'cardInk', w: 200, lh: 1.35 }, allages: { x: 596, y: 945, s: 13, c: 'grey' },
+    cta: { x: 735, y: 1051, s: 21, c: 'cta', right: true, w: 186 },
+    logo: { x: 72, y: 1258, s: 52 }, photo: { x: 0, y: 0, w: 1080, s: 760 },
+  },
+  Story: {
+    head: { x: 72, y: 1225, s: 52, lh: 1.26 }, sub: { x: 72, y: 1435, s: 27, c: 'sub', w: 380, lh: 1.25 },
+    title: { x: 596, y: 800, s: 50, c: 'cardInk', lh: 1.12 },
+    check0: { x: 596, y: 956, s: 22 }, checkStep: { x: 0, y: 42, s: 0 },
+    offlabel: { x: 596, y: 1207, s: 13, c: 'cardInk' }, offer: { x: 596, y: 1232, s: 40, c: 'cardInk' },
+    offfine: { x: 808, y: 1236, s: 13, c: 'cardInk', w: 200, lh: 1.35 }, allages: { x: 596, y: 1285, s: 13, c: 'grey' },
+    cta: { x: 735, y: 1391, s: 21, c: 'cta', right: true, w: 186 },
+    logo: { x: 72, y: 1598, s: 52 }, photo: { x: 0, y: 0, w: 1080, s: 1100 },
+  },
+}
+
 export const Component: HifiTemplateComponent = ({
-  size,
-  content,
-  tokens,
-  logoUrl,
-  beats,
-  playing,
-  reducedMotion,
-  frameNowMs,
+  size, content, tokens, logoUrl, beats, playing, reducedMotion, frameNowMs,
 }) => {
   const now = useClock(playing, reducedMotion, frameNowMs)
   const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
+  const pos = POS[size]
+  const col = (c?: string) => (c === 'accent' ? tokens.accent : COLORS[c ?? 'white'])
+  const tint = (s: string) => s.replaceAll('#3BD3CC', tokens.brand)
+  const art = tint(size === 'Story' ? storyArt : postArt)
+  const card = size === 'Story' ? storyCard : postCard
 
-  const rawLines = (content.headline ?? '').split('\n')
-  let off = 0
-  const lines = rawLines
-    .map((line) => {
-      const start = off
-      off += line.length + 1
-      return { line, start }
-    })
-    .filter((l) => l.line)
-
-  const checklist = tokens.valueProps.slice(0, 3)
-  const offerRef = useFitText<HTMLDivElement>([content.offer, content.offerUnit, size])
+  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot } = {}) => {
+    const base: CSSProperties = {
+      position: 'absolute', left: p.x, top: p.y, fontSize: p.s, lineHeight: p.lh ?? 1.2,
+      color: col(p.c), fontWeight: 700,
+      fontFamily: opts.display === false ? 'var(--body-font)' : 'var(--display-font)',
+      maxWidth: p.w, width: p.right || opts.wrap ? p.w : undefined,
+      textAlign: p.right ? 'right' : 'left', whiteSpace: opts.wrap ? 'normal' : 'nowrap',
+      ...(opts.slot ? sty(opts.slot, 'fade-in') : {}),
+    }
+    return <div style={base}>{node}</div>
+  }
+  const lines = (v: string | undefined) => (v ?? '').split('\n').filter(Boolean)
 
   return (
     <div className={`hfp hfp-${size}`}>
-      <div className="hfp-bg" />
+      <div className="hfp-art" dangerouslySetInnerHTML={{ __html: art }} />
 
-      {/* hero photo */}
-      <div className="hfp-hero" style={sty('photo', 'fade-in')}>
-        {content.photo ? (
-          <div className="hfp-photo" style={{ backgroundImage: `url(${content.photo})` }} />
-        ) : (
-          <div className="hfp-photo-ph">
-            <span className="hfp-photo-tag">FAMILY PHOTO</span>
-          </div>
-        )}
-        <div className="hfp-hero-scrim" />
+      <div className="hfp-photo" style={{ left: pos.photo.x, top: pos.photo.y, width: pos.photo.w, height: pos.photo.s, ...sty('photo', 'fade-in') }}>
+        {content.photo
+          ? <div className="hfp-photo-img" style={{ backgroundImage: `url(${content.photo})` }} />
+          : <div className="hfp-photo-ph"><span>FAMILY PHOTO</span></div>}
+        <div className="hfp-photo-scrim" />
       </div>
 
-      {/* teal section copy (left) */}
-      <div className="hfp-copy">
-        {lines.length > 0 && (
-          <h1 className="hfp-headline" style={sty('headline', 'rise-in')}>
-            {lines.map(({ line, start }, i) => (
-              <span key={i} className={i === lines.length - 1 ? 'hfp-hl hfp-hl-accent' : 'hfp-hl'}>
-                <Highlighted text={line} ranges={content.highlights?.headline} tokens={tokens} offset={start} />
-              </span>
-            ))}
-          </h1>
-        )}
-        {content.subhead && (
-          <p className="hfp-subhead" style={sty('subhead', 'rise-in')}>
-            <Highlighted text={content.subhead ?? ''} ranges={content.highlights?.subhead} tokens={tokens} />
-          </p>
-        )}
-      </div>
+      <div className="hfp-card" dangerouslySetInnerHTML={{ __html: card }} />
 
-      {/* plan card (right) */}
-      <div className="hfp-card" style={sty('badge', 'fade-in')}>
-        {content.badge && (
-          <FitText as="div" className="hfp-card-title" deps={[content.badge, size]}>
-            {content.badge}
-          </FitText>
-        )}
-        {checklist.length > 0 && (
-          <ul className="hfp-checklist">
-            {checklist.map((c, i) => (
-              <li key={i}>
-                <svg className="hfp-check" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 12.5l5 5 11-12" />
-                </svg>
-                <span>{c}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        {(content.offer || content.offerLabel) && (
-          <div className="hfp-offer" style={sty('offer', 'pop-in')}>
-            {content.offerLabel && <div className="hfp-offer-label">{content.offerLabel}</div>}
-            {content.offer && (
-              <div ref={offerRef} className="hfp-offer-row">
-                <span className="hfp-amount">{content.offer}</span>
-                {content.offerUnit && <span className="hfp-unit">{content.offerUnit}</span>}
-              </div>
-            )}
-            {content.offerFine && <div className="hfp-offer-fine">{content.offerFine}</div>}
-          </div>
-        )}
-        {content.cta && (
-          <FitText as="span" className="hfp-cta" style={sty('cta', 'pop-in')} deps={[content.cta, size]}>
-            {content.cta}
-            <span className="hfp-cta-arrow" aria-hidden="true">→</span>
-          </FitText>
-        )}
-        {content.disclaimer && (
-          <FitText as="div" className="hfp-disclaimer" deps={[content.disclaimer, size]}>
-            {content.disclaimer}
-          </FitText>
-        )}
+      {/* teal-section copy */}
+      <div style={{ position: 'absolute', left: pos.head.x, top: pos.head.y, fontFamily: 'var(--display-font)', fontWeight: 800, fontSize: pos.head.s, lineHeight: pos.head.lh, color: '#fff', ...sty('headline', 'rise-in') }}>
+        {lines(content.headline).map((l, i) => <div key={i}>{l}</div>)}
       </div>
+      {content.subhead && (
+        <div style={{ position: 'absolute', left: pos.sub.x, top: pos.sub.y, width: pos.sub.w, fontFamily: 'var(--body-font)', fontWeight: 600, fontSize: pos.sub.s, lineHeight: pos.sub.lh, color: COLORS.sub, ...sty('subhead', 'rise-in') }}>
+          {lines(content.subhead).map((l, i) => <div key={i}>{l}</div>)}
+        </div>
+      )}
 
-      {/* brand lockup (teal section, left) */}
-      <div className="hfp-brand">
-        {logoUrl && <img className="hfp-logo" src={logoUrl} alt="" style={sty('logo', 'fade-in')} />}
-        {tokens.tagline && <span className="hfp-tagline">{tokens.tagline}</span>}
-      </div>
+      {/* plan card copy */}
+      {content.badge && (
+        <div style={{ position: 'absolute', left: pos.title.x, top: pos.title.y, fontFamily: 'var(--display-font)', fontWeight: 800, fontSize: pos.title.s, lineHeight: pos.title.lh, color: COLORS.cardInk, ...sty('badge', 'fade-in') }}>
+          {lines(content.badge).map((l, i) => <div key={i}>{l}</div>)}
+        </div>
+      )}
+      <ul className="hfp-checks" style={{ left: pos.check0.x, top: pos.check0.y, fontSize: pos.check0.s }}>
+        {CHECKLIST.map((c, i) => (
+          <li key={i}><span className="hfp-check" style={{ color: tokens.accent }}>✓</span>{c}</li>
+        ))}
+      </ul>
+      {content.offerLabel && T(pos.offlabel, content.offerLabel, { display: false })}
+      {content.offer && T(pos.offer, content.offer, { slot: 'offer' })}
+      {content.offerFine && (
+        <div style={{ position: 'absolute', left: pos.offfine.x, top: pos.offfine.y, width: pos.offfine.w, fontFamily: 'var(--body-font)', fontWeight: 700, fontSize: pos.offfine.s, lineHeight: pos.offfine.lh, color: COLORS.cardInk }}>
+          {lines(content.offerFine).map((l, i) => <div key={i}>{l}</div>)}
+        </div>
+      )}
+      {content.disclaimer && T(pos.allages, content.disclaimer, { display: false })}
+
+      {content.cta && T(pos.cta, content.cta, { slot: 'cta' })}
+
+      {logoUrl && <img className="hfp-logo" src={logoUrl} alt="" style={{ left: pos.logo.x, top: pos.logo.y, height: pos.logo.s, ...sty('logo', 'fade-in') }} />}
     </div>
   )
 }
