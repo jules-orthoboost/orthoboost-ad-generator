@@ -1,0 +1,46 @@
+{
+  "slug": "kardashian-glow",
+  "name": "Glow (Full-bleed)",
+  "description": "D. K. Kardashian luxury-wellness look: a full-bleed portrait with a soft legibility gradient and overlaid copy in the lower band — a serif headline (last word accented), a subhead, service chips (value props), a quiet seasonal offer, a review line and an underlined no-button reserve CTA, with the brand lockup up top.",
+  "slots": ["photo", "logo", "badge", "headline", "subhead", "offer", "cta", "disclaimer"],
+  "zones": {
+    "Post": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1350, "layer": 0 },
+      { "slot": "logo", "x": 72, "y": 72, "w": 300, "h": 72, "layer": 2 },
+      { "slot": "badge", "x": 72, "y": 712, "w": 900, "h": 28, "layer": 1 },
+      { "slot": "headline", "x": 72, "y": 758, "w": 900, "h": 180, "layer": 1, "maxLines": 2 },
+      { "slot": "subhead", "x": 72, "y": 950, "w": 900, "h": 40, "layer": 1, "maxLines": 1 },
+      { "slot": "offer", "x": 72, "y": 1090, "w": 700, "h": 70, "layer": 1 },
+      { "slot": "cta", "x": 72, "y": 1210, "w": 500, "h": 40, "layer": 2 },
+      { "slot": "disclaimer", "x": 72, "y": 1290, "w": 900, "h": 30, "layer": 1 }
+    ],
+    "Story": [
+      { "slot": "photo", "x": 0, "y": 0, "w": 1080, "h": 1920, "layer": 0 },
+      { "slot": "logo", "x": 72, "y": 120, "w": 300, "h": 72, "layer": 2 },
+      { "slot": "badge", "x": 72, "y": 1000, "w": 900, "h": 28, "layer": 1 },
+      { "slot": "headline", "x": 72, "y": 1046, "w": 900, "h": 200, "layer": 1, "maxLines": 2 },
+      { "slot": "subhead", "x": 72, "y": 1256, "w": 900, "h": 40, "layer": 1, "maxLines": 1 },
+      { "slot": "offer", "x": 72, "y": 1396, "w": 700, "h": 70, "layer": 1 },
+      { "slot": "cta", "x": 72, "y": 1516, "w": 500, "h": 40, "layer": 2 },
+      { "slot": "disclaimer", "x": 72, "y": 1596, "w": 900, "h": 30, "layer": 1 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 72 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 72 }
+  },
+  "videoGrammar": {
+    "durationMs": 8000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "logo", "effect": "fade-in" },
+      { "atMs": 700, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1200, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1600, "slot": "offer", "effect": "fade-in" },
+      { "atMs": 2000, "slot": "cta", "effect": "fade-in" }
+    ]
+  }
+}
