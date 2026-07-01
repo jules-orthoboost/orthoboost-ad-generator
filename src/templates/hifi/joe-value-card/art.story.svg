@@ -1,0 +1,14 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<path d="M1080 0H0V1920H1080V0Z" fill="url(#jvs0)"/>
+<path d="M496 140H102C88 140 76 152 76 166V744C76 758 88 770 102 770H496C510 770 522 758 522 744V166C522 152 510 140 496 140Z" fill="white"/>
+<path d="M124 585L136 595L156 574" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 651L132 661L152 640" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 717L132 727L152 706" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M880 570H611C581 570 557 593 557 620C557 648 581 671 611 671H880C910 671 934 648 934 620C934 593 910 570 880 570Z" fill="#16C2EC"/>
+<path d="M90 818C81 818 76 825 76 834C76 845 80 854 84 865C86 870 89 870 91 865L94 853C95 850 97 850 98 853L101 865C103 870 106 870 108 865C112 854 116 845 116 834C116 825 111 818 102 818C98 818 95 820 93 820C91 820 88 818 84 818H90Z" fill="white"/>
+<defs>
+<linearGradient id="jvs0" x1="0" y1="0" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3F8ED9"/><stop offset="0.55" stop-color="#2C74C2"/><stop offset="1" stop-color="#1D4F93"/>
+</linearGradient>
+</defs>
+</svg>
