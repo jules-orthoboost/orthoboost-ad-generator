@@ -1,0 +1,17 @@
+{
+  "slug": "rogers-photocard-demo",
+  "clientSlug": "aloha-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "rogers-photocard",
+  "content": {
+    "badge": "loved by families",
+    "headline": "Orthodontic Care,\nAll Year Long.",
+    "subhead": "One office. The whole family. Braces for one, Invisalign for another, a team that knows you by name — the start of the year is the easy time to begin.",
+    "offer": "FREE BACK-TO-SCHOOL CHECK-UPS",
+    "cta": "Book your free visit",
+    "rating": "4.9 · 600+ families",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
+  }
+}
