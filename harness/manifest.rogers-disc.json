@@ -2,7 +2,6 @@
   "campaignSlug": "rogers-disc-demo",
   "requested": [
     { "version": "V1", "size": "Post", "creativeType": "Image" },
-    { "version": "V1", "size": "Story", "creativeType": "Image" },
-    { "version": "V2", "size": "Post", "creativeType": "Image" }
+    { "version": "V1", "size": "Story", "creativeType": "Image" }
   ]
 }
