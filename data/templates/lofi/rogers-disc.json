@@ -8,10 +8,19 @@
     "offer",
     "cta",
     "logo",
-    "disclaimer"
+    "disclaimer",
+    "photo"
   ],
   "zones": {
     "Story": [
+      {
+        "slot": "photo",
+        "x": 314,
+        "y": 224,
+        "w": 452,
+        "h": 702,
+        "layer": 0
+      },
       {
         "slot": "logo",
         "x": 417,
@@ -64,6 +73,14 @@
       }
     ],
     "Post": [
+      {
+        "slot": "photo",
+        "x": 314,
+        "y": 68,
+        "w": 452,
+        "h": 548,
+        "layer": 0
+      },
       {
         "slot": "logo",
         "x": 417,
