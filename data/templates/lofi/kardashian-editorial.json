@@ -1,0 +1,46 @@
+{
+  "slug": "kardashian-editorial",
+  "name": "Editorial (Luxury)",
+  "description": "D. K. Kardashian luxury-wellness look: an ivory editorial sheet with generous space, a serif headline (last word accented), a refined benefits list with hairline rules, a quiet seasonal offer, a no-button reserve CTA and a small social-proof line; a full-height portrait on the right.",
+  "slots": ["photo", "logo", "badge", "headline", "subhead", "offer", "cta", "disclaimer"],
+  "zones": {
+    "Post": [
+      { "slot": "photo", "x": 520, "y": 0, "w": 560, "h": 1350, "layer": 0 },
+      { "slot": "logo", "x": 80, "y": 82, "w": 300, "h": 72, "layer": 2 },
+      { "slot": "badge", "x": 80, "y": 188, "w": 420, "h": 28, "layer": 1 },
+      { "slot": "headline", "x": 80, "y": 232, "w": 412, "h": 280, "layer": 1, "maxLines": 4 },
+      { "slot": "subhead", "x": 80, "y": 540, "w": 412, "h": 110, "layer": 1, "maxLines": 3 },
+      { "slot": "offer", "x": 80, "y": 868, "w": 420, "h": 70, "layer": 1 },
+      { "slot": "cta", "x": 80, "y": 968, "w": 360, "h": 40, "layer": 2 },
+      { "slot": "disclaimer", "x": 80, "y": 1286, "w": 420, "h": 30, "layer": 1 }
+    ],
+    "Story": [
+      { "slot": "photo", "x": 540, "y": 0, "w": 540, "h": 1920, "layer": 0 },
+      { "slot": "logo", "x": 80, "y": 150, "w": 300, "h": 72, "layer": 2 },
+      { "slot": "badge", "x": 80, "y": 280, "w": 420, "h": 28, "layer": 1 },
+      { "slot": "headline", "x": 80, "y": 330, "w": 420, "h": 360, "layer": 1, "maxLines": 5 },
+      { "slot": "subhead", "x": 80, "y": 740, "w": 420, "h": 120, "layer": 1, "maxLines": 3 },
+      { "slot": "offer", "x": 80, "y": 1200, "w": 440, "h": 80, "layer": 1 },
+      { "slot": "cta", "x": 80, "y": 1320, "w": 360, "h": 40, "layer": 2 },
+      { "slot": "disclaimer", "x": 80, "y": 1770, "w": 440, "h": 40, "layer": 1 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 80 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 80 }
+  },
+  "videoGrammar": {
+    "durationMs": 8000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "logo", "effect": "fade-in" },
+      { "atMs": 600, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1100, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1500, "slot": "offer", "effect": "fade-in" },
+      { "atMs": 1900, "slot": "cta", "effect": "fade-in" }
+    ]
+  }
+}

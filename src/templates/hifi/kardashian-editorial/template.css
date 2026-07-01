@@ -1,0 +1,195 @@
+@import '../effects.css';
+
+/* ---------------------------------------------------------------------------
+   Editorial (Luxury) — D. K. Kardashian. An ivory editorial sheet (baked, the
+   "luxury of space" signature) with restrained token accents: --accent tints
+   the italic headline accent, the benefit diamonds and the underlined no-button
+   CTA; --brand colours the quiet offer. The brand kit drives the benefit list
+   (value props), the logo and the social-proof copy. Portrait runs full-height
+   on the right in both sizes; the copy column is generous and left-set.
+--------------------------------------------------------------------------- */
+.ke {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--body-font);
+  color: var(--ink);
+}
+.ke-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #f7f2ea 0%, #efe6d8 100%);
+}
+
+/* portrait (right, full-height) */
+.ke-photo-col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+.ke-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.ke-photo-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #e7dccb, #cdbfa8);
+}
+.ke-photo-tag {
+  color: #8a7c66;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  font-size: 15px;
+}
+
+/* editorial copy column */
+.ke-main {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ke-logo {
+  width: auto;
+  object-fit: contain;
+}
+.ke-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: var(--brand);
+}
+.ke-headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--display-font);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: #2c2a26;
+}
+.ke-hl-accent {
+  font-style: italic;
+  color: var(--accent);
+}
+.ke-subhead {
+  margin: 0;
+  color: #5c574e;
+  line-height: 1.5;
+}
+.ke-benefits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+.ke-benefits li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7em;
+  border-top: 1px solid #d8ccb8;
+  color: #423d35;
+}
+.ke-benefit-mark {
+  color: var(--accent);
+  flex: none;
+  font-size: 0.6em;
+  transform: translateY(-0.15em);
+}
+.ke-offer-text {
+  font-family: var(--display-font);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brand);
+  white-space: nowrap;
+}
+.ke-offer-fine {
+  color: #8a7f6e;
+  font-weight: 500;
+}
+.ke-cta {
+  display: inline-block;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-weight: 600;
+  color: #2c2a26;
+  border-bottom: 1.5px solid var(--accent);
+  white-space: nowrap;
+}
+.ke-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ke-proof-avatar {
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #cdbfa8, #a99a82);
+  flex: none;
+}
+.ke-proof-body {
+  display: flex;
+  flex-direction: column;
+}
+.ke-proof-quote {
+  font-family: var(--display-font);
+  font-style: italic;
+  color: #4a443b;
+}
+.ke-proof-rating {
+  color: #8a7f6e;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.ke-disclaimer {
+  color: #9a8f7d;
+  font-weight: 500;
+}
+
+/* ===================== Post (1080 x 1350) ===================== */
+.ke-Post .ke-photo-col { width: 560px; }
+.ke-Post .ke-main { left: 80px; top: 84px; width: 412px; }
+.ke-Post .ke-logo { height: 44px; }
+.ke-Post .ke-eyebrow { margin-top: 30px; font-size: 15px; }
+.ke-Post .ke-headline { margin-top: 18px; font-size: 58px; }
+.ke-Post .ke-subhead { margin-top: 24px; font-size: 21px; }
+.ke-Post .ke-benefits { margin-top: 30px; font-size: 19px; }
+.ke-Post .ke-benefits li { padding: 15px 0; }
+.ke-Post .ke-offer { margin-top: 30px; }
+.ke-Post .ke-offer-text { font-size: 31px; max-width: 412px; }
+.ke-Post .ke-offer-fine { margin-top: 6px; font-size: 16px; }
+.ke-Post .ke-cta { margin-top: 26px; font-size: 16px; padding-bottom: 8px; max-width: 412px; }
+.ke-Post .ke-proof { margin-top: 32px; }
+.ke-Post .ke-proof-avatar { width: 46px; height: 46px; }
+.ke-Post .ke-proof-quote { font-size: 16px; }
+.ke-Post .ke-proof-rating { margin-top: 3px; font-size: 14px; }
+.ke-Post .ke-disclaimer { margin-top: 22px; font-size: 13px; }
+
+/* ===================== Story (1080 x 1920) ===================== */
+.ke-Story .ke-photo-col { width: 540px; }
+.ke-Story .ke-main { left: 80px; top: 0; height: 1920px; width: 440px; justify-content: center; }
+.ke-Story .ke-logo { height: 50px; }
+.ke-Story .ke-eyebrow { margin-top: 34px; font-size: 16px; }
+.ke-Story .ke-headline { margin-top: 20px; font-size: 64px; }
+.ke-Story .ke-subhead { margin-top: 26px; font-size: 23px; }
+.ke-Story .ke-benefits { margin-top: 34px; font-size: 21px; }
+.ke-Story .ke-benefits li { padding: 17px 0; }
+.ke-Story .ke-offer { margin-top: 34px; }
+.ke-Story .ke-offer-text { font-size: 34px; max-width: 440px; }
+.ke-Story .ke-offer-fine { margin-top: 6px; font-size: 17px; }
+.ke-Story .ke-cta { margin-top: 30px; font-size: 17px; padding-bottom: 9px; max-width: 440px; }
+.ke-Story .ke-proof { margin-top: 36px; }
+.ke-Story .ke-proof-avatar { width: 50px; height: 50px; }
+.ke-Story .ke-proof-quote { font-size: 18px; }
+.ke-Story .ke-proof-rating { margin-top: 3px; font-size: 15px; }
+.ke-Story .ke-disclaimer { margin-top: 24px; font-size: 14px; }

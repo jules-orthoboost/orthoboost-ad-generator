@@ -15,6 +15,8 @@ import { manifest as yangSpecSheetManifest } from './yang-spec-sheet/manifest'
 import { Component as YangSpecSheetComponent } from './yang-spec-sheet/Template'
 import { manifest as housePortraitManifest } from './house-portrait/manifest'
 import { Component as HousePortraitComponent } from './house-portrait/Template'
+import { manifest as kardashianEditorialManifest } from './kardashian-editorial/manifest'
+import { Component as KardashianEditorialComponent } from './kardashian-editorial/Template'
 
 export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [heroManifest.slug]: { manifest: heroManifest, Component: HeroComponent },
@@ -25,6 +27,7 @@ export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [joeValueCardManifest.slug]: { manifest: joeValueCardManifest, Component: JoeValueCardComponent },
   [yangSpecSheetManifest.slug]: { manifest: yangSpecSheetManifest, Component: YangSpecSheetComponent },
   [housePortraitManifest.slug]: { manifest: housePortraitManifest, Component: HousePortraitComponent },
+  [kardashianEditorialManifest.slug]: { manifest: kardashianEditorialManifest, Component: KardashianEditorialComponent },
 }
 
 /** Templates for a persona, optionally gated by campaign.
