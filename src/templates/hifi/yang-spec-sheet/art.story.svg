@@ -1,0 +1,28 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<g clip-path="url(#clip0_54_87)">
+<path d="M1080 0H0V1920H1080V0Z" fill="url(#paint0_linear_54_87)"/>
+<path d="M100 202H76C69 202 64 207 64 214V238C64 245 69 250 76 250H100C107 250 112 245 112 238V214C112 207 107 202 100 202Z" fill="#2E6DFF"/>
+<path d="M88 216V236M78 226H98" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M104 776C117 776 128 765 128 752C128 739 117 728 104 728C91 728 80 739 80 752C80 765 91 776 104 776Z" fill="#2E6DFF"/>
+<path d="M94 752H111M104 759L111 752L104 745" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M650 280H622C613 280 606 287 606 296V324C606 333 613 340 622 340H650C659 340 666 333 666 324V296C666 287 659 280 650 280Z" fill="#2E6DFF"/>
+<path d="M645 295H627C625 295 623 297 623 299V323C623 325 625 327 627 327H645C647 327 649 325 649 323V299C649 297 647 295 645 295Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M641 291H631C630 291 629 292 629 293V296C629 297 630 298 631 298H641C642 298 643 297 643 296V293C643 292 642 291 641 291Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M629 312L634 317L645 304" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M650 540H622C613 540 606 547 606 556V584C606 593 613 600 622 600H650C659 600 666 593 666 584V556C666 547 659 540 650 540Z" fill="#2E6DFF"/>
+<path d="M621 570H629L633 560L639 580L643 570H651" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M650 800H622C613 800 606 807 606 816V844C606 853 613 860 622 860H650C659 860 666 853 666 844V816C666 807 659 800 650 800Z" fill="#2E6DFF"/>
+<path d="M636 815L649 821V831C649 840 643 845 636 848C629 845 623 840 623 831V821L636 815Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M630 830L635 836L643 824" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_54_87" x1="0" y1="0" x2="1052" y2="1479" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0E57BF"/>
+<stop offset="0.55" stop-color="#0A3A86"/>
+<stop offset="1" stop-color="#051E3C"/>
+</linearGradient>
+<clipPath id="clip0_54_87">
+<rect width="1080" height="1920" fill="white"/>
+</clipPath>
+</defs>
+</svg>
