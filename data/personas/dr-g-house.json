@@ -64,6 +64,10 @@
   ],
   "resources": [
     {
+      "label": "Figma design file",
+      "url": "https://www.figma.com/design/ZF6A6KOmgf3E6mkhTMaUJI/Dr.-House"
+    },
+    {
       "label": "View Examples in the Wild",
       "url": "https://www.broadwaysmilesdentistry.com/"
     },

@@ -62,6 +62,10 @@
   ],
   "resources": [
     {
+      "label": "Figma design file",
+      "url": "https://www.figma.com/design/JflNyTNCRevPIpUZop9aKr/Dr.-Yang"
+    },
+    {
       "label": "View Examples in the Wild",
       "url": "https://www.ucsfdentalcenter.org/"
     },
