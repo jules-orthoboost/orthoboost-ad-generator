@@ -1,0 +1,19 @@
+{
+  "slug": "joe-perday-bts-2026",
+  "clientSlug": "everyday-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "joe-per-day",
+  "content": {
+    "badge": "Back-to-school smiles",
+    "headline": "A straighter\nsmile for\nless than",
+    "subhead": "Straight teeth just got easier — and a lot more affordable.",
+    "cta": "Let's talk",
+    "disclaimer": "Estimate. Subject to credit approval.",
+    "offer": "$2.99",
+    "offerUnit": "a day",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
+  },
+  "notes": "Joe per-day price-led — back-to-school demo."
+}
