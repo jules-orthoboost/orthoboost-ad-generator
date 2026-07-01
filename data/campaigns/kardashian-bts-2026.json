@@ -6,16 +6,14 @@
   "year": 2026,
   "hifiTemplateSlug": "kardashian-editorial",
   "content": {
-    "badge": "Luxury wellness orthodontics",
-    "headline": "A season set\naside for you.",
-    "subhead": "Begin clear aligners or braces this fall, in a studio that takes its time.",
+    "headline": "A season\nset aside\nfor you.",
+    "subhead": "Begin clear aligners or braces\nthis fall, in a studio\nthat takes its time.",
     "cta": "Reserve your consultation",
-    "disclaimer": "By appointment. New patients welcome.",
-    "offer": "$500 toward your care",
-    "offerFine": "this season · limited openings",
-    "rating": "4.9 / 5 · 200+ reviews",
-    "socialProof": "“The calmest I've ever felt at an appointment.”",
+    "disclaimer": "New-patient offer · By appointment",
+    "offer": "$500 toward your care, this season.",
+    "rating": "4.9 / 5 · 200+ verified reviews",
+    "socialProof": "The calmest I've ever felt at an appointment.",
     "photo": "assets/photos/back-to-school/smile-portrait.svg"
   },
-  "notes": "Kardashian luxury editorial — season-of-care demo."
+  "notes": "Kardashian luxury editorial (v1-season) — SVG-exact rebuild."
 }
