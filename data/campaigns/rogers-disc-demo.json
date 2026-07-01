@@ -6,9 +6,11 @@
   "year": 2026,
   "hifiTemplateSlug": "rogers-disc",
   "content": {
-    "headline": "A smile they'll wear all year.",
-    "subhead": "Gentle braces & clear aligners for kids and teens, from a team that feels like family.",
-    "offer": "FREE BACK-TO-SCHOOL CONSULT",
-    "cta": "Book your free visit"
+    "badge": "the Stress-Free Way",
+    "headline": "Big smiles for\nthe new school year.",
+    "subhead": "Free August check-ups for kids, teens & parents.\nWarm, gentle care from a team that feels like family.",
+    "cta": "Meet your local team",
+    "rating": "4.9 · 600+ families",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
   }
 }
