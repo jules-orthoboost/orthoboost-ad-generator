@@ -1,0 +1,16 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<path d="M1080 0H0V300H1080V0Z" fill="url(#kgs0)"/>
+<path d="M1080 750H0V1920H1080V750Z" fill="url(#kgs1)"/>
+<path d="M318 1263C379 1257 495 1257 551 1262" stroke="#DACEE5" stroke-width="5" stroke-linecap="round"/>
+<path d="M72 1562H1008" stroke="#F6F2EE" stroke-opacity="0.3"/>
+<path d="M85 1633C93 1633 100 1626 100 1618C100 1610 93 1603 85 1603C77 1603 70 1610 70 1618C70 1626 77 1633 85 1633Z" stroke="#F6F2EE" stroke-opacity="0.7" stroke-width="1.4"/>
+<path d="M79 1618H91M87 1622L91 1618L87 1614" stroke="#F6F2EE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<defs>
+<linearGradient id="kgs0" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1C1A17" stop-opacity="0.45"/><stop offset="1" stop-color="#1C1A17" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="kgs1" x1="0" y1="750" x2="0" y2="1601" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1C1A17" stop-opacity="0"/><stop offset="0.48" stop-color="#1C1A17" stop-opacity="0.6"/><stop offset="1" stop-color="#1C1A17" stop-opacity="0.88"/>
+</linearGradient>
+</defs>
+</svg>
