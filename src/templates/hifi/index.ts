@@ -21,6 +21,8 @@ import { manifest as houseFamilyPlanManifest } from './house-family-plan/manifes
 import { Component as HouseFamilyPlanComponent } from './house-family-plan/Template'
 import { manifest as kardashianGlowManifest } from './kardashian-glow/manifest'
 import { Component as KardashianGlowComponent } from './kardashian-glow/Template'
+import { manifest as joePerDayManifest } from './joe-per-day/manifest'
+import { Component as JoePerDayComponent } from './joe-per-day/Template'
 
 export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [heroManifest.slug]: { manifest: heroManifest, Component: HeroComponent },
@@ -34,6 +36,7 @@ export const HIFI_TEMPLATES: Record<string, RegisteredTemplate> = {
   [kardashianEditorialManifest.slug]: { manifest: kardashianEditorialManifest, Component: KardashianEditorialComponent },
   [houseFamilyPlanManifest.slug]: { manifest: houseFamilyPlanManifest, Component: HouseFamilyPlanComponent },
   [kardashianGlowManifest.slug]: { manifest: kardashianGlowManifest, Component: KardashianGlowComponent },
+  [joePerDayManifest.slug]: { manifest: joePerDayManifest, Component: JoePerDayComponent },
 }
 
 /** Templates for a persona, optionally gated by campaign.

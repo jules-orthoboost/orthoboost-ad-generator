@@ -1,0 +1,47 @@
+{
+  "slug": "joe-per-day",
+  "name": "Per-Day Price (Budget)",
+  "description": "Dr. A. Joe budget look, price-led: a blue sheet with a full-height photo on the right, a headline and a big per-day price on the left with a cyan CTA and value-prop checks, and a light footer bar with the brand lockup and contact.",
+  "slots": ["photo", "logo", "badge", "headline", "subhead", "offer", "cta", "disclaimer"],
+  "zones": {
+    "Post": [
+      { "slot": "photo", "x": 440, "y": 0, "w": 640, "h": 1350, "layer": 0 },
+      { "slot": "badge", "x": 56, "y": 188, "w": 360, "h": 60, "layer": 2 },
+      { "slot": "headline", "x": 56, "y": 256, "w": 360, "h": 210, "layer": 1, "maxLines": 3 },
+      { "slot": "offer", "x": 56, "y": 480, "w": 380, "h": 200, "layer": 1 },
+      { "slot": "subhead", "x": 56, "y": 700, "w": 360, "h": 70, "layer": 1, "maxLines": 2 },
+      { "slot": "cta", "x": 56, "y": 790, "w": 300, "h": 84, "layer": 2 },
+      { "slot": "logo", "x": 60, "y": 1206, "w": 353, "h": 62, "layer": 2 },
+      { "slot": "disclaimer", "x": 343, "y": 1273, "w": 394, "h": 18, "layer": 1 }
+    ],
+    "Story": [
+      { "slot": "photo", "x": 540, "y": 0, "w": 540, "h": 1920, "layer": 0 },
+      { "slot": "badge", "x": 56, "y": 268, "w": 420, "h": 60, "layer": 2 },
+      { "slot": "headline", "x": 56, "y": 336, "w": 420, "h": 220, "layer": 1, "maxLines": 3 },
+      { "slot": "offer", "x": 56, "y": 580, "w": 440, "h": 220, "layer": 1 },
+      { "slot": "subhead", "x": 56, "y": 820, "w": 420, "h": 70, "layer": 1, "maxLines": 2 },
+      { "slot": "cta", "x": 56, "y": 910, "w": 300, "h": 84, "layer": 2 },
+      { "slot": "logo", "x": 60, "y": 1774, "w": 353, "h": 62, "layer": 2 },
+      { "slot": "disclaimer", "x": 343, "y": 1841, "w": 394, "h": 18, "layer": 1 }
+    ]
+  },
+  "placement": {
+    "Story": { "safeTop": 250, "safeBottom": 340, "margin": 56 },
+    "Post": { "safeTop": 0, "safeBottom": 0, "margin": 56 }
+  },
+  "videoGrammar": {
+    "durationMs": 8000,
+    "fps": 30,
+    "loop": true,
+    "reducedMotion": "static",
+    "beats": [
+      { "atMs": 0, "slot": "photo", "effect": "fade-in" },
+      { "atMs": 300, "slot": "badge", "effect": "fade-in" },
+      { "atMs": 600, "slot": "headline", "effect": "rise-in" },
+      { "atMs": 1000, "slot": "offer", "effect": "pop-in" },
+      { "atMs": 1400, "slot": "subhead", "effect": "rise-in" },
+      { "atMs": 1800, "slot": "cta", "effect": "pop-in" },
+      { "atMs": 2200, "slot": "logo", "effect": "fade-in" }
+    ]
+  }
+}
