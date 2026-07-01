@@ -1,0 +1,233 @@
+@import '../effects.css';
+
+/* ---------------------------------------------------------------------------
+   Family Plan (Checklist) — Dr. G. House. A family photo over a baked deep-teal
+   section (the persona's warm signature, robust across kits). --brand tints the
+   headline accent, the checklist ticks, the card title and the savings amount;
+   the CTA is a baked deep-teal pill on the white card. Kit drives checklist
+   (value props), logo and tagline. Post floats the card at right; Story stacks.
+--------------------------------------------------------------------------- */
+.hfp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--body-font);
+  color: #eaf6f5;
+}
+.hfp-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #134d50 0%, #0c3335 100%);
+}
+
+/* hero photo */
+.hfp-hero {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+}
+.hfp-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.hfp-photo-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #cfe6e4, #a9cfcf);
+}
+.hfp-photo-tag {
+  color: #4a6562;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  font-size: 15px;
+}
+.hfp-hero-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(12, 51, 53, 0) 0%, #103f42 100%);
+}
+
+/* teal-section copy */
+.hfp-copy {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.hfp-headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--display-font);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: #f4fbfa;
+}
+.hfp-hl-accent {
+  color: var(--brand);
+}
+.hfp-subhead {
+  margin: 0;
+  color: #b4d6d4;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* plan card */
+.hfp-card {
+  position: absolute;
+  background: #ffffff;
+  color: #14403f;
+  border-radius: var(--radius);
+  box-shadow: 0 26px 60px rgba(6, 33, 34, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.hfp-card-title {
+  font-family: var(--display-font);
+  font-weight: 800;
+  color: #123f3e;
+  letter-spacing: -0.01em;
+}
+.hfp-checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.hfp-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  color: #274b49;
+  font-weight: 600;
+}
+.hfp-check {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+.hfp-offer {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #dbe7e6;
+}
+.hfp-offer-label {
+  color: #6f8b89;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hfp-offer-row {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.hfp-amount {
+  font-family: var(--display-font);
+  font-weight: 800;
+  font-size: 1em;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--brand);
+}
+.hfp-unit {
+  font-size: 0.32em;
+  font-weight: 800;
+  color: #6f8b89;
+  margin-left: 0.4em;
+}
+.hfp-offer-fine {
+  color: #6f8b89;
+  font-weight: 600;
+}
+.hfp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  background: #123f3e;
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.hfp-disclaimer {
+  color: #7c9593;
+  font-weight: 600;
+}
+
+/* brand lockup */
+.hfp-brand {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+.hfp-logo {
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.hfp-tagline {
+  color: #9cc0be;
+  font-weight: 600;
+}
+
+/* ===================== Post (1080 x 1350) ===================== */
+.hfp-Post .hfp-hero { height: 726px; }
+.hfp-Post .hfp-hero-scrim { height: 220px; }
+.hfp-Post .hfp-photo-tag { font-size: 20px; }
+.hfp-Post .hfp-copy { left: 72px; top: 786px; width: 452px; }
+.hfp-Post .hfp-headline { font-size: 56px; }
+.hfp-Post .hfp-subhead { margin-top: 22px; font-size: 24px; }
+.hfp-Post .hfp-card { left: 556px; top: 430px; width: 452px; padding: 38px 40px; }
+.hfp-Post .hfp-card-title { font-size: 40px; }
+.hfp-Post .hfp-checklist { margin-top: 22px; gap: 16px; font-size: 22px; }
+.hfp-Post .hfp-check { width: 24px; height: 24px; }
+.hfp-Post .hfp-offer { margin-top: 24px; padding-top: 22px; }
+.hfp-Post .hfp-offer-label { font-size: 17px; }
+.hfp-Post .hfp-offer-row { margin-top: 4px; font-size: 74px; }
+.hfp-Post .hfp-offer-fine { margin-top: 6px; font-size: 16px; }
+.hfp-Post .hfp-cta { margin-top: 26px; height: 72px; font-size: 24px; }
+.hfp-Post .hfp-disclaimer { margin-top: 16px; font-size: 15px; text-align: center; }
+.hfp-Post .hfp-brand { left: 72px; bottom: 64px; }
+.hfp-Post .hfp-logo { height: 50px; }
+.hfp-Post .hfp-tagline { font-size: 17px; }
+
+/* ===================== Story (1080 x 1920) ===================== */
+.hfp-Story .hfp-hero { height: 720px; }
+.hfp-Story .hfp-hero-scrim { height: 240px; }
+.hfp-Story .hfp-photo-tag { font-size: 24px; }
+.hfp-Story .hfp-copy { left: 72px; top: 772px; width: 620px; }
+.hfp-Story .hfp-headline { font-size: 64px; }
+.hfp-Story .hfp-subhead { margin-top: 22px; font-size: 27px; }
+.hfp-Story .hfp-card { left: 72px; top: 1132px; width: 936px; padding: 40px 46px; }
+.hfp-Story .hfp-card-title { font-size: 42px; }
+.hfp-Story .hfp-checklist { margin-top: 22px; gap: 16px; font-size: 25px; }
+.hfp-Story .hfp-check { width: 26px; height: 26px; }
+.hfp-Story .hfp-offer { margin-top: 24px; padding-top: 24px; }
+.hfp-Story .hfp-offer-label { font-size: 19px; }
+.hfp-Story .hfp-offer-row { margin-top: 4px; font-size: 88px; }
+.hfp-Story .hfp-offer-fine { margin-top: 8px; font-size: 18px; }
+.hfp-Story .hfp-cta { margin-top: 30px; height: 84px; font-size: 28px; }
+.hfp-Story .hfp-disclaimer { margin-top: 18px; font-size: 18px; text-align: center; }
+.hfp-Story .hfp-brand { left: 72px; bottom: 70px; }
+.hfp-Story .hfp-logo { height: 56px; }
+.hfp-Story .hfp-tagline { font-size: 20px; }

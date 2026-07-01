@@ -1,0 +1,20 @@
+{
+  "slug": "house-plan-bts-2026",
+  "clientSlug": "smiles-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "house-family-plan",
+  "content": {
+    "badge": "Family Plan",
+    "headline": "More confidence,\nmore comfort,\nfor the family.",
+    "subhead": "Modern, expert care — ready for back to school.",
+    "cta": "Plan your year",
+    "disclaimer": "All ages. New patients welcome.",
+    "offer": "$1000 OFF",
+    "offerLabel": "Plans starting from",
+    "offerFine": "Full treatment — braces or Invisalign",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
+  },
+  "notes": "House family-plan checklist card — back-to-school savings demo."
+}
