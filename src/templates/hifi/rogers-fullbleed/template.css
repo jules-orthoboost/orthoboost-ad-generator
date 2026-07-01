@@ -1,108 +1,66 @@
 @import '../effects.css';
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
 
+/* Rogers Full Bleed — Dr. M. Rogers V4.
+   Exact Figma art base (rf-art: cream ground, offer pill, CTA pill, arrow);
+   edge-to-edge photo, white rating tab and copy overlaid at exact coords. */
 .rf {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #fdfaf3;
-  font-family: 'Nunito', system-ui, sans-serif;
+  font-family: var(--display-font);
+}
+.rf-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.rf-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .rf-photo {
+  position: absolute;
+  overflow: hidden;
+}
+.rf-photo-img {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
 }
-.rf-scrim {
+.rf-photo-ph {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 28, 68, 0.32) 0%, rgba(13, 28, 68, 0) 28%, rgba(13, 28, 68, 0) 46%, rgba(13, 28, 68, 0.62) 72%, rgba(13, 28, 68, 0.95) 100%);
-}
-.rf-logochip {
-  position: absolute;
-  background: #fdfaf3;
-  border-radius: 22px;
-  box-shadow: 0 7px 18px rgba(13, 28, 68, 0.28);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(150deg, #d7e8dd, #b6d2c3);
+  color: #4f7d67;
+  letter-spacing: 0.18em;
+  font-size: 22px;
+  font-weight: 700;
 }
 .rf-logo {
-  height: 56px;
-  width: auto;
+  position: absolute;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
-
-.rf-stack {
+.rf-rating {
   position: absolute;
-  left: 0;
-  right: 0;
-  text-shadow: 0 2px 10px rgba(10, 21, 48, 0.55);
-}
-.rf-headline {
-  position: absolute;
-  margin: 0;
-  text-align: center;
-  font-weight: 900;
-  line-height: 1.04;
-  letter-spacing: -1px;
-  color: #ffffff;
-  text-wrap: balance;
-}
-.rf-subhead {
-  position: absolute;
-  margin: 0;
-  text-align: center;
-  font-weight: 700;
-  line-height: 1.3;
-  color: #ffffff;
-}
-.rf-offer-row,
-.rf-cta-row {
-  position: absolute;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-.rf-offer {
-  display: inline-block;
-  background: var(--accent);
-  color: var(--brand);
-  font-weight: 800;
-  letter-spacing: 1.4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  white-space: nowrap;
-  max-width: 900px;
-}
-.rf-cta {
-  display: inline-block;
-  background: var(--brand);
-  color: var(--on-brand);
+  background: #fdfaf3;
+  box-shadow: 0 6px 18px rgba(20, 40, 80, 0.18);
+  font-family: var(--display-font);
   font-weight: 800;
-  border-radius: 999px;
   white-space: nowrap;
-  box-shadow: 0 8px 20px rgba(10, 21, 48, 0.4);
-  max-width: 900px;
 }
-
-/* ============ POST (1080x1350) ============ */
-.rf-Post .rf-logochip { left: 417px; top: 48px; width: 246px; height: 90px; }
-.rf-Post .rf-headline { left: 80px; width: 920px; top: 1000px; font-size: 64px; }
-.rf-Post .rf-subhead { left: 120px; width: 840px; top: 1132px; font-size: 25px; }
-.rf-Post .rf-offer-row { top: 1184px; }
-.rf-Post .rf-cta-row { top: 1240px; }
-.rf-Post .rf-offer { padding: 14px 34px; font-size: 22px; }
-.rf-Post .rf-cta { padding: 24px 50px; font-size: 29px; }
-.rf-Post .rf-disclaimer { top: 1314px; font-size: 18px; }
-
-/* ============ STORY (1080x1920) ============ */
-.rf-Story .rf-logochip { left: 417px; top: 80px; width: 246px; height: 90px; }
-.rf-Story .rf-headline { left: 80px; width: 920px; top: 1500px; font-size: 76px; }
-.rf-Story .rf-subhead { left: 120px; width: 840px; top: 1644px; font-size: 28px; }
-.rf-Story .rf-offer-row { top: 1700px; }
-.rf-Story .rf-cta-row { top: 1788px; }
-.rf-Story .rf-offer { padding: 16px 40px; font-size: 24px; }
-.rf-Story .rf-cta { padding: 26px 54px; font-size: 30px; }
-.rf-Story .rf-disclaimer { top: 1874px; font-size: 19px; }
-
-.rf-disclaimer { position: absolute; left: 80px; width: 920px; margin: 0; text-align: center; font-weight: 600; color: rgba(255, 255, 255, 0.78); }
+.rf-tag {
+  font-family: var(--body-font);
+  font-weight: 500;
+  white-space: nowrap;
+}
