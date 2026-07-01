@@ -1,0 +1,17 @@
+{
+  "slug": "rogers-fullbleed-demo",
+  "clientSlug": "aloha-orthodontics",
+  "adSetType": "Seasonal",
+  "theme": "Back To School",
+  "year": 2026,
+  "hifiTemplateSlug": "rogers-fullbleed",
+  "content": {
+    "badge": "loved by local families",
+    "headline": "Care your\nneighbors recommend.",
+    "subhead": "Warm, gentle orthodontics for the whole family — trusted by 600+ neighbors since 2004.",
+    "offer": "FREE BACK-TO-SCHOOL CHECK-UPS",
+    "cta": "Book your free visit",
+    "rating": "4.9 · 600+ families",
+    "photo": "assets/photos/back-to-school/smile-portrait.svg"
+  }
+}

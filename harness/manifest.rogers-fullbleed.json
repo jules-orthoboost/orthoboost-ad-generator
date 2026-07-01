@@ -1,0 +1,7 @@
+{
+  "campaignSlug": "rogers-fullbleed-demo",
+  "requested": [
+    { "version": "V1", "size": "Post", "creativeType": "Image" },
+    { "version": "V1", "size": "Story", "creativeType": "Image" }
+  ]
+}
