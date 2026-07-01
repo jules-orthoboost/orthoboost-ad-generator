@@ -1,218 +1,27 @@
-@import '../effects.css';
-
-/* ---------------------------------------------------------------------------
-   Per-Day Price (Budget) — Dr. A. Joe. A baked blue sheet (the Joe signature)
-   with a full-height photo at right and a price-led copy column at left.
-   --accent (cyan) drives the big per-day price, the headline accent and the CTA
-   fill; the footer bar is light with the kit logo + contact.
---------------------------------------------------------------------------- */
+/* Per-Day Price (Budget) — Dr. A. Joe.
+   The exact Figma vector art is the base (jpd-art); editable fields are overlaid
+   at their exact Figma coordinates by the component's inline styles. */
 .jpd {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  font-family: var(--body-font);
-  color: #ffffff;
 }
-.jpd-bg {
+.jpd-art {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #3f8ed9 0%, #2c74c2 55%, #1d4f93 100%);
 }
-
-/* photo (right) */
-.jpd-photo-col {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
+.jpd-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .jpd-photo {
   position: absolute;
-  inset: 0;
+  top: 0;
+  height: 100%;
   background-size: cover;
   background-position: center;
 }
-.jpd-photo-ph {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, #bcd9f6, #7fb2e3);
+.jpd-fit {
+  display: block;
 }
-.jpd-photo-tag {
-  color: #34608f;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  font-size: 16px;
-}
-.jpd-photo-scrim {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 120px;
-  background: linear-gradient(90deg, rgba(29, 79, 147, 0.55), rgba(29, 79, 147, 0));
-}
-
-/* copy column */
-.jpd-main {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.jpd-eyebrow {
-  color: #bfe6f7;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.jpd-headline {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-family: var(--display-font);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.015em;
-  color: #ffffff;
-}
-.jpd-hl-accent {
-  color: var(--accent);
-}
-.jpd-offer {
-  display: flex;
-  flex-direction: column;
-}
-.jpd-offer-label {
-  color: #cfe6fa;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.jpd-offer-row {
-  display: flex;
-  align-items: baseline;
-  white-space: nowrap;
-}
-.jpd-amount {
-  font-family: var(--display-font);
-  font-weight: 800;
-  font-size: 1em;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  color: var(--accent);
-}
-.jpd-unit {
-  font-size: 0.3em;
-  font-weight: 800;
-  color: #cfe6fa;
-  margin-left: 0.4em;
-}
-.jpd-subhead {
-  margin: 0;
-  color: #dcecfb;
-  font-weight: 600;
-  line-height: 1.4;
-}
-.jpd-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  align-self: flex-start;
-  background: var(--accent);
-  color: var(--on-brand);
-  font-weight: 800;
-  border-radius: 999px;
-  box-shadow: 0 10px 24px rgba(6, 33, 56, 0.32);
-  white-space: nowrap;
-}
-.jpd-checks {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-}
-.jpd-checks li {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  color: #eaf4fd;
-  font-weight: 700;
-}
-.jpd-check {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 3.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  flex: none;
-}
-
-/* footer bar */
-.jpd-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #12315a;
-}
-.jpd-logo {
-  width: auto;
-  object-fit: contain;
-}
-.jpd-footer-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-.jpd-footer-strong {
-  color: #ffffff;
-  font-weight: 800;
-}
-.jpd-footer-fine {
-  color: #9fb6d4;
-  font-weight: 600;
-}
-
-/* ===================== Post (1080 x 1350) ===================== */
-.jpd-Post .jpd-photo-col { width: 640px; }
-.jpd-Post .jpd-main { left: 56px; top: 186px; width: 366px; }
-.jpd-Post .jpd-eyebrow { font-size: 18px; }
-.jpd-Post .jpd-headline { margin-top: 20px; font-size: 54px; }
-.jpd-Post .jpd-offer { margin-top: 26px; }
-.jpd-Post .jpd-offer-label { font-size: 18px; }
-.jpd-Post .jpd-offer-row { margin-top: 2px; font-size: 132px; }
-.jpd-Post .jpd-subhead { margin-top: 22px; font-size: 24px; }
-.jpd-Post .jpd-cta { margin-top: 26px; padding: 20px 34px; font-size: 24px; max-width: 366px; }
-.jpd-Post .jpd-checks { margin-top: 26px; gap: 14px; font-size: 22px; }
-.jpd-Post .jpd-check { width: 24px; height: 24px; }
-.jpd-Post .jpd-footer { height: 128px; padding: 0 56px; }
-.jpd-Post .jpd-logo { height: 46px; }
-.jpd-Post .jpd-footer-strong { font-size: 22px; }
-.jpd-Post .jpd-footer-fine { margin-top: 4px; font-size: 15px; }
-
-/* ===================== Story (1080 x 1920) ===================== */
-.jpd-Story .jpd-photo-col { width: 540px; }
-.jpd-Story .jpd-main { left: 56px; top: 268px; width: 440px; }
-.jpd-Story .jpd-eyebrow { font-size: 20px; }
-.jpd-Story .jpd-headline { margin-top: 22px; font-size: 64px; }
-.jpd-Story .jpd-offer { margin-top: 30px; }
-.jpd-Story .jpd-offer-label { font-size: 20px; }
-.jpd-Story .jpd-offer-row { margin-top: 4px; font-size: 168px; }
-.jpd-Story .jpd-subhead { margin-top: 24px; font-size: 27px; }
-.jpd-Story .jpd-cta { margin-top: 30px; padding: 22px 40px; font-size: 28px; max-width: 440px; }
-.jpd-Story .jpd-checks { margin-top: 30px; gap: 16px; font-size: 26px; }
-.jpd-Story .jpd-check { width: 28px; height: 28px; }
-.jpd-Story .jpd-footer { height: 150px; padding: 0 56px; }
-.jpd-Story .jpd-logo { height: 52px; }
-.jpd-Story .jpd-footer-strong { font-size: 24px; }
-.jpd-Story .jpd-footer-fine { margin-top: 4px; font-size: 16px; }
