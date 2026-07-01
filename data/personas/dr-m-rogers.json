@@ -64,6 +64,10 @@
   ],
   "resources": [
     {
+      "label": "Figma design file",
+      "url": "https://www.figma.com/design/ttRmQ7OKuhEv5b6Y8AmLZu/Dr.-Rogers"
+    },
+    {
       "label": "View Examples in the Wild",
       "url": "https://www.biltmoredentalcenter.com/"
     },

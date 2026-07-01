@@ -68,6 +68,10 @@
   ],
   "resources": [
     {
+      "label": "Figma design file",
+      "url": "https://www.figma.com/design/pwLeBuphtFghezQzngyrrk/Dr.-Kardashian"
+    },
+    {
       "label": "View Examples in the Wild",
       "url": "https://eliteorthodonticsgroup.com/"
     },
