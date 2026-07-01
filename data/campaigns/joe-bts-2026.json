@@ -6,17 +6,15 @@
   "year": 2026,
   "hifiTemplateSlug": "joe-value-card",
   "content": {
-    "headline": "Back-to-school smiles\nyou can afford.",
-    "subhead": "Flexible monthly plans with no hidden fees.",
+    "headline": "Braces before\nthe first bell",
+    "subhead": "Lock in before the school-year rush.",
     "cta": "Book free consult",
     "disclaimer": "Estimate. Subject to credit approval.",
     "offer": "$99",
     "offerLabel": "Plans as low as",
     "offerUnit": "/mo",
     "offerFine": "$0 down · 0% financing",
-    "rating": "4.9",
-    "socialProof": "2,000+ local smiles",
     "photo": "assets/photos/back-to-school/smile-portrait.svg"
   },
-  "notes": "Brand / value version — mirrors the source ad."
+  "notes": "Joe value-card (V1/V4) — SVG-exact rebuild."
 }

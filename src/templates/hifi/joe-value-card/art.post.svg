@@ -1,0 +1,14 @@
+<svg width="1080" height="1350" viewBox="0 0 1080 1350" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<path d="M1080 0H0V1350H1080V0Z" fill="url(#jvp0)"/>
+<path d="M666 830H82C68 830 56 842 56 856V1124C56 1138 68 1150 82 1150H666C680 1150 692 1138 692 1124V856C692 842 680 830 666 830Z" fill="white"/>
+<path d="M92 1088L99 1095L111 1080" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M260 1088L267 1095L279 1080" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M440 1088L447 1095L459 1080" stroke="#2BB673" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M981 1064H767C743 1064 724 1083 724 1107C724 1131 743 1150 767 1150H981C1005 1150 1024 1131 1024 1107C1024 1083 1005 1064 981 1064Z" fill="#16C2EC"/>
+<path d="M70 1221C61 1221 56 1228 56 1237C56 1248 60 1257 64 1268C66 1273 69 1273 71 1268L74 1256C75 1253 77 1253 78 1256L81 1268C83 1273 86 1273 88 1268C92 1257 96 1248 96 1237C96 1228 91 1221 82 1221C78 1221 75 1223 73 1223C71 1223 68 1221 64 1221H70Z" fill="white"/>
+<defs>
+<linearGradient id="jvp0" x1="0" y1="0" x2="0" y2="1350" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3F8ED9"/><stop offset="0.55" stop-color="#2C74C2"/><stop offset="1" stop-color="#1D4F93"/>
+</linearGradient>
+</defs>
+</svg>
