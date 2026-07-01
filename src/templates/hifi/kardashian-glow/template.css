@@ -1,0 +1,179 @@
+@import '../effects.css';
+
+/* ---------------------------------------------------------------------------
+   Glow (Full-bleed) — D. K. Kardashian. A portrait fills the frame under a soft
+   dark legibility gradient; light copy sits in the lower band. --accent tints
+   the italic headline accent, the chip borders and the CTA rule. Kit drives the
+   service chips (value props), logo and review copy.
+--------------------------------------------------------------------------- */
+.keg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--body-font);
+  color: #fbf7f2;
+}
+.keg-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.keg-photo-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #4a4038, #241f1b);
+}
+.keg-photo-tag {
+  color: #b7a892;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  font-size: 16px;
+}
+.keg-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(20, 16, 12, 0) 0%, rgba(20, 16, 12, 0.55) 45%, rgba(18, 14, 10, 0.92) 100%);
+}
+
+.keg-logo {
+  position: absolute;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.keg-main {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.keg-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: rgba(251, 247, 242, 0.82);
+}
+.keg-headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--display-font);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #fdfbf8;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+.keg-hl-accent {
+  font-style: italic;
+  color: var(--accent);
+}
+.keg-subhead {
+  margin: 0;
+  color: rgba(251, 247, 242, 0.9);
+  font-weight: 500;
+}
+.keg-chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.keg-chips li {
+  border: 1px solid rgba(251, 247, 242, 0.55);
+  border-radius: 999px;
+  color: #fbf7f2;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.keg-offer {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.keg-offer-text {
+  font-family: var(--display-font);
+  font-style: italic;
+  font-weight: 500;
+  color: #fdfbf8;
+  white-space: nowrap;
+}
+.keg-offer-fine {
+  color: rgba(251, 247, 242, 0.78);
+  font-weight: 500;
+}
+.keg-review {
+  display: flex;
+  flex-direction: column;
+}
+.keg-review-quote {
+  font-family: var(--display-font);
+  font-style: italic;
+  color: rgba(251, 247, 242, 0.92);
+}
+.keg-review-rating {
+  color: rgba(251, 247, 242, 0.72);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.keg-cta {
+  display: inline-block;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-weight: 600;
+  color: #fdfbf8;
+  border-bottom: 1.5px solid var(--accent);
+  white-space: nowrap;
+}
+.keg-disclaimer {
+  color: rgba(251, 247, 242, 0.62);
+  font-weight: 500;
+}
+
+/* ===================== Post (1080 x 1350) ===================== */
+.keg-Post .keg-scrim { height: 780px; }
+.keg-Post .keg-logo { left: 72px; top: 72px; height: 48px; }
+.keg-Post .keg-main { top: 726px; }
+.keg-Post .keg-eyebrow { font-size: 16px; }
+.keg-Post .keg-headline { margin-top: 18px; font-size: 72px; }
+.keg-Post .keg-subhead { margin-top: 20px; font-size: 24px; }
+.keg-Post .keg-chips { margin-top: 26px; gap: 12px; font-size: 19px; }
+.keg-Post .keg-chips li { padding: 10px 22px; }
+.keg-Post .keg-offer { margin-top: 28px; gap: 14px; }
+.keg-Post .keg-offer-text { font-size: 40px; }
+.keg-Post .keg-offer-fine { font-size: 18px; }
+.keg-Post .keg-review { margin-top: 20px; }
+.keg-Post .keg-review-quote { font-size: 19px; }
+.keg-Post .keg-review-rating { margin-top: 4px; font-size: 15px; }
+.keg-Post .keg-cta { margin-top: 26px; font-size: 16px; padding-bottom: 8px; max-width: 936px; }
+.keg-Post .keg-disclaimer { margin-top: 16px; font-size: 14px; }
+
+/* ===================== Story (1080 x 1920) ===================== */
+.keg-Story .keg-scrim { height: 1080px; }
+.keg-Story .keg-logo { left: 72px; top: 120px; height: 54px; }
+.keg-Story .keg-main { top: 1004px; }
+.keg-Story .keg-eyebrow { font-size: 18px; }
+.keg-Story .keg-headline { margin-top: 20px; font-size: 82px; }
+.keg-Story .keg-subhead { margin-top: 22px; font-size: 27px; }
+.keg-Story .keg-chips { margin-top: 28px; gap: 12px; font-size: 21px; }
+.keg-Story .keg-chips li { padding: 11px 24px; }
+.keg-Story .keg-offer { margin-top: 30px; gap: 16px; }
+.keg-Story .keg-offer-text { font-size: 46px; }
+.keg-Story .keg-offer-fine { font-size: 20px; }
+.keg-Story .keg-review { margin-top: 22px; }
+.keg-Story .keg-review-quote { font-size: 21px; }
+.keg-Story .keg-review-rating { margin-top: 4px; font-size: 16px; }
+.keg-Story .keg-cta { margin-top: 30px; font-size: 18px; padding-bottom: 9px; max-width: 936px; }
+.keg-Story .keg-disclaimer { margin-top: 18px; font-size: 15px; }
