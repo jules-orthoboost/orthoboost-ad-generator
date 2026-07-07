@@ -7,6 +7,8 @@ import storySeal from './art.seal.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
+import { Styled } from '../Styled'
 
 /**
  * Family Portrait (Premium) — Dr. G. House. Exact reproduction of the v6
@@ -45,7 +47,7 @@ const POS: Record<'Post' | 'Story', Record<string, P>> = {
 }
 
 export const Component: HifiTemplateComponent = ({
-  size, content, tokens, logoUrl, beats, playing, reducedMotion, frameNowMs,
+  size, content, tokens, beats, playing, reducedMotion, frameNowMs,
 }) => {
   const now = useClock(playing, reducedMotion, frameNowMs)
   const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
@@ -56,15 +58,17 @@ export const Component: HifiTemplateComponent = ({
   const seal = tint(size === 'Story' ? storySeal : postSeal)
   const hl = (content.headline ?? '').split('\n').filter(Boolean)
 
-  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot } = {}) => {
+  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot; weight?: number; fit?: boolean } = {}) => {
     const base: CSSProperties = {
       position: 'absolute', left: p.x, top: p.y, fontSize: p.s, lineHeight: 1.2,
-      color: col(p.c), fontWeight: 700,
+      color: col(p.c), fontWeight: opts.weight ?? 700,
       fontFamily: opts.display === false ? 'var(--body-font)' : 'var(--display-font)',
       maxWidth: p.w, width: p.center || opts.wrap ? p.w : undefined,
       textAlign: p.center ? 'center' : 'left', whiteSpace: opts.wrap ? 'normal' : 'nowrap',
       ...(opts.slot ? sty(opts.slot, 'fade-in') : {}),
     }
+    if (opts.fit && !opts.wrap)
+      return <FitText as="div" style={base} deps={[node, size]}>{node}</FitText>
     return <div style={base}>{node}</div>
   }
 
@@ -82,21 +86,28 @@ export const Component: HifiTemplateComponent = ({
       {content.rating && T(pos.sealNum, content.rating, { display: false })}
       {T(pos.sealRev, '500+ REVIEWS', { display: false })}
 
+      {/* hairline rule above the headline (Figma 2:119 / 43:42) */}
+      <div className="hp-hair" style={{ left: pos.head.x, top: pos.head.y - 21, width: pos.head.w }} />
+
       {/* headline (last line accented) */}
       {hl.length > 0 && (
         <div style={{ position: 'absolute', left: pos.head.x, top: pos.head.y, fontFamily: 'var(--display-font)', fontWeight: 800, fontSize: pos.head.s, lineHeight: 1.08, letterSpacing: '-0.01em', color: COLORS.ink, ...sty('headline', 'rise-in') }}>
-          {hl.map((l, i) => <div key={i} style={i === hl.length - 1 ? { color: tokens.accent } : undefined}>{l}</div>)}
+          {hl.map((l, i) => <div key={i} style={i === hl.length - 1 ? { color: tokens.accentText } : undefined}>{l}</div>)}
         </div>
       )}
 
-      {content.subhead && T(pos.sub, content.subhead, { display: false, wrap: true, slot: 'subhead' })}
-      {content.offerLabel && T(pos.offlabel, content.offerLabel, { display: false })}
-      {content.offer && T(pos.offer, content.offer, { slot: 'offer' })}
-      {content.cta && T(pos.cta, content.cta, { slot: 'cta' })}
-      {content.socialProof && T(pos.trust, content.socialProof, { display: false })}
+      {/* benefit pill copy: Figma bolds only the lead-in line — markers in the
+          copy pick the bold span; the block itself is regular weight */}
+      {content.subhead && T(pos.sub, <Styled text={content.subhead} />, { display: false, wrap: true, slot: 'subhead', weight: 400 })}
+      {content.offerLabel && T(pos.offlabel, content.offerLabel, { display: false, fit: true })}
+      {content.offer && T(pos.offer, content.offer, { slot: 'offer', fit: true })}
+      {content.cta && T(pos.cta, content.cta, { slot: 'cta', fit: true })}
+      {content.socialProof && T(pos.trust, content.socialProof, { display: false, weight: 400, fit: true })}
 
-      {logoUrl && <img className="hp-logo" src={logoUrl} alt="" style={{ top: pos.logo.y, height: pos.logo.h, ...sty('logo', 'fade-in') }} />}
-      {tokens.tagline && T(pos.logoTag, tokens.tagline, { display: false })}
+      {/* logo lockup: the kit assets are white lockups tuned for dark grounds —
+          on the cream footer we set the client name in ink instead (recipe §6) */}
+      <div className="hp-lockup" style={{ top: pos.logo.y, ...sty('logo', 'fade-in') }}>{tokens.clientName}</div>
+      {tokens.tagline && T(pos.logoTag, tokens.tagline, { display: false, weight: 400 })}
     </div>
   )
 }

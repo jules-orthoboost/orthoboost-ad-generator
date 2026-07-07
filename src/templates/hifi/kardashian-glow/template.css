@@ -87,7 +87,7 @@
   align-items: center;
   height: 50px;
   padding: 0 26px;
-  border-radius: 25px;
+  border-radius: 10px; /* Figma: rounded rect, not a capsule */
   color: #2c2340;
   font-family: var(--body-font);
   font-weight: 700;

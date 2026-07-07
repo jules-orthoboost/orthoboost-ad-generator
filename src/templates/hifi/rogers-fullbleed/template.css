@@ -23,6 +23,8 @@
 .rf-photo {
   position: absolute;
   overflow: hidden;
+  /* Figma: the photo band terminates card-style with rounded bottom corners. */
+  border-radius: 0 0 40px 40px;
 }
 .rf-photo-img {
   position: absolute;
@@ -45,7 +47,13 @@
 .rf-logo {
   position: absolute;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  /* Figma: cream rounded chip on the photo; the kit's white lockup is knocked
+     to a dark silhouette so it reads on the light chip. */
+  filter: brightness(0);
+  background: #fdfaf3;
+  border-radius: 18px;
+  padding: 14px 20px;
+  box-sizing: border-box;
 }
 .rf-rating {
   position: absolute;

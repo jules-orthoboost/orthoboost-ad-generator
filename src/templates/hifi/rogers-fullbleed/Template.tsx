@@ -72,7 +72,11 @@ export const Component: HifiTemplateComponent = ({
           : <div className="rf-photo-ph"><span>FAMILY PHOTO</span></div>}
       </div>
 
-      {logoUrl && <img className="rf-logo" src={logoUrl} alt="" style={{ left: p.logo.x, top: p.logo.y, width: p.logo.w, height: p.logo.h, ...sty('logo', 'fade-in') }} />}
+      {logoUrl && (
+        <div style={{ position: 'absolute', left: p.logo.x, top: p.logo.y, ...sty('logo', 'fade-in') }}>
+          <img className="rf-logo" src={logoUrl} alt="" style={{ position: 'static', width: p.logo.w, height: p.logo.h }} />
+        </div>
+      )}
 
       <div className="rf-rating" style={{ left: p.rating.x, top: p.rating.y, width: p.rating.w, height: p.rating.h, fontSize: p.rating.s }}>
         <span style={{ color: STAR }}>★</span>&nbsp;<span style={{ color: brand }}>{rating}</span>

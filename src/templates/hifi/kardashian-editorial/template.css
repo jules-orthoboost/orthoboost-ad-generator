@@ -115,3 +115,19 @@
   font-family: var(--body-font);
   white-space: nowrap;
 }
+
+/* Hairline rules framing the value-prop rows (Figma nodes above/below items). */
+.ke-hair {
+  height: 1px;
+  background: rgba(28, 26, 23, 0.14);
+}
+/* Figma blends the portrait into the ivory column over a soft ~150px gradient. */
+.ke-photo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  background: linear-gradient(90deg, #f4f1ec, rgba(244, 241, 236, 0));
+}

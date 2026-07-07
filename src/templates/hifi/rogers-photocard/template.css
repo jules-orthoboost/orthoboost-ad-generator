@@ -47,6 +47,11 @@
   position: absolute;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  /* Figma: the white logo sits on a solid navy rounded chip on the photo. */
+  background: var(--brand);
+  border-radius: 18px;
+  padding: 14px 20px;
+  box-sizing: border-box;
 }
 .rp-rating {
   position: absolute;

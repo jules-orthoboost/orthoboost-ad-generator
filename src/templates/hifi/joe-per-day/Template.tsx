@@ -5,6 +5,8 @@ import storyArt from './art.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
+import { Styled } from '../Styled'
 
 /**
  * Per-Day Price (Budget) — Dr. A. Joe. Exact reproduction of the V3 Figma design:
@@ -32,6 +34,7 @@ const POS: Record<'Post' | 'Story', Record<string, P>> = {
     f2a: { x: 804, y: 1206, s: 14, c: 'mute' }, f2b: { x: 804, y: 1227, s: 18, c: 'ink' },
     disc: { x: 343, y: 1272, s: 13, w: 394, c: 'faint', center: true },
     photo: { x: 440, y: 0, w: 640, s: 0 },
+    bar: { x: 32, y: 1170, w: 1016, s: 0 },
   },
   Story: {
     hl1: { x: 700, y: 335, s: 55 }, hl2: { x: 700, y: 399, s: 55 }, hl3: { x: 700, y: 453, s: 55, c: 'light' },
@@ -46,6 +49,7 @@ const POS: Record<'Post' | 'Story', Record<string, P>> = {
     f2a: { x: 804, y: 1554, s: 14, c: 'mute' }, f2b: { x: 804, y: 1575, s: 18, c: 'ink' },
     disc: { x: 343, y: 1620, s: 13, w: 394, c: 'faint', center: true },
     photo: { x: 0, y: 0, w: 640, s: 0 },
+    bar: { x: 32, y: 1518, w: 1016, s: 0 },
   },
 }
 
@@ -72,7 +76,7 @@ export const Component: HifiTemplateComponent = ({
   const cents = m && m[3] ? m[3] : ''
   const unit = content.offerUnit ?? ''
 
-  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot } = {}) => {
+  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot; fit?: boolean } = {}) => {
     const base: CSSProperties = {
       position: 'absolute', left: p.x, top: p.y, fontSize: p.s, lineHeight: 1.1,
       color: col(p.c), fontWeight: 800,
@@ -82,6 +86,9 @@ export const Component: HifiTemplateComponent = ({
       ...(opts.slot ? sty(opts.slot, 'fade-in') : {}),
     }
     if (opts.wrap) base.width = p.w
+    // Single-line variable text auto-fits to its Figma width budget (standing rule).
+    if (opts.fit && !opts.wrap)
+      return <FitText as="div" style={base} deps={[node, size]}>{node}</FitText>
     return <div style={base}>{node}</div>
   }
 
@@ -97,10 +104,14 @@ export const Component: HifiTemplateComponent = ({
         T(pos.photoTag, 'YOUR PHOTO HERE')
       )}
 
+      {/* footer bar — Figma places it full-width ON TOP of the photo, so it must
+          paint after the photo layer (the copy in the art gets buried) */}
+      <div className="jpd-bar" style={{ left: pos.bar.x, top: pos.bar.y, width: pos.bar.w }} />
+
       {/* headline */}
-      {hl[0] && T(pos.hl1, hl[0], { slot: 'headline' })}
-      {hl[1] && T(pos.hl2, hl[1], { slot: 'headline' })}
-      {hl[2] && T(pos.hl3, hl[2], { slot: 'headline' })}
+      {hl[0] && T(pos.hl1, <Styled text={hl[0]} />, { slot: 'headline' })}
+      {hl[1] && T(pos.hl2, <Styled text={hl[1]} />, { slot: 'headline' })}
+      {hl[2] && T(pos.hl3, <Styled text={hl[2]} />, { slot: 'headline' })}
 
       {/* composed price */}
       {big && (
@@ -116,15 +127,15 @@ export const Component: HifiTemplateComponent = ({
       {content.subhead && T(pos.sub, content.subhead, { display: false, wrap: true, slot: 'subhead' })}
 
       {/* CTA label (button art is in the SVG) */}
-      {content.cta && T(pos.cta, content.cta, { slot: 'cta' })}
+      {content.cta && T(pos.cta, content.cta, { slot: 'cta', fit: true })}
 
       {/* value props (check art is in the SVG) */}
-      {vps[0] && T(pos.vp1, vps[0])}
-      {vps[1] && T(pos.vp2, vps[1])}
-      {vps[2] && T(pos.vp3, vps[2])}
+      {vps[0] && T(pos.vp1, vps[0], { fit: true })}
+      {vps[1] && T(pos.vp2, vps[1], { fit: true })}
+      {vps[2] && T(pos.vp3, vps[2], { fit: true })}
 
       {/* logo: the mark is in the SVG art; overlay the name + tagline */}
-      {tokens.clientName && T(pos.logoName, tokens.clientName, { display: false, slot: 'logo' })}
+      {tokens.clientName && T(pos.logoName, tokens.clientName, { display: false, slot: 'logo', fit: true })}
       {tokens.tagline && T(pos.logoTag, tokens.tagline, { display: false })}
 
       {/* footer fields (icons are in the SVG) */}

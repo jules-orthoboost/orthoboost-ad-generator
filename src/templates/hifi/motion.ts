@@ -20,19 +20,22 @@ export function slotProgress(beats: Beat[], slot: Slot, nowMs: number): number {
 export function revealStyle(effect: Beat['effect'], progress: number): CSSProperties {
   const p = Math.max(0, Math.min(1, progress))
   const inv = 1 - p
+  // At rest (p === 1) the effect properties are OMITTED, not set to 'none' —
+  // an inline 'none' silently overrides class-level filter/transform (e.g. the
+  // white-logo `filter: invert(1)`), which shipped black logos on navy grounds.
   switch (effect) {
     case 'none':
       return { opacity: 1 }
     case 'fade-in':
-      return { opacity: p, filter: inv > 0 ? `blur(${(inv * 6).toFixed(2)}px)` : 'none' }
+      return inv > 0 ? { opacity: p, filter: `blur(${(inv * 6).toFixed(2)}px)` } : { opacity: 1 }
     case 'rise-in':
-      return { opacity: p, transform: inv > 0 ? `translateY(${(inv * 44).toFixed(2)}px)` : 'none' }
+      return inv > 0 ? { opacity: p, transform: `translateY(${(inv * 44).toFixed(2)}px)` } : { opacity: 1 }
     case 'pop-in':
-      return { opacity: p, transform: inv > 0 ? `scale(${(1 - inv * 0.14).toFixed(3)})` : 'none' }
+      return inv > 0 ? { opacity: p, transform: `scale(${(1 - inv * 0.14).toFixed(3)})` } : { opacity: 1 }
     case 'slide-left':
-      return { opacity: p, transform: inv > 0 ? `translateX(${(inv * 64).toFixed(2)}px)` : 'none' }
+      return inv > 0 ? { opacity: p, transform: `translateX(${(inv * 64).toFixed(2)}px)` } : { opacity: 1 }
     case 'slide-right':
-      return { opacity: p, transform: inv > 0 ? `translateX(${(-inv * 64).toFixed(2)}px)` : 'none' }
+      return inv > 0 ? { opacity: p, transform: `translateX(${(-inv * 64).toFixed(2)}px)` } : { opacity: 1 }
   }
 }
 

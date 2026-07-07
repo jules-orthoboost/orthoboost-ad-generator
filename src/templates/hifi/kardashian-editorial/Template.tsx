@@ -5,6 +5,7 @@ import storyArt from './art.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Editorial (Luxury) — D. K. Kardashian v1-season. Exact reproduction of the
@@ -27,7 +28,7 @@ const POS: Record<'Post' | 'Story', Layout> = {
     sub: { x: 80, y: 522, s: 24, lh: 1.375, w: 420 },
     ben0: { x: 108, y: 685, s: 22 }, offer: { x: 80, y: 875, s: 31 },
     cta: { x: 80, y: 958, s: 16 }, avatar: { x: 80, y: 1092, s: 56 },
-    quote: { x: 152, y: 1086, s: 23, lh: 1.2, w: 220 },
+    quote: { x: 152, y: 1086, s: 23, lh: 1.2, w: 308 },
     rev1: { x: 80, y: 1169, s: 15 }, rev2: { x: 80, y: 1198, s: 11 },
     fine: { x: 80, y: 1292, s: 12 },
     photoX: 520, photoW: 560, photoH: 1350,
@@ -37,7 +38,7 @@ const POS: Record<'Post' | 'Story', Layout> = {
     sub: { x: 80, y: 786, s: 24, lh: 1.375, w: 420 },
     ben0: { x: 108, y: 949, s: 22 }, offer: { x: 80, y: 1139, s: 31 },
     cta: { x: 80, y: 1222, s: 16 }, avatar: { x: 80, y: 1356, s: 56 },
-    quote: { x: 152, y: 1350, s: 23, lh: 1.2, w: 220 },
+    quote: { x: 152, y: 1350, s: 23, lh: 1.2, w: 308 },
     rev1: { x: 80, y: 1433, s: 15 }, rev2: { x: 80, y: 1462, s: 11 },
     fine: { x: 80, y: 1556, s: 12 },
     photoX: 520, photoW: 560, photoH: 1920,
@@ -84,7 +85,7 @@ export const Component: HifiTemplateComponent = ({
             const head = words.join(' ')
             return (
               <span key={i} className="ke-head-line">
-                {head ? head + ' ' : ''}<span className="ke-head-accent" style={{ color: tokens.accent }}>{tail}</span>
+                {head ? head + ' ' : ''}<span className="ke-head-accent" style={{ color: tokens.accentText }}>{tail}</span>
               </span>
             )
           })}
@@ -97,12 +98,17 @@ export const Component: HifiTemplateComponent = ({
         </p>
       )}
 
+      {/* value-prop rows framed by hairline rules (Figma: one above the first
+          item, one under each row) */}
+      {[0, 1, 2, 3].map((i) => (
+        <div key={`hr${i}`} className="ke-hair" style={{ position: 'absolute', left: 80, top: p.ben0.y - 18 + i * BEN_STEP, width: 420 }} />
+      ))}
       {benefits.map((b, i) => (
-        <div key={i} className="ke-benefit" style={abs({ ...p.ben0, y: p.ben0.y + i * BEN_STEP }, { fontSize: p.ben0.s, color: C.ink })}>{b}</div>
+        <FitText key={i} as="div" className="ke-benefit" deps={[b, size]} style={abs({ ...p.ben0, y: p.ben0.y + i * BEN_STEP }, { fontSize: p.ben0.s, color: C.ink, maxWidth: 392 })}>{b}</FitText>
       ))}
 
       {content.offer && (
-        <div className="ke-offer" style={abs(p.offer, { fontSize: p.offer.s, color: tokens.accent, ...sty('offer', 'fade-in') })}>{content.offer}</div>
+        <FitText as="div" className="ke-offer" deps={[content.offer, size]} style={abs(p.offer, { fontSize: p.offer.s, color: tokens.accentText, maxWidth: 420, ...sty('offer', 'fade-in') })}>{content.offer}</FitText>
       )}
 
       {content.cta && (
@@ -120,7 +126,7 @@ export const Component: HifiTemplateComponent = ({
           )}
           {ratingParts[0] && (
             <div className="ke-rev1" style={abs(p.rev1, { fontSize: p.rev1.s })}>
-              <span className="ke-stars" style={{ color: tokens.accent }}>{'★★★★★'}</span>
+              <span className="ke-stars" style={{ color: tokens.accentText }}>{'★★★★★'}</span>
               <span className="ke-rev-val" style={{ color: C.muted }}>{ratingParts[0]}</span>
             </div>
           )}

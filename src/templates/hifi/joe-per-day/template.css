@@ -1,3 +1,5 @@
+@import '../effects.css';
+
 /* Per-Day Price (Budget) — Dr. A. Joe.
    The exact Figma vector art is the base (jpd-art); editable fields are overlaid
    at their exact Figma coordinates by the component's inline styles. */
@@ -24,4 +26,16 @@
 }
 .jpd-fit {
   display: block;
+}
+/* Footer bar redrawn above the photo (mirrors the bar baked in the art). */
+.jpd-bar {
+  position: absolute;
+  height: 128px;
+  background: #ffffff;
+  border-radius: 24px;
+}
+/* Headline accent sits on the dark panel — the raw kit accent reads best there
+   (the .st-a default targets light surfaces). */
+.jpd .st-a {
+  color: var(--accent);
 }

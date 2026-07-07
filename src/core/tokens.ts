@@ -1,5 +1,5 @@
 import type { Persona, BrandKit } from './schemas'
-import { contrastRatio, meetsAA, pickLegibleColor } from './contrast'
+import { contrastRatio, ensureAAPreserveHue, meetsAA, pickLegibleColor } from './contrast'
 
 export interface ResolvedTokens {
   brand: string
@@ -7,6 +7,17 @@ export interface ResolvedTokens {
   surface: string
   accent: string
   onBrand: string
+  /**
+   * The kit accent, adjusted (hue-preserving lightness walk) until it meets
+   * AA-large (3:1) against `surface`. Use for accent-COLORED display text on the
+   * template's surface (prices, highlighted headline words). Graphics keep `accent`.
+   */
+  accentText: string
+  /**
+   * AA text color for copy sitting ON an accent-filled shape (CTA pills, chips).
+   * Palette pick first (kit colors), guaranteed to pass 4.5:1 against `accent`.
+   */
+  onAccent: string
   displayFont: string
   bodyFont: string
   radius: number
@@ -64,7 +75,15 @@ export function resolveTokens(persona: Persona, kit: BrandKit): ResolvedTokens {
   const onBrand = meetsAA(contrastRatio(base.onBrand, base.brand))
     ? base.onBrand
     : pickLegibleColor(base.brand, palette)
-  const resolved = { ...base, ink, onBrand }
+  // Accent-colored display text on the surface: keep the kit's hue, adjust
+  // lightness only as far as AA-large requires (per Jules 2026-07-07: auto-adjust,
+  // keep hue — never swap accent text to another color).
+  const accentText = ensureAAPreserveHue(base.accent, base.surface, { large: true })
+  // Copy on accent-filled shapes (CTA pills): kit palette first, 4.5:1 guaranteed.
+  const onAccent = meetsAA(contrastRatio(base.onBrand, base.accent))
+    ? base.onBrand
+    : pickLegibleColor(base.accent, palette)
+  const resolved = { ...base, ink, onBrand, accentText, onAccent }
 
   const stack = (f: string) => `${f}, system-ui, sans-serif`
   return {
@@ -75,6 +94,8 @@ export function resolveTokens(persona: Persona, kit: BrandKit): ResolvedTokens {
       '--surface': resolved.surface,
       '--accent': resolved.accent,
       '--on-brand': resolved.onBrand,
+      '--accent-text': resolved.accentText,
+      '--on-accent': resolved.onAccent,
       '--display-font': stack(resolved.displayFont),
       '--body-font': stack(resolved.bodyFont),
       '--radius': `${resolved.radius}px`,

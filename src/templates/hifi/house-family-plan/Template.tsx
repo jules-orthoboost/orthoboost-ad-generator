@@ -7,6 +7,8 @@ import storyCard from './art.card.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
+import { Styled } from '../Styled'
 
 /**
  * Family Plan (Checklist) — Dr. G. House v5. Exact reproduction of the Figma
@@ -52,7 +54,7 @@ export const Component: HifiTemplateComponent = ({
   const art = tint(size === 'Story' ? storyArt : postArt)
   const card = size === 'Story' ? storyCard : postCard
 
-  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot } = {}) => {
+  const T = (p: P, node: ReactNode, opts: { display?: boolean; wrap?: boolean; slot?: Slot; fit?: boolean } = {}) => {
     const base: CSSProperties = {
       position: 'absolute', left: p.x, top: p.y, fontSize: p.s, lineHeight: p.lh ?? 1.2,
       color: col(p.c), fontWeight: 700,
@@ -61,6 +63,8 @@ export const Component: HifiTemplateComponent = ({
       textAlign: p.right ? 'right' : 'left', whiteSpace: opts.wrap ? 'normal' : 'nowrap',
       ...(opts.slot ? sty(opts.slot, 'fade-in') : {}),
     }
+    if (opts.fit && !opts.wrap)
+      return <FitText as="div" style={base} deps={[node, size]}>{node}</FitText>
     return <div style={base}>{node}</div>
   }
   const lines = (v: string | undefined) => (v ?? '').split('\n').filter(Boolean)
@@ -74,13 +78,15 @@ export const Component: HifiTemplateComponent = ({
           ? <div className="hfp-photo-img" style={{ backgroundImage: `url(${content.photo})` }} />
           : <div className="hfp-photo-ph"><span>FAMILY PHOTO</span></div>}
         <div className="hfp-photo-scrim" />
+        {/* Figma 2:160: dark scrim across the photo's top edge */}
+        <div className="hfp-photo-scrim-top" />
       </div>
 
       <div className="hfp-card" dangerouslySetInnerHTML={{ __html: card }} />
 
       {/* teal-section copy */}
       <div style={{ position: 'absolute', left: pos.head.x, top: pos.head.y, fontFamily: 'var(--display-font)', fontWeight: 800, fontSize: pos.head.s, lineHeight: pos.head.lh, color: '#fff', ...sty('headline', 'rise-in') }}>
-        {lines(content.headline).map((l, i) => <div key={i}>{l}</div>)}
+        {lines(content.headline).map((l, i) => <div key={i}><Styled text={l} /></div>)}
       </div>
       {content.subhead && (
         <div style={{ position: 'absolute', left: pos.sub.x, top: pos.sub.y, width: pos.sub.w, fontFamily: 'var(--body-font)', fontWeight: 600, fontSize: pos.sub.s, lineHeight: pos.sub.lh, color: COLORS.sub, ...sty('subhead', 'rise-in') }}>
@@ -99,8 +105,8 @@ export const Component: HifiTemplateComponent = ({
           <li key={i}><span className="hfp-check" style={{ color: tokens.accent }}>✓</span>{c}</li>
         ))}
       </ul>
-      {content.offerLabel && T(pos.offlabel, content.offerLabel, { display: false })}
-      {content.offer && T(pos.offer, content.offer, { slot: 'offer' })}
+      {content.offerLabel && T(pos.offlabel, content.offerLabel, { display: false, fit: true })}
+      {content.offer && T(pos.offer, content.offer, { slot: 'offer', fit: true })}
       {content.offerFine && (
         <div style={{ position: 'absolute', left: pos.offfine.x, top: pos.offfine.y, width: pos.offfine.w, fontFamily: 'var(--body-font)', fontWeight: 700, fontSize: pos.offfine.s, lineHeight: pos.offfine.lh, color: COLORS.cardInk }}>
           {lines(content.offerFine).map((l, i) => <div key={i}>{l}</div>)}
@@ -108,9 +114,13 @@ export const Component: HifiTemplateComponent = ({
       )}
       {content.disclaimer && T(pos.allages, content.disclaimer, { display: false })}
 
-      {content.cta && T(pos.cta, content.cta, { slot: 'cta' })}
+      {content.cta && T(pos.cta, content.cta, { slot: 'cta', fit: true })}
 
-      {logoUrl && <img className="hfp-logo" src={logoUrl} alt="" style={{ left: pos.logo.x, top: pos.logo.y, height: pos.logo.s, ...sty('logo', 'fade-in') }} />}
+      {logoUrl && (
+        <div style={{ position: 'absolute', left: pos.logo.x, top: pos.logo.y, ...sty('logo', 'fade-in') }}>
+          <img className="hfp-logo" src={logoUrl} alt="" style={{ position: 'static', height: pos.logo.s }} />
+        </div>
+      )}
     </div>
   )
 }

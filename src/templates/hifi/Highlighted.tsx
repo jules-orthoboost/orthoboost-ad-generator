@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import type { ResolvedTokens } from '../../core/tokens'
 import type { Range } from '../../core/schemas'
-import { pickLegibleColor } from '../../core/contrast'
 
 interface Props {
   text: string
@@ -25,9 +24,7 @@ export function Highlighted({ text, ranges, tokens, offset = 0 }: Props): ReactN
   if (norm.length === 0) return text
 
   const hlColor = tokens.accent
-  const textColor = pickLegibleColor(hlColor, [
-    tokens.brand, tokens.ink, tokens.surface, tokens.accent, tokens.onBrand,
-  ])
+  const textColor = tokens.onAccent
 
   const out: ReactNode[] = []
   let cursor = 0

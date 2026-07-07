@@ -1,3 +1,5 @@
+@import '../effects.css';
+
 /* Family Plan (Checklist) — Dr. G. House v5.
    Exact Figma art base (hfp-art), photo band on top, white card foreground
    (hfp-card), fields overlaid at exact coords by the component. */
@@ -73,4 +75,20 @@
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
+}
+
+/* Figma 2:160: dark gradient across the top ~150px of the photo. */
+.hfp-photo-scrim-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 150px;
+  background: linear-gradient(180deg, rgba(13, 66, 76, 0.5), rgba(13, 66, 76, 0));
+}
+/* Headline's lead-in line is regular weight at full opacity (not the faded
+   .st-l default). */
+.hfp .st-l {
+  font-weight: 400;
+  opacity: 1;
 }

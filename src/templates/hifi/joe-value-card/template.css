@@ -49,3 +49,14 @@
   height: 170px;
   background: linear-gradient(180deg, rgba(10, 30, 60, 0.34), rgba(10, 30, 60, 0));
 }
+
+/* Figma 1:186: the Post photo fades into the brand panel at its bottom edge. */
+.jvc-Post .jvc-photo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 260px;
+  background: linear-gradient(180deg, transparent, var(--brand));
+}

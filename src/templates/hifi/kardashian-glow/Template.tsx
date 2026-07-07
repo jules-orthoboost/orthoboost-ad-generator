@@ -5,6 +5,7 @@ import storyArt from './art.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Glow (Full-bleed) — D. K. Kardashian v2-glow. Exact reproduction of the Figma
@@ -70,13 +71,17 @@ export const Component: HifiTemplateComponent = ({
 
       {chips.length > 0 && (
         <div className="keg-chips" style={abs({ x: 72, y: p.chipsY })}>
-          {chips.map((c, i) => <span key={i} className="keg-chip">{c}</span>)}
+          {chips.map((c, i) => (
+            <span key={i} className="keg-chip">
+              <FitText as="span" deps={[c, size]} style={{ maxWidth: 233 }}>{c}</FitText>
+            </span>
+          ))}
         </div>
       )}
 
       {content.offer && (
         <div className="keg-offer" style={abs({ x: 72, y: p.offerY }, sty('offer', 'fade-in'))}>
-          <span className="keg-offer-pill" style={{ background: tokens.accent }}>{content.offer}</span>
+          <span className="keg-offer-pill" style={{ background: tokens.accent, color: tokens.onAccent }}>{content.offer}</span>
           {content.offerFine && <span className="keg-offer-fine" style={{ color: SOFT_WHITE }}>{content.offerFine}</span>}
         </div>
       )}

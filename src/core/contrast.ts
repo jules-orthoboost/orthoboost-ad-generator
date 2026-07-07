@@ -49,6 +49,86 @@ export function meetsAA(ratio: number, opts?: { large?: boolean }): boolean {
   return ratio >= (opts?.large ? 3 : 4.5)
 }
 
+export interface Hsl {
+  h: number // 0–360
+  s: number // 0–1
+  l: number // 0–1
+}
+
+export function rgbToHsl({ r, g, b }: Rgb): Hsl {
+  const rn = r / 255
+  const gn = g / 255
+  const bn = b / 255
+  const max = Math.max(rn, gn, bn)
+  const min = Math.min(rn, gn, bn)
+  const l = (max + min) / 2
+  if (max === min) return { h: 0, s: 0, l }
+  const d = max - min
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+  let h: number
+  if (max === rn) h = ((gn - bn) / d + (gn < bn ? 6 : 0)) * 60
+  else if (max === gn) h = ((bn - rn) / d + 2) * 60
+  else h = ((rn - gn) / d + 4) * 60
+  return { h, s, l }
+}
+
+export function hslToRgb({ h, s, l }: Hsl): Rgb {
+  if (s === 0) {
+    const v = clamp255(l * 255)
+    return { r: v, g: v, b: v }
+  }
+  const hue = (p: number, q: number, t: number) => {
+    let tt = t
+    if (tt < 0) tt += 1
+    if (tt > 1) tt -= 1
+    if (tt < 1 / 6) return p + (q - p) * 6 * tt
+    if (tt < 1 / 2) return q
+    if (tt < 2 / 3) return p + (q - p) * (2 / 3 - tt) * 6
+    return p
+  }
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+  const p = 2 * l - q
+  const hn = h / 360
+  return {
+    r: clamp255(hue(p, q, hn + 1 / 3) * 255),
+    g: clamp255(hue(p, q, hn) * 255),
+    b: clamp255(hue(p, q, hn - 1 / 3) * 255),
+  }
+}
+
+/**
+ * Returns `color` unchanged when it already meets AA against `against`;
+ * otherwise walks the color's HSL *lightness* (hue and saturation kept) toward
+ * whichever extreme raises contrast, and returns the first passing step — i.e.
+ * the AA-passing shade closest to the brand color. Falls back to the opposite
+ * direction, then black/white, so it never returns a failing color.
+ */
+export function ensureAAPreserveHue(
+  color: string,
+  against: string,
+  opts?: { large?: boolean },
+): string {
+  const passes = (c: string) => meetsAA(contrastRatio(c, against), opts)
+  if (passes(color)) return color
+  const { h, s, l } = rgbToHsl(hexToRgb(color))
+  // Light backgrounds need darker text and vice versa.
+  const darken = relativeLuminance(hexToRgb(against)) >= 0.18 // ≈ mid-tone cutoff
+  const walk = (dir: -1 | 1): string | null => {
+    for (let i = 1; i <= 100; i++) {
+      const nl = l + dir * (i / 100)
+      if (nl < 0 || nl > 1) return null
+      const c = rgbToHex(hslToRgb({ h, s, l: nl }))
+      if (passes(c)) return c
+    }
+    return null
+  }
+  return (
+    walk(darken ? -1 : 1) ??
+    walk(darken ? 1 : -1) ??
+    (darken ? '#000000' : '#ffffff')
+  )
+}
+
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
 /**

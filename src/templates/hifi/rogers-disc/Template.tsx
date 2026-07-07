@@ -2,9 +2,12 @@ import './template.css'
 import type { CSSProperties } from 'react'
 import postArt from './art.post.svg?raw'
 import storyArt from './art.story.svg?raw'
+import postFg from './art.fg.post.svg?raw'
+import storyFg from './art.fg.story.svg?raw'
 import type { HifiTemplateComponent } from '../types'
 import type { Beat, Slot } from '../../../core/schemas'
 import { useClock, slotProgress, revealStyle } from '../motion'
+import { FitText } from '../FitText'
 
 /**
  * Rogers Disc — Dr. M. Rogers (family-community) V5. Exact reproduction of the
@@ -59,9 +62,13 @@ export const Component: HifiTemplateComponent = ({
   const sty = (slot: Slot, effect: Beat['effect']) => revealStyle(effect, slotProgress(beats, slot, now))
   const p = POS[size]
   const brand = tokens.brand
-  const art = (size === 'Story' ? storyArt : postArt)
-    .replaceAll('#2A4793', brand).replaceAll('#1B3168', shade(brand, -26))
-    .replaceAll('#243F86', brand).replaceAll('#AED6C1', tokens.accent)
+  const tint = (svg: string) =>
+    svg
+      .replaceAll('#2A4793', brand).replaceAll('#1B3168', shade(brand, -26))
+      .replaceAll('#243F86', brand).replaceAll('#AED6C1', tokens.accent)
+  const art = tint(size === 'Story' ? storyArt : postArt)
+  // Badge circle + sparkle sit ON the photo frame in Figma — foreground layer.
+  const fg = tint(size === 'Story' ? storyFg : postFg)
 
   const heads = (content.headline ?? '').split('\n').filter(Boolean)
   const subs = (content.subhead ?? '').split('\n').filter(Boolean)
@@ -85,9 +92,14 @@ export const Component: HifiTemplateComponent = ({
           : <div className="rd-photo-ph"><span>PORTRAIT</span></div>}
       </div>
 
-      {/* tilted rating tab */}
+      {/* badge circle + sparkle above the photo frame (Figma z-order) */}
+      <div className="rd-fg" dangerouslySetInnerHTML={{ __html: fg }} />
+
+      {/* tilted rating tab — CSS pill (the art's exported pill was malformed) */}
       <div className="rd-rating" style={{ left: p.rating.x, top: p.rating.y, width: p.rating.w, fontSize: p.rating.s }}>
-        <span style={{ color: STAR }}>★</span>&nbsp;<span style={{ color: brand }}>{rating}</span>
+        <FitText as="span" deps={[rating, size]} style={{ maxWidth: (p.rating.w ?? 218) - 24 }}>
+          <span style={{ color: STAR }}>★</span>&nbsp;<span style={{ color: brand }}>{rating}</span>
+        </FitText>
       </div>
 
       {/* AUG badge */}
@@ -95,7 +107,7 @@ export const Component: HifiTemplateComponent = ({
       <div style={disp(p.augB, brand, { fontWeight: 700 })}>{AUG_BOT}</div>
 
       {/* script accent + headline */}
-      <div style={disp(p.script, tokens.accent, { fontFamily: '"Caveat", cursive', fontWeight: 700, lineHeight: 1 })}>{script}</div>
+      <FitText as="div" deps={[script, size]} style={disp(p.script, tokens.accent, { fontFamily: '"Caveat", cursive', fontWeight: 700, lineHeight: 1, maxWidth: p.script.w })}>{script}</FitText>
       {heads.map((l, i) => (
         <div key={i} style={disp({ ...p.head, y: p.head.y + i * p.headStep }, HEAD, { lineHeight: 1, ...sty('headline', 'rise-in') })}>{l}</div>
       ))}
@@ -103,15 +115,21 @@ export const Component: HifiTemplateComponent = ({
         <div key={i} style={disp({ ...p.sub, y: p.sub.y + i * p.subStep, s: p.sub.s }, SUB, { fontWeight: 700, ...sty('subhead', 'rise-in') })}>{l}</div>
       ))}
 
-      {/* value pills */}
+      {/* value pills — auto-fit, never clipped mid-word (standing fit rule) */}
       {props.map((t, i) => (
-        <div key={i} style={disp({ x: p.propCx[i] - 112, y: p.propY, s: p.propS, w: 224 }, brand, { overflow: 'hidden', textOverflow: 'ellipsis' })}>{t}</div>
+        <FitText key={i} as="div" deps={[t, size]} style={disp({ x: p.propCx[i] - 112, y: p.propY, s: p.propS, w: 224 }, brand, { maxWidth: 208 })}>{t}</FitText>
       ))}
 
       {/* team CTA (arrow is baked art) */}
-      {content.cta && <div style={disp(p.team, brand, sty('cta', 'pop-in'))}>{content.cta}</div>}
+      {content.cta && (
+        <FitText as="div" deps={[content.cta, size]} style={disp(p.team, brand, { maxWidth: p.team.w, ...sty('cta', 'pop-in') })}>{content.cta}</FitText>
+      )}
 
-      {logoUrl && <img className="rd-logo" src={logoUrl} alt="" style={{ left: p.logo.x, top: p.logo.y, width: p.logo.w, height: p.logo.h, ...sty('logo', 'fade-in') }} />}
+      {logoUrl && (
+        <div style={{ position: 'absolute', left: p.logo.x, top: p.logo.y, ...sty('logo', 'fade-in') }}>
+          <img className="rd-logo" src={logoUrl} alt="" style={{ position: 'static', width: p.logo.w, height: p.logo.h }} />
+        </div>
+      )}
     </div>
   )
 }

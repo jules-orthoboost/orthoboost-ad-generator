@@ -1,3 +1,5 @@
+@import '../effects.css';
+
 /* Spec Sheet (Authority) — Dr. C. Yang.
    Exact Figma vector art base (yss-art); editable fields overlaid at exact
    coordinates by the component's inline styles. */
@@ -38,3 +40,24 @@
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
+
+/* Stats panel + CTA pill outline + hairlines (dropped in the art export). */
+.yss-panel {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+}
+.yss-ctapill {
+  position: absolute;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+.yss-hair {
+  position: absolute;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+/* Subhead accent on the navy ground reads with the raw kit accent. */
+.yss .st-a { color: var(--accent); }
+/* Subhead bold span is white per Figma. */
+.yss .st-b { color: #ffffff; }

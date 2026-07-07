@@ -9,3 +9,9 @@
     animation: none !important;
   }
 }
+
+/* Styled.tsx inline rich-text defaults — templates may re-style within their scope. */
+.st-b { font-weight: 700; }
+.st-a { color: var(--accent-text); }
+.st-i { font-style: italic; }
+.st-l { font-weight: 400; opacity: 0.78; }
