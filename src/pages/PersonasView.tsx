@@ -4,6 +4,7 @@ import { loadPersonas } from '../core/data'
 import { Heading } from '../components/catalyst/heading'
 import { Badge } from '../components/catalyst/badge'
 import { useHashSegments, navigate } from '../core/router'
+import { PersonaIcon } from '../components/PersonaIcon'
 
 const personas = loadPersonas()
 
@@ -94,12 +95,10 @@ export function PersonasView() {
                       : 'text-zinc-600 hover:bg-white/70 hover:text-zinc-900',
                   )}
                 >
-                  <span
-                    className={clsx(
-                      'size-2.5 shrink-0 rounded-full ring-1 ring-black/10 transition-all duration-200',
-                      isSel ? 'scale-125' : 'opacity-70 group-hover:opacity-100',
-                    )}
-                    style={{ background: personas[slug].accentColor }}
+                  <PersonaIcon
+                    slug={slug}
+                    accent={personas[slug].accentColor}
+                    selected={isSel}
                   />
                   <span className="truncate">{personas[slug].name}</span>
                 </button>
@@ -114,13 +113,16 @@ export function PersonasView() {
         {/* Detail */}
         <main className="min-w-0">
           <div key={sel} className="persona-in overflow-hidden rounded-2xl bg-white shadow-purity-lg ring-1 ring-zinc-950/5">
+            <div
+              className="h-1"
+              style={{ background: `linear-gradient(90deg, ${p.accentColor}, ${p.accentColor}33)` }}
+            />
             <div className="p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
                 <div className="flex min-w-0 items-start gap-3">
-                  <span
-                    className="mt-1 size-6 shrink-0 rounded-full shadow-purity ring-1 ring-black/10"
-                    style={{ background: p.accentColor }}
-                  />
+                  <div className="mt-0.5 shadow-purity rounded-xl">
+                    <PersonaIcon slug={sel} accent={p.accentColor} size="lg" />
+                  </div>
                   <div className="min-w-0">
                     <Heading level={2}>{p.name}</Heading>
                     <p className="mt-0.5 text-sm font-medium text-zinc-500">{p.archetype}</p>
