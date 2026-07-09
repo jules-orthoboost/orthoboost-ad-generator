@@ -2,6 +2,11 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* OrthoBoost brand tokens (Purity-style chrome) */
+  --color-navy: #163055;
+  --color-brand: #29bbf6;
+  --shadow-purity: 0 3.5px 5.5px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-purity-lg: 0 7px 23px rgba(15, 23, 42, 0.06);
 }
 
 /* Tailwind's preflight owns the base reset (box-sizing, zeroed margins, list
@@ -12,6 +17,28 @@
 .bk-donts,
 .bk-valueprops {
   list-style: disc;
+}
+
+/* Persona detail switch: gentle fade + rise, ease-out only */
+@keyframes persona-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.persona-in {
+  animation: persona-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .persona-in {
+    animation: none;
+  }
 }
 
 body {

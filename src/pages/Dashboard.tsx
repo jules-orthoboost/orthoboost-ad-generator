@@ -1,28 +1,33 @@
-import { useState } from 'react'
+import clsx from 'clsx'
 import { SidebarLayout } from '../components/catalyst/sidebar-layout'
-import {
-  Sidebar,
-  SidebarBody,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarItem,
-  SidebarLabel,
-  SidebarSection,
-} from '../components/catalyst/sidebar'
+import { Sidebar, SidebarBody, SidebarFooter, SidebarHeader } from '../components/catalyst/sidebar'
 import { Navbar, NavbarSection, NavbarSpacer } from '../components/catalyst/navbar'
 import { CampaignBuilder } from './Campaign/CampaignBuilder'
 import { PersonasView } from './PersonasView'
 import { BrandKits } from './BrandKits'
+import { useHashSegments } from '../core/router'
 
 type View = 'campaign' | 'personas' | 'brandkits'
 
+const NAV: { view: View; label: string; hint: string; Icon: (p: React.SVGProps<SVGSVGElement>) => React.ReactElement }[] = [
+  { view: 'campaign', label: 'Campaign', hint: 'Build & export ad sets', Icon: CampaignIcon },
+  { view: 'personas', label: 'Personas', hint: 'Brand voice library', Icon: PersonasIcon },
+  { view: 'brandkits', label: 'Brand kits', hint: 'Colors, logos, rules', Icon: PaletteIcon },
+]
+
 export function Dashboard() {
-  const [view, setView] = useState<View>('campaign')
+  const segments = useHashSegments()
+  const view: View = NAV.some((n) => n.view === segments[0]) ? (segments[0] as View) : 'campaign'
+  const active = NAV.find((n) => n.view === view)!
 
   return (
     <SidebarLayout
       navbar={
         <Navbar>
+          <NavbarSection className="min-w-0">
+            <active.Icon className="size-5 shrink-0 fill-zinc-400" />
+            <span className="truncate text-sm font-semibold text-zinc-950 dark:text-white">{active.label}</span>
+          </NavbarSection>
           <NavbarSpacer />
           <NavbarSection>
             <Wordmark />
@@ -31,27 +36,42 @@ export function Dashboard() {
       }
       sidebar={
         <Sidebar>
-          <SidebarHeader>
-            <Wordmark />
+          <SidebarHeader className="!border-b-0 px-6 pt-6 pb-2">
+            <Wordmark className="px-0 text-lg" />
+            <span className="pt-0.5 text-xs/5 font-medium text-zinc-500">Internal ad generator</span>
+            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-zinc-950/10 to-transparent" />
           </SidebarHeader>
-          <SidebarBody>
-            <SidebarSection>
-              <SidebarItem current={view === 'campaign'} onClick={() => setView('campaign')}>
-                <CampaignIcon />
-                <SidebarLabel>Campaign</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem current={view === 'personas'} onClick={() => setView('personas')}>
-                <PersonasIcon />
-                <SidebarLabel>Personas</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem current={view === 'brandkits'} onClick={() => setView('brandkits')}>
-                <PaletteIcon />
-                <SidebarLabel>Brand kits</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
+          <SidebarBody className="gap-1.5 px-4">
+            {NAV.map(({ view: v, label, hint, Icon }) => {
+              const current = view === v
+              return (
+                <a
+                  key={v}
+                  href={`#${v}`}
+                  aria-current={current ? 'page' : undefined}
+                  title={hint}
+                  className={clsx(
+                    'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50',
+                    current
+                      ? 'bg-white font-bold text-navy shadow-purity ring-1 ring-zinc-950/5'
+                      : 'font-semibold text-zinc-500 hover:text-navy',
+                  )}
+                >
+                  <span
+                    className={clsx(
+                      'flex size-8 shrink-0 items-center justify-center rounded-xl transition',
+                      current ? 'bg-brand text-white' : 'bg-white text-brand shadow-purity',
+                    )}
+                  >
+                    <Icon className="size-4 fill-current" />
+                  </span>
+                  <span className="truncate">{label}</span>
+                </a>
+              )
+            })}
           </SidebarBody>
-          <SidebarFooter className="max-lg:hidden">
-            <span className="text-xs/5 text-zinc-500">Internal ad generator</span>
+          <SidebarFooter className="!border-t-0 px-6 max-lg:hidden">
+            <span className="text-xs/5 text-zinc-500">OrthoBoost · v1</span>
           </SidebarFooter>
         </Sidebar>
       }
@@ -63,9 +83,9 @@ export function Dashboard() {
   )
 }
 
-function Wordmark() {
+function Wordmark({ className }: { className?: string }) {
   return (
-    <span className="px-2 text-base font-bold tracking-tight text-zinc-950 dark:text-white">
+    <span className={clsx('px-2 text-base font-bold tracking-tight text-zinc-950 dark:text-white', className)}>
       Ortho<span className="text-sky-500">Boost</span>
     </span>
   )
